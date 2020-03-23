@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+
+\title{Project: Predicting refactoring effects using machine learning}
+\author{Martin Steinhauer }
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\section{Overview}
+Lehman’s laws for software evolution \cite{lehmanslaws} described already in the 1970s, that software systems are always changing. These changes are often caused by new features and requirements. As a consequence, the size and complexity is increasing and it becomes more and more difficult for developers to keep track of all changes that happened within the source code and to sustain a high software quality. A common way to deal with changing requirements and to improve the software quality is by doing refactoring. These can be composed as a set of one or many operations that are applied to the source code. A well defined list methods is described by Fowler \cite{fowler2018refactoring} which are used in the daily business of a software developer. But with increasing size and complexity it is getting harder to estimate the quality of results and to avoid unwanted side effects that may cause a lower software quality than intended. Therefore, it would be great to know the quality and impact of the changes before the developer carries out the often time-consuming refactoring process.
+
+\section{Related work}
+The most important paper \cite{chaparro} builds the basis for this research and tries to predict the software quality after an executed refactoring method. The developed tool is called RIPE and can predict the quality impact by measuring 12 different software metrics by 11 applied refactoring methods. They developed multiple (static) predicting functions and evaluated them on manually and automatically selected refactoring. Since the approach is based on static functions, the prediction results are good for manually introduced refactoring but are bad when applied to real world commits fetched from open source projects.
+
+Another paper \cite{methodlevel} tries to predict refactoring only on method level and uses five open source Java projects, but is more focused on the evaluation and comparison of machine learning models. This paper may also give a good overview of selected source code metrics and also provides an overview of related work papers \cite{rel1, rel2, rel3} which are also a good orientation for conducting this research project.
+
+\section{Goals and constraints}
+The goal of this project is to predict the effects of a refactoring before it is done to support the developer to decide which refactoring method is the most suitable for the given code. Unlike Chaparro et al., this projects aims to find the prediction values not based on a static mathematical functions but instead by using a machine learning based approach based on the selection of multiple open source projects. Otherwise than Chaparro et al., we focus on mining the history data of existing code refactoring in a version control systems. In general, the following questions should be answered: 
+\begin{enumerate}
+    \item Which features of a commit-refactoring combination are suitable to predict the effect of the refactoring method?
+    \item How well does the trained machine learning model perform?
+\end{enumerate}
+To answer these questions and to provide a precise prediction, some preliminary work and steps are required which are presented in the following section.
+Some constraints are determined beforehand: To keep the complexity of the analysis low, only repositories which contain Java code are considered as a data source for the dataset.
+
+\section{Methodology}
+The first step of this project is the generation and mining of valid cases based on open source projects. So a careful selection of capable open source projects which can be found on GitHub is important. The projects must provide a source code base which is big enough and also have an adequate amount of refactoring operations that can be identified. According to Chaparro et al., a good way to reduce noise and only identify operations that are also done within the same commit but are not part of the actual refactoring. The operations can be found by using the Markos Project tool \cite{markosprojecthome}. Another challenge is to setup the tool and run an initial analysis because the tool is not up to date and may cause problems due to it’s complex setup process. 
+
+After that, a suitable dataset has to be generated which may contain several code metrics assigned to each refactoring operation. A refactoring operation must consist of the metric values before and after the actual refactoring is done. Also a suitable set of software metrics has to be selected, a good start may be the proposed metrics in Chaparro et al., but the values have to normalized. That is because different metrics have a different range and scale, and some metrics are considered to be optimal when they have a low value and others when they have a high value.
+
+The next step requires some data analysis of the previously generated dataset. All collected features that were extracted from the Git history have to evaluated if they are a good indicator for prediction. For example, since there are multiple variables, no correlating variables should be selected as an input for the machine learning model. The relation between the variables has to be discovered within this research.
+After selecting a suitable set of variables, a good machine learning model has to be selected. Since the generated dataset will provide several metric results before and after the refactoring, an initial guess would be to use some kind of multivariate regression to predict the resulting software quality after the commit.
+
+Finally, the machine learning model has to be trained by splitting the repository dataset in a training and a testing dataset to evaluate the performance of the model.
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}
