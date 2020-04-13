@@ -5,6 +5,6 @@ import org.apache.spark.SparkConf;
 public class Main {
 
     public static void main(String[] args) {
-        DatasetExtractionPipeline pipeline = new DatasetExtractionPipeline("/Users/martinsteinhauer/sdk/hadoop/LICENSE.txt");
+        DatasetExtractionPipeline pipeline = new DatasetExtractionPipeline("/Volumes/Elements/github\\ archive/github-2019-06-01/projects.csv");
     }
 }

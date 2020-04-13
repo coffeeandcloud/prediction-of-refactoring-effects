@@ -1,9 +1,13 @@
 package it.unisa.softwaredependability;
 
+import it.unisa.softwaredependability.config.DatasetHeader;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 import scala.Tuple2;
 
 import java.util.Arrays;
@@ -15,29 +19,28 @@ public class DatasetExtractionPipeline {
 
     public final String APP_NAME = "GithubDatasetExtraction";
 
-    private static final Pattern SPACE = Pattern.compile(" ");
-
-
-    private SparkConf sparkConf;
-
     public DatasetExtractionPipeline(String sourceFile) {
-        sparkConf = new SparkConf().setAppName(APP_NAME);
+
+        SparkSession session = SparkSession.builder()
+                .master("local[8]")
+                .appName(APP_NAME)
+                .getOrCreate();
 
         System.out.println("Starting app '" + APP_NAME + "'");
 
-        JavaSparkContext ctx = new JavaSparkContext(sparkConf);
+        Dataset<Row> dataset = session.read()
+                .format("csv")
+                .option("header", "false")
+                .option("mode", "DROPMALFORMED")
+                .schema(DatasetHeader.getProjectHeader())
+                .load(sourceFile)
+                .select("*")
+                .where("language = 'Java'");
 
-        JavaRDD<String> lines = ctx.textFile(sourceFile, 1);
+        System.out.println("Found projects in Java: "+dataset.count());
 
 
-        JavaRDD<String> words = lines.flatMap(s -> Arrays.asList(SPACE.split(s)).iterator());
-        JavaPairRDD<String, Integer> ones = words.mapToPair(word -> new Tuple2<>(word, 1));
-        JavaPairRDD<String, Integer> counts = ones.reduceByKey((Integer i1, Integer i2) -> i1 + i2);
 
-        List<Tuple2<String, Integer>> output = counts.collect();
-        for (Tuple2<?, ?> tuple : output) {
-            System.out.println(tuple._1() + ": " + tuple._2());
-        }
-        ctx.stop();
+        session.close();
     }
 }
