@@ -6,9 +6,6 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
-import static org.apache.spark.sql.functions.count;
-
-
 
 public class DatasetExtractionPipeline {
 
@@ -22,6 +19,7 @@ public class DatasetExtractionPipeline {
                 .getOrCreate();
 
         System.out.println("Starting app '" + APP_NAME + "'");
+
 
         Dataset<Row> dataset = session.read()
                 .format("csv")
