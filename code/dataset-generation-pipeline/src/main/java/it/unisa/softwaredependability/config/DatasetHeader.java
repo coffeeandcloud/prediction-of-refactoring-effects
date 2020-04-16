@@ -14,9 +14,19 @@ public class DatasetHeader {
                 .add("name", DataTypes.StringType, true)
                 .add("description", DataTypes.StringType, true)
                 .add("language", DataTypes.StringType, true)
-                .add("created_at", DataTypes.TimestampType, true)
+                .add("project_created_at", DataTypes.TimestampType, true)
                 .add("forked_from", DataTypes.IntegerType, true)
                 .add("deleted", DataTypes.IntegerType, true)
                 .add("updated_at", DataTypes.TimestampType, true);
+    }
+
+    public static StructType getCommitHeader() {
+        return new StructType()
+                .add("commit_id", DataTypes.IntegerType, true)
+                .add("sha", DataTypes.StringType, true)
+                .add("author_id", DataTypes.IntegerType, true)
+                .add("committer_id", DataTypes.IntegerType, true)
+                .add("project_id", DataTypes.IntegerType, true)
+                .add("commit_created_at", DataTypes.TimestampType, true);
     }
 }
