@@ -17,7 +17,6 @@ public class Main {
         for(String arg : args) {
             logger.info("Arg: " + arg);
         }
-
         //executeRepositoryExtractionPipeline();
         executeRefactoringCommitPipeline();
     }
