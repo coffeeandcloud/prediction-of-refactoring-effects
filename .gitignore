@@ -1,1 +1,10 @@
 .DS_Store
+*.iml
+code/dataset-generation-pipeline/.idea
+code/dataset-generation-pipeline/target
+*.dvi
+*.aux
+*.blg
+*.log
+*.gz
+*.bbl

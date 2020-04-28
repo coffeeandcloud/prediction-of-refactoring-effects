@@ -1,11 +1,14 @@
 package it.unisa.softwaredependability.pipeline;
 
 import it.unisa.softwaredependability.config.DatasetHeader;
+import it.unisa.softwaredependability.model.GitRefactoringCommit;
 import it.unisa.softwaredependability.processor.RefactoringMiner;
+import it.unisa.softwaredependability.processor.RepositoryResolver;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
+import java.util.List;
 import java.util.Map;
 
 public class RefactoringMiningPipeline extends Pipeline{
@@ -41,11 +44,18 @@ public class RefactoringMiningPipeline extends Pipeline{
                 .load((String) config.get("topRepositoriesList"))
                 .toJavaRDD();
 
-        repoList
-                .map(row -> {
-                    return RefactoringMiner.getInstance().execute(row.getString(0));
+        long count = repoList
+                .map(row -> RepositoryResolver.resolveGithubApiUrl(row.getString(0)))
+                .map(url -> RefactoringMiner.getInstance().execute(url))
+                .flatMap((List<GitRefactoringCommit> list) -> {
+                    return list.iterator();
                 })
-                .first();
+                .map(refactoring -> {
+                    return refactoring
+                })
+                .saveAsTextFile("");
+
+        System.out.println("Found commits: " + count);
                 // aggregate here the refactorings for each repository (cloning, mining...) and then
                 // calculate the product metrics
     }

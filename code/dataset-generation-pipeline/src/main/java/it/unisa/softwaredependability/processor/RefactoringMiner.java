@@ -9,9 +9,8 @@ import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
 import org.refactoringminer.util.GitServiceImpl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class RefactoringMiner {
@@ -20,6 +19,8 @@ public class RefactoringMiner {
     private GitHistoryRefactoringMiner miner;
 
     private Logger logger = Logger.getGlobal();
+
+    private Map<String, String> clonedRepositories;
 
     private static RefactoringMiner refactoringMiner;
 
@@ -31,26 +32,38 @@ public class RefactoringMiner {
     public RefactoringMiner() {
         gitService = new GitServiceImpl();
         miner = new GitHistoryRefactoringMinerImpl();
+        clonedRepositories = new HashMap<>();
     }
 
     public List<GitRefactoringCommit> execute(String repoUrl) {
         try {
-            Repository repo = gitService.cloneIfNotExists("/tmp/" + repoUrl,repoUrl);
+            String localRepoDir = "/tmp/" + UUID.randomUUID().toString();
+            clonedRepositories.put(repoUrl, localRepoDir);
+            Repository repo = gitService.cloneIfNotExists(localRepoDir, repoUrl);
             List<GitRefactoringCommit> commits = new ArrayList<>();
             miner.detectAll(repo, "master", new RefactoringHandler() {
                 @Override
                 public void handle(String commitId, List<Refactoring> refactorings) {
-                    GitRefactoringCommit commit = new GitRefactoringCommit();
-                    commit.setCommitId(commitId);
-                    for(Refactoring r: refactorings) {
-                        logger.info(r.toJSON());
-                    }
-
+                    commits.add(new GitRefactoringCommit(commitId, repoUrl, refactorings));
                 }
             });
+            return commits;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return Collections.emptyList();
+    }
+
+    public void cleanup() {
+        for(String dir: clonedRepositories.values()) {
+            try {
+                File f = new File(dir);
+                if(f.exists() && f.isDirectory()) {
+                    f.delete();
+                }
+            } catch (Exception e) {
+
+            }
+        }
     }
 }

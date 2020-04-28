@@ -1,14 +1,18 @@
 package it.unisa.softwaredependability.model;
 
+import org.refactoringminer.api.Refactoring;
+
+import java.util.List;
+
 public class GitRefactoringCommit {
     private String commitId;
-    private String refactoringType;
     private String repoUrl;
+    private List<Refactoring> refactorings;
 
-    public GitRefactoringCommit(String commitId, String refactoringType, String repoUrl) {
+    public GitRefactoringCommit(String commitId, String repoUrl, List<Refactoring> refactorings) {
         this.commitId = commitId;
-        this.refactoringType = refactoringType;
         this.repoUrl = repoUrl;
+        this.refactorings = refactorings;
     }
 
     public GitRefactoringCommit() { }
@@ -22,21 +26,21 @@ public class GitRefactoringCommit {
         return this;
     }
 
-    public String getRefactoringType() {
-        return refactoringType;
-    }
-
-    public GitRefactoringCommit setRefactoringType(String refactoringType) {
-        this.refactoringType = refactoringType;
-        return this;
-    }
-
     public String getRepoUrl() {
         return repoUrl;
     }
 
     public GitRefactoringCommit setRepoUrl(String repoUrl) {
         this.repoUrl = repoUrl;
+        return this;
+    }
+
+    public List<Refactoring> getRefactorings() {
+        return refactorings;
+    }
+
+    public GitRefactoringCommit setRefactorings(List<Refactoring> refactorings) {
+        this.refactorings = refactorings;
         return this;
     }
 }
