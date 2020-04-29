@@ -17,7 +17,6 @@ public class RefactoringMiningPipeline extends Pipeline{
 
     private final String APP_NAME = "RefactoringMiningPipeline";
 
-
     public RefactoringMiningPipeline(Map<String, Object> config) {
         super(config);
     }
@@ -44,20 +43,15 @@ public class RefactoringMiningPipeline extends Pipeline{
                 .load((String) config.get("topRepositoriesList"))
                 .toJavaRDD();
 
-        long count = repoList
+        JavaRDD<Row> map = repoList
                 .map(row -> RepositoryResolver.resolveGithubApiUrl(row.getString(0)))
                 .map(url -> RefactoringMiner.getInstance().execute(url))
-                .flatMap((List<GitRefactoringCommit> list) -> {
-                    return list.iterator();
-                })
-                .map(refactoring -> {
-                    return refactoring
-                })
-                .saveAsTextFile("");
+                .flatMap((List<GitRefactoringCommit> list) -> list.iterator())
+                .flatMap(refactoring -> refactoring.toRows().iterator());
 
-        System.out.println("Found commits: " + count);
-                // aggregate here the refactorings for each repository (cloning, mining...) and then
-                // calculate the product metrics
+        sparkSession.createDataFrame(map, DatasetHeader.getRefactoringCommitHeader()).write().parquet("/Users/martinsteinhauer/Desktop/commits");
+
+        RefactoringMiner.getInstance().cleanup();
     }
 
     @Override

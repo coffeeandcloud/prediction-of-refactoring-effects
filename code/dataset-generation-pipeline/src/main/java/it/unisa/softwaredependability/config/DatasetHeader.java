@@ -34,4 +34,24 @@ public class DatasetHeader {
                 .add("url", DataTypes.StringType, false)
                 .add("count", DataTypes.IntegerType, false);
     }
+
+    public static StructType getRefactoringCommitHeader() {
+        StructType refactoring = new StructType()
+                .add("file", DataTypes.StringType)
+                .add("startLine", DataTypes.IntegerType)
+                .add("endLine", DataTypes.IntegerType)
+                .add("startColumn", DataTypes.IntegerType)
+                .add("endColumn", DataTypes.IntegerType)
+                .add("codeElementType", DataTypes.StringType)
+                .add("description", DataTypes.StringType)
+                .add("codeElement", DataTypes.StringType);
+
+        return new StructType()
+                .add("repository", DataTypes.StringType)
+                .add("commit_id", DataTypes.StringType)
+                .add("type", DataTypes.StringType)
+                .add("description", DataTypes.StringType)
+                .add("before", DataTypes.createArrayType(refactoring))
+                .add("after", DataTypes.createArrayType(refactoring));
+    }
 }

@@ -18,7 +18,7 @@ public class RefactoringMiner {
     private GitService gitService;
     private GitHistoryRefactoringMiner miner;
 
-    private Logger logger = Logger.getGlobal();
+    private Logger logger = Logger.getLogger(RefactoringMiner.class.getName());
 
     private Map<String, String> clonedRepositories;
 
@@ -41,7 +41,7 @@ public class RefactoringMiner {
             clonedRepositories.put(repoUrl, localRepoDir);
             Repository repo = gitService.cloneIfNotExists(localRepoDir, repoUrl);
             List<GitRefactoringCommit> commits = new ArrayList<>();
-            miner.detectAll(repo, "master", new RefactoringHandler() {
+            miner.detectAll(repo, null, new RefactoringHandler() {
                 @Override
                 public void handle(String commitId, List<Refactoring> refactorings) {
                     commits.add(new GitRefactoringCommit(commitId, repoUrl, refactorings));
@@ -60,6 +60,7 @@ public class RefactoringMiner {
                 File f = new File(dir);
                 if(f.exists() && f.isDirectory()) {
                     f.delete();
+                    logger.info("Deleted cloned repository '" + f.getAbsolutePath() + "'");
                 }
             } catch (Exception e) {
 
