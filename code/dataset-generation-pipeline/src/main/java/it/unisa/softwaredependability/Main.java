@@ -1,5 +1,7 @@
 package it.unisa.softwaredependability;
 
+import it.unisa.softwaredependability.cli.CliParser;
+import it.unisa.softwaredependability.cli.JobArgs;
 import it.unisa.softwaredependability.pipeline.DatasetExtractionPipeline;
 import it.unisa.softwaredependability.pipeline.RefactoringMiningPipeline;
 
@@ -13,12 +15,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        logger.info("Found args " + args.length);
-        for(String arg : args) {
-            logger.info("Arg: " + arg);
-        }
+        JobArgs jobArgs = CliParser.parse(args);
+
         //executeRepositoryExtractionPipeline();
-        executeRefactoringCommitPipeline();
+        executeRefactoringCommitPipeline(jobArgs);
     }
 
     static void executeRepositoryExtractionPipeline() {
@@ -34,13 +34,18 @@ public class Main {
         pipeline.shutdown();
     }
 
-    static void executeRefactoringCommitPipeline() {
+    static void executeRefactoringCommitPipeline(JobArgs jobArgs) {
         Map<String, Object> config = new HashMap<>();
-        config.put("output.dir", "");
-        config.put("spark.local.dir", "/Volumes/Elements/github_archive/spark_temp");
-        config.put("spark.sql.warehouse.dir", "/Volumes/Elements/github_archive/spark_temp/warehouse");
-        config.put("topRepositoriesList", "/Users/martinsteinhauer/Desktop/repolist.csv");
-        config.put("master", "local[4]");
+        config.put("output.dir", jobArgs.getOutputDir().toString());
+        config.put("topRepositoriesList", jobArgs.getInputFile().toString());
+        config.put("jobs.parallel", jobArgs.getParallelJobs());
+        config.put("github.user", jobArgs.getUsername());
+        config.put("github.token", jobArgs.getToken());
+        if(jobArgs.getDeployMode() == JobArgs.DeployMode.LOCAL) {
+            config.put("spark.local.dir", "/Volumes/Elements/github_archive/spark_temp");
+            config.put("spark.sql.warehouse.dir", "/Volumes/Elements/github_archive/spark_temp/warehouse");
+        }
+
         RefactoringMiningPipeline pipeline = new RefactoringMiningPipeline(config);
         pipeline.execute();
         pipeline.shutdown();

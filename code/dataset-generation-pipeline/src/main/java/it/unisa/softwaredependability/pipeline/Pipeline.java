@@ -1,8 +1,9 @@
 package it.unisa.softwaredependability.pipeline;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public abstract class Pipeline {
+public abstract class Pipeline implements Serializable {
 
     protected Map<String, Object> config;
 

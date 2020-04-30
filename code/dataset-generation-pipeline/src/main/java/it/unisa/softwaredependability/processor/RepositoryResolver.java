@@ -7,15 +7,33 @@ import it.unisa.softwaredependability.model.GithubMetadata;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Base64;
 
-public class RepositoryResolver {
+public class RepositoryResolver implements Serializable {
 
-    private static String getGithubApiMetadata(String apiUrl) throws IOException {
+    private static RepositoryResolver repositoryResolver;
+
+    private String githubUser;
+    private String githubToken;
+
+    public RepositoryResolver(String githubUser, String githubToken) {
+        this.githubUser = githubUser;
+        this.githubToken = githubToken;
+    }
+
+    public static RepositoryResolver getInstance(String githubUser, String githubToken) {
+        if(repositoryResolver == null) repositoryResolver = new RepositoryResolver(githubUser, githubToken);
+        return repositoryResolver;
+    }
+
+    private String getGithubApiMetadata(String apiUrl) throws IOException {
         URL url = new URL(apiUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
+        connection.setRequestProperty("Authorization", getBasicAuthHeader(githubUser, githubToken));
         connection.setConnectTimeout(5000);
         connection.setReadTimeout(5000);
         BufferedReader in = new BufferedReader(
@@ -31,11 +49,22 @@ public class RepositoryResolver {
         return content.toString();
     }
 
-    private static GithubMetadata parseJson(String content) throws JsonSyntaxException {
+    private GithubMetadata parseJson(String content) throws JsonSyntaxException {
         return new Gson().fromJson(content, GithubMetadata.class);
     }
 
-    public static String resolveGithubApiUrl(String apiUrl) throws IOException {
-        return parseJson(getGithubApiMetadata(apiUrl)).getHtml_url();
+    public String resolveGithubApiUrl(String apiUrl) {
+        try {
+            return parseJson(getGithubApiMetadata(apiUrl)).getHtml_url();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static String getBasicAuthHeader(String user, String password) {
+        String userCredentials = new StringBuilder()
+                .append(user).append(":").append(password).toString();
+        return "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
     }
 }

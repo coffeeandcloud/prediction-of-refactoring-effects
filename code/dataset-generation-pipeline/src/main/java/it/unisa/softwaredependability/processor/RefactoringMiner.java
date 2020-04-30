@@ -36,6 +36,10 @@ public class RefactoringMiner {
     }
 
     public List<GitRefactoringCommit> execute(String repoUrl) {
+        if(repoUrl == null) {
+            logger.info("Skipping removed repository");
+            return Collections.emptyList();
+        }
         try {
             String localRepoDir = "/tmp/" + UUID.randomUUID().toString();
             clonedRepositories.put(repoUrl, localRepoDir);
