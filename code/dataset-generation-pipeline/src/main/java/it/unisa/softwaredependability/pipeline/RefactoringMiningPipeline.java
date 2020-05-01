@@ -1,20 +1,23 @@
 package it.unisa.softwaredependability.pipeline;
 
 import it.unisa.softwaredependability.config.DatasetHeader;
-import it.unisa.softwaredependability.model.GitRefactoringCommit;
 import it.unisa.softwaredependability.processor.RefactoringMiner;
+import it.unisa.softwaredependability.processor.RefactoringMinerIterator;
 import it.unisa.softwaredependability.processor.RepositoryResolver;
+import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.storage.StorageLevel;
+import org.apache.spark.streaming.StreamingContext;
 
-import java.util.List;
+import java.util.Collections;
 import java.util.Map;
 
 public class RefactoringMiningPipeline extends Pipeline  {
 
     private SparkSession sparkSession;
+
+    private StreamingContext jssc;
 
     private final String APP_NAME = "RefactoringMiningPipeline";
 
@@ -29,6 +32,8 @@ public class RefactoringMiningPipeline extends Pipeline  {
                 //.config("spark.local.dir", (String)config.get("spark.local.dir"))
                 //.config("spark.sql.warehouse.dir", (String)config.get("spark.sql.warehouse.dir"))
                 .getOrCreate();
+
+        SparkConf conf = new SparkConf();
 
         System.out.println("Starting app '" + APP_NAME + "'");
     }
@@ -48,14 +53,14 @@ public class RefactoringMiningPipeline extends Pipeline  {
 
         JavaRDD<String> repos = repoList
                 .repartition((Integer)config.get("jobs.parallel"))
-                .map(row -> resolver.resolveGithubApiUrl(row.getString(0)))
-                .persist(StorageLevel.DISK_ONLY());
+                .map(row -> resolver.resolveGithubApiUrl(row.getString(0)));
 
         JavaRDD<Row> map = repos
-                .map(url -> RefactoringMiner.getInstance().execute(url))
-                .flatMap((List<GitRefactoringCommit> list) -> list.iterator())
-                .flatMap(refactoring -> refactoring.toRows().iterator())
-                .persist(StorageLevel.DISK_ONLY());
+                .flatMap(RefactoringMinerIterator::new)
+                .flatMap(refactoring -> {
+                    if(refactoring == null) return Collections.emptyIterator();
+                    return refactoring.toRows().iterator();
+                });
 
         sparkSession.createDataFrame(map, DatasetHeader.getRefactoringCommitHeader())
                 .write()
