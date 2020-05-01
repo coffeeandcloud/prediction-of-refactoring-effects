@@ -35,11 +35,13 @@ public class RefactoringMinerIterator implements Iterator<GitRefactoringCommit> 
         } catch (Exception e) {
 
         }
-        hasNextValue.set(false);
     }
 
     private void execute(String repoUrl) throws Exception {
-        if(repoUrl == null) return;
+        if(repoUrl == null) {
+            hasNextValue.set(false);
+            return;
+        }
         String[] repoName = repoUrl.split("/");
 
         String localRepoDir = "/tmp/" + repoName[repoName.length-1];
@@ -76,7 +78,6 @@ public class RefactoringMinerIterator implements Iterator<GitRefactoringCommit> 
 
     @Override
     public GitRefactoringCommit next() {
-
         while(true) {
             if(hasNext() && commits.empty()) {
                 try {
@@ -85,11 +86,9 @@ public class RefactoringMinerIterator implements Iterator<GitRefactoringCommit> 
                     e.printStackTrace();
                 }
             } else if(!commits.empty()) {
-                log.info("Popping");
                 return commits.pop();
             }
             return null;
         }
-
     }
 }

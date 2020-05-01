@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import it.unisa.softwaredependability.model.GithubMetadata;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Serializable;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
@@ -56,7 +53,11 @@ public class RepositoryResolver implements Serializable {
     public String resolveGithubApiUrl(String apiUrl) {
         try {
             return parseJson(getGithubApiMetadata(apiUrl)).getHtml_url();
-        } catch (Exception e) {
+        } catch(FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        catch (Exception e) {
             e.printStackTrace();
             return null;
         }

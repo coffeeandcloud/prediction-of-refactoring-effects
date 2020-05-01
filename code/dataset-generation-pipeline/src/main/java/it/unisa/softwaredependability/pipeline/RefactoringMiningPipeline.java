@@ -66,7 +66,11 @@ public class RefactoringMiningPipeline extends Pipeline  {
                 .write()
                 .parquet((String) config.get("output.dir"));
 
+
+
         RefactoringMiner.getInstance().cleanup();
+
+
     }
 
     @Override
