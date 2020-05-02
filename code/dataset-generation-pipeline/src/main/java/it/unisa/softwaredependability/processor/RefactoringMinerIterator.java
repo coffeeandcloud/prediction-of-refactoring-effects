@@ -1,6 +1,9 @@
 package it.unisa.softwaredependability.processor;
 
 import it.unisa.softwaredependability.model.GitRefactoringCommit;
+import org.apache.spark.SparkEnv;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.catalyst.expressions.GenericRow;
 import org.eclipse.jgit.lib.Repository;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
 import org.refactoringminer.api.GitService;
@@ -15,18 +18,19 @@ import java.util.Stack;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Logger;
 
-public class RefactoringMinerIterator implements Iterator<GitRefactoringCommit> {
+public class RefactoringMinerIterator implements Iterator<Row> {
 
     private Logger log = Logger.getLogger(getClass().getName());
 
     private AtomicBoolean hasNextValue = new AtomicBoolean(true);
-    private Stack<GitRefactoringCommit> commits;
+    private Stack<Row> commits;
 
     private GitService gitService;
     private GitHistoryRefactoringMiner miner;
     private Thread miningThread;
 
     public RefactoringMinerIterator(String repoUrl) {
+        log.info("Mining '"+repoUrl+"' on executor '"+SparkEnv.get().executorId() + "'");
         gitService = new GitServiceImpl();
         miner = new GitHistoryRefactoringMinerImpl();
         commits = new Stack<>();
@@ -55,7 +59,7 @@ public class RefactoringMinerIterator implements Iterator<GitRefactoringCommit> 
                     miner.detectAll(repo, null, new RefactoringHandler() {
                         @Override
                         public void handle(String commitId, List<Refactoring> refactorings) {
-                            commits.push(new GitRefactoringCommit(commitId, repoUrl, refactorings));
+                            commits.addAll(GitRefactoringCommit.createRow(commitId, repoUrl, refactorings));
                         }
 
                         @Override
@@ -77,7 +81,7 @@ public class RefactoringMinerIterator implements Iterator<GitRefactoringCommit> 
     }
 
     @Override
-    public GitRefactoringCommit next() {
+    public Row next() {
         while(true) {
             if(hasNext() && commits.empty()) {
                 try {
@@ -88,7 +92,9 @@ public class RefactoringMinerIterator implements Iterator<GitRefactoringCommit> 
             } else if(!commits.empty()) {
                 return commits.pop();
             }
-            return null;
+            return new GenericRow(new Object[]{
+                    null, null, null, null, null, null, null, null
+            });
         }
     }
 }

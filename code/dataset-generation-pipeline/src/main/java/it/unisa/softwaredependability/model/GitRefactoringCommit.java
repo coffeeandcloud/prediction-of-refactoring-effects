@@ -6,6 +6,7 @@ import org.apache.spark.sql.catalyst.expressions.GenericRow;
 import org.refactoringminer.api.Refactoring;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GitRefactoringCommit {
@@ -48,10 +49,19 @@ public class GitRefactoringCommit {
         return this;
     }
 
-    public List<Row> toRows() {
+    public static List<Row> createRow(String repoUrl, String commitId, List<Refactoring> refactorings) {
+        if(refactorings == null || refactorings.isEmpty()) {
+            System.out.println("Returning empty list");
+            return Collections.emptyList();
+        }
         List<Row> rows = new ArrayList<>();
 
         for(Refactoring r: refactorings) {
+            if(r == null) {
+                continue;
+            }
+
+
             rows.add(new GenericRow(
                     new Object[] {
                             repoUrl,
@@ -65,9 +75,38 @@ public class GitRefactoringCommit {
         return rows;
     }
 
-    private Object[] fillSubStructure(List<CodeRange> side) {
+    public List<Row> toRows() {
+        if(refactorings == null || refactorings.isEmpty()) {
+            System.out.println("Returning empty list");
+            return Collections.emptyList();
+        }
+        List<Row> rows = new ArrayList<>();
+
+        for(Refactoring r: refactorings) {
+            if(r == null) {
+                continue;
+            }
+
+
+            rows.add(new GenericRow(
+                    new Object[] {
+                            repoUrl,
+                            commitId,
+                            r.getName(),
+                            r.toString(),
+                            fillSubStructure(r.leftSide()),
+                            fillSubStructure(r.rightSide())
+                    }));
+        }
+        return rows;
+    }
+
+    private static Object[] fillSubStructure(List<CodeRange> side) {
         List<Object> sub = new ArrayList<>();
         for(CodeRange c: side) {
+            if(c == null) {
+                continue;
+            }
             List<Object> refactoringStruct = new ArrayList<>();
             refactoringStruct.add(c.getFilePath());
             refactoringStruct.add(c.getStartLine());

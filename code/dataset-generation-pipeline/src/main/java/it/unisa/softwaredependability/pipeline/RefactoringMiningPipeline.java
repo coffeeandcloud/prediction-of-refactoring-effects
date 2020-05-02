@@ -10,7 +10,6 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.streaming.StreamingContext;
 
-import java.util.Collections;
 import java.util.Map;
 
 public class RefactoringMiningPipeline extends Pipeline  {
@@ -56,17 +55,11 @@ public class RefactoringMiningPipeline extends Pipeline  {
                 .map(row -> resolver.resolveGithubApiUrl(row.getString(0)));
 
         JavaRDD<Row> map = repos
-                .flatMap(RefactoringMinerIterator::new)
-                .flatMap(refactoring -> {
-                    if(refactoring == null) return Collections.emptyIterator();
-                    return refactoring.toRows().iterator();
-                });
+                .flatMap(RefactoringMinerIterator::new);
 
         sparkSession.createDataFrame(map, DatasetHeader.getRefactoringCommitHeader())
                 .write()
                 .parquet((String) config.get("output.dir"));
-
-
 
         RefactoringMiner.getInstance().cleanup();
 
