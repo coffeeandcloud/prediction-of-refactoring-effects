@@ -1,24 +1,25 @@
 package it.unisa.softwaredependability.pipeline;
 
 import it.unisa.softwaredependability.config.DatasetHeader;
-import it.unisa.softwaredependability.processor.RefactoringMiner;
+import it.unisa.softwaredependability.processor.CommitSplitter;
 import it.unisa.softwaredependability.processor.RefactoringMinerIterator;
 import it.unisa.softwaredependability.processor.RepositoryResolver;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.streaming.StreamingContext;
 
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class RefactoringMiningPipeline extends Pipeline  {
 
     private SparkSession sparkSession;
 
-    private StreamingContext jssc;
-
     private final String APP_NAME = "RefactoringMiningPipeline";
+
+    private transient Logger log = Logger.getLogger(getClass().getName());
 
     public RefactoringMiningPipeline(Map<String, Object> config) {
         super(config);
@@ -34,11 +35,11 @@ public class RefactoringMiningPipeline extends Pipeline  {
 
         SparkConf conf = new SparkConf();
 
-        System.out.println("Starting app '" + APP_NAME + "'");
+        //log.info("Starting app '" + APP_NAME + "'");
     }
 
     @Override
-    public void execute() {
+    public void execute() throws Exception {
         RepositoryResolver resolver = RepositoryResolver
                 .getInstance((String) config.get("github.user"), (String) config.get("github.token"));
 
@@ -54,20 +55,51 @@ public class RefactoringMiningPipeline extends Pipeline  {
                 .repartition((Integer)config.get("jobs.parallel"))
                 .map(row -> resolver.resolveGithubApiUrl(row.getString(0)));
 
-        JavaRDD<Row> map = repos
-                .flatMap(RefactoringMinerIterator::new);
+        JavaRDD<Row> commits = repos
+                .flatMap(s -> new CommitSplitter().execute(s).iterator())
+                .flatMap(range -> {
+                    List<Row> rows = RefactoringMinerIterator.executeBlocking(range);
+                    return rows.iterator();
+                });
 
-        sparkSession.createDataFrame(map, DatasetHeader.getRefactoringCommitHeader())
+
+
+        /*
+        sparkSession.createDataFrame(repoCommitRangeJavaRDD, new StructType().
+                add("startCommit", DataTypes.StringType).add("endCommit", DataTypes.StringType).add("repo", DataTypes.StringType))
+                .groupBy("repo")
+                .count()
+                .show();
+
+
+
+        sparkSession.createDataFrame(repoCommits, new StructType().add("hash", DataTypes.StringType))
                 .write()
                 .parquet((String) config.get("output.dir"));
 
-        RefactoringMiner.getInstance().cleanup();
+
+        JavaRDD<Row> map = repos
+                .flatMap(repoUrl -> new RefactoringMinerIterator(repoUrl, (String) config.get("github.branch")));
+
+
+         */
+
+
+        sparkSession.createDataFrame(commits, DatasetHeader.getSmallRefactoringCommitHeader())
+                .write()
+                .parquet((String) config.get("output.dir"));
+
 
 
     }
 
     @Override
     public void shutdown() {
-        sparkSession.close();
+        try {
+            RefactoringMinerIterator.cleanupTempFiles();
+            sparkSession.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }

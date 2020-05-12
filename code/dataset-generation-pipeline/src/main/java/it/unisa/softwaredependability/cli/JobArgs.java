@@ -19,7 +19,7 @@ public class JobArgs {
     @Parameter(names = {"-p", "--parallel-jobs"}, description = "Number of parallel mining jobs")
     private int parallelJobs = 1;
 
-    @Parameter(names = {"-d", "--deploy-mode"}, description = "Deploy mode (default is 'local')", required = false)
+    @Parameter(names = {"-d", "--deploy-mode"}, description = "Deploy mode (default is 'local')")
     private DeployMode deployMode = DeployMode.LOCAL;
 
     @Parameter(names = {"--username"}, description = "Github username", required = true)
@@ -27,6 +27,9 @@ public class JobArgs {
 
     @Parameter(names = {"--token"}, description = "Github authentication token", required = true)
     private String token;
+
+    @Parameter(names = {"--branch", "-b"}, description = "Branch to mine refactorings on")
+    private String branch;
 
     public URI getInputFile() {
         return inputFile;
@@ -79,6 +82,15 @@ public class JobArgs {
 
     public JobArgs setToken(String token) {
         this.token = token;
+        return this;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public JobArgs setBranch(String branch) {
+        this.branch = branch;
         return this;
     }
 }

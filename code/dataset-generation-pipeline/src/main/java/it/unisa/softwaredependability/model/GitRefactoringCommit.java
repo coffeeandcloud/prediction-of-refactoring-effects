@@ -49,9 +49,30 @@ public class GitRefactoringCommit {
         return this;
     }
 
+    public static List<Row> createSmallRow(String repoUrl, String commitId, List<Refactoring> refactorings) {
+        if(refactorings == null || refactorings.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<Row> rows = new ArrayList<>();
+
+        for(Refactoring r: refactorings) {
+            if(r == null) {
+                continue;
+            }
+
+
+            rows.add(new GenericRow(
+                    new Object[] {
+                            repoUrl,
+                            commitId,
+                            r.getRefactoringType().name()
+                    }));
+        }
+        return rows;
+    }
+
     public static List<Row> createRow(String repoUrl, String commitId, List<Refactoring> refactorings) {
         if(refactorings == null || refactorings.isEmpty()) {
-            System.out.println("Returning empty list");
             return Collections.emptyList();
         }
         List<Row> rows = new ArrayList<>();

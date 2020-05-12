@@ -54,4 +54,11 @@ public class DatasetHeader {
                 .add("before", DataTypes.createArrayType(refactoring))
                 .add("after", DataTypes.createArrayType(refactoring));
     }
+
+    public static StructType getSmallRefactoringCommitHeader() {
+        return new StructType()
+                .add("repository", DataTypes.StringType)
+                .add("commit_id", DataTypes.StringType)
+                .add("type", DataTypes.StringType);
+    }
 }
