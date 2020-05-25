@@ -31,7 +31,7 @@ public class DatasetExtractionPipeline extends Pipeline{
     }
 
     @Override
-    public void execute() {
+    public void execute() throws Exception {
         Dataset<Row> projectDataset = sparkSession.read()
                 .format("csv")
                 .option("header", "false")
