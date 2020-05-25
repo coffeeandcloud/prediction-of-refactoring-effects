@@ -16,8 +16,11 @@ public class JobArgs {
     @Parameter(names = {"-o", "--output"}, description = "Output directory", required = true)
     private URI outputDir;
 
-    @Parameter(names = {"-p", "--parallel-jobs"}, description = "Number of parallel mining jobs")
+    @Parameter(names = {"-p", "--parallel-jobs"}, description = "Number of parallel mining jobs per repository")
     private int parallelJobs = 1;
+
+    @Parameter(names = {"-r", "--parallel-repos"}, description = "Number of parallel mining repositories")
+    private int parallelRepos = 1;
 
     @Parameter(names = {"-d", "--deploy-mode"}, description = "Deploy mode (default is 'local')")
     private DeployMode deployMode = DeployMode.LOCAL;
@@ -30,6 +33,9 @@ public class JobArgs {
 
     @Parameter(names = {"--branch", "-b"}, description = "Branch to mine refactorings on")
     private String branch;
+
+    @Parameter(names = {"--batch-size", "-bs"}, description = "Size of the batch in which the commits are splitted. Higher batch sizes require more system memory.")
+    private int batchSize = 100;
 
     public URI getInputFile() {
         return inputFile;
@@ -91,6 +97,24 @@ public class JobArgs {
 
     public JobArgs setBranch(String branch) {
         this.branch = branch;
+        return this;
+    }
+
+    public int getParallelRepos() {
+        return parallelRepos;
+    }
+
+    public JobArgs setParallelRepos(int parallelRepos) {
+        this.parallelRepos = parallelRepos;
+        return this;
+    }
+
+    public int getBatchSize() {
+        return batchSize;
+    }
+
+    public JobArgs setBatchSize(int batchSize) {
+        this.batchSize = batchSize;
         return this;
     }
 }

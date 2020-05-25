@@ -63,9 +63,11 @@ public class Main {
             config.put("output.dir", jobArgs.getOutputDir().toString());
             config.put("topRepositoriesList", jobArgs.getInputFile().toString());
             config.put("jobs.parallel", jobArgs.getParallelJobs());
+            config.put("repos.parallel", jobArgs.getParallelRepos());
             config.put("github.user", jobArgs.getUsername());
             config.put("github.token", jobArgs.getToken());
             config.put("github.branch", jobArgs.getBranch());
+            config.put("batch.size", jobArgs.getBatchSize());
             if(jobArgs.getDeployMode() == JobArgs.DeployMode.LOCAL) {
                 config.put("spark.local.dir", "/Volumes/Elements/github_archive/spark_temp");
                 config.put("spark.sql.warehouse.dir", "/Volumes/Elements/github_archive/spark_temp/warehouse");

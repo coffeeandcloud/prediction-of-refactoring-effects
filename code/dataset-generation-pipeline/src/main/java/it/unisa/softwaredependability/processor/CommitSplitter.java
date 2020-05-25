@@ -4,7 +4,6 @@ import it.unisa.softwaredependability.model.RepoCommitRange;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -23,14 +22,15 @@ public class CommitSplitter {
 
     private List<RepoCommitRange> commits;
     private Logger log = Logger.getLogger(getClass().getName());
-    private final int REPO_SPLIT_COUNT = 1000;
+    private int repoSplitCount = 10;
 
-    public CommitSplitter() {
+    public CommitSplitter(int repoSplitCount) {
         commits = new ArrayList<>();
+        this.repoSplitCount = repoSplitCount;
     }
 
-    public List<List<ObjectId>> executeSingle(String repoUrl) {
-        List<List<ObjectId>> groupedCommitIds = new ArrayList<>();
+    public List<RepoCommitRange> executeSingle(String repoUrl) {
+        List<RepoCommitRange> groupedCommitIds = new ArrayList<>();
         System.out.println("Analyzing github repo '" + repoUrl + "'");
         try {
             RepositoryManager repoManager = RepositoryManager.getInstance();
@@ -40,19 +40,19 @@ public class CommitSplitter {
             RevWalk walk = new RevWalk(repo);
             walk.markStart(walk.parseCommit(repo.resolve(Constants.HEAD)));
             walk.sort(RevSort.COMMIT_TIME_DESC);
+            walk.sort(RevSort.TOPO);
             Long count = 0L;
-            List<List<RevCommit>> groupedList = new ArrayList<>();
             List<RevCommit> commits = new ArrayList<>();
             for(RevCommit c: walk) {
                 commits.add(c);
                 count++;
-                if(count % 1000 == 0) {
-                    groupedList.add(commits);
+                if(count % repoSplitCount == 0) {
+                    groupedCommitIds.add(new RepoCommitRange(commits, repoUrl));
                     commits = new ArrayList<>();
                 }
             }
             if(count != 0) {
-                groupedList.add(commits);
+                groupedCommitIds.add(new RepoCommitRange(commits, repoUrl));
             }
             git.close();
             return groupedCommitIds;
@@ -86,7 +86,7 @@ public class CommitSplitter {
                 String lastCommit = null;
                 RepoCommitRange rcr = new RepoCommitRange();
                 for(RevCommit commit : commitsList) {
-                    int mod = (int)(count % REPO_SPLIT_COUNT);
+                    int mod = (int)(count % repoSplitCount);
                     String commitHash = commit.getId().getName();
 
                     lastCommit = commitHash;

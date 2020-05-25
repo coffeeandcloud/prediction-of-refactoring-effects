@@ -45,7 +45,7 @@
         <dependency>
             <groupId>org.refactoringminer</groupId>
             <artifactId>RefactoringMiner</artifactId>
-            <version>1.3</version>
+            <version>1.5</version>
         </dependency>
         <dependency>
             <groupId>org.repodriller</groupId>

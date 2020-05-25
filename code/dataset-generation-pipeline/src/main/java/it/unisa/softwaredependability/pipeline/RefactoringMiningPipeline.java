@@ -2,14 +2,13 @@ package it.unisa.softwaredependability.pipeline;
 
 import it.unisa.softwaredependability.config.DatasetHeader;
 import it.unisa.softwaredependability.processor.CommitSplitter;
-import it.unisa.softwaredependability.processor.RefactoringMinerIterator;
 import it.unisa.softwaredependability.processor.RepositoryResolver;
+import it.unisa.softwaredependability.processor.StaticRefactoringMiner;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -52,51 +51,24 @@ public class RefactoringMiningPipeline extends Pipeline  {
                 .toJavaRDD();
 
         JavaRDD<String> repos = repoList
-                .repartition((Integer)config.get("jobs.parallel"))
+                .repartition((Integer)config.get("repos.parallel"))
                 .map(row -> resolver.resolveGithubApiUrl(row.getString(0)));
 
         JavaRDD<Row> commits = repos
-                .flatMap(s -> new CommitSplitter().execute(s).iterator())
-                .flatMap(range -> {
-                    List<Row> rows = RefactoringMinerIterator.executeBlocking(range);
-                    return rows.iterator();
-                });
-
-
-
-        /*
-        sparkSession.createDataFrame(repoCommitRangeJavaRDD, new StructType().
-                add("startCommit", DataTypes.StringType).add("endCommit", DataTypes.StringType).add("repo", DataTypes.StringType))
-                .groupBy("repo")
-                .count()
-                .show();
-
-
-
-        sparkSession.createDataFrame(repoCommits, new StructType().add("hash", DataTypes.StringType))
-                .write()
-                .parquet((String) config.get("output.dir"));
-
-
-        JavaRDD<Row> map = repos
-                .flatMap(repoUrl -> new RefactoringMinerIterator(repoUrl, (String) config.get("github.branch")));
-
-
-         */
-
+                .flatMap(s -> new CommitSplitter((Integer) config.get("batch.size")).executeSingle(s).iterator())
+                .repartition((Integer) config.get("jobs.parallel"))
+                .flatMap(x -> StaticRefactoringMiner.executeBlockingList(x).iterator());
 
         sparkSession.createDataFrame(commits, DatasetHeader.getSmallRefactoringCommitHeader())
                 .write()
                 .parquet((String) config.get("output.dir"));
-
-
 
     }
 
     @Override
     public void shutdown() {
         try {
-            RefactoringMinerIterator.cleanupTempFiles();
+            //RefactoringMinerIterator.cleanupTempFiles();
             sparkSession.close();
         } catch(Exception e) {
             e.printStackTrace();

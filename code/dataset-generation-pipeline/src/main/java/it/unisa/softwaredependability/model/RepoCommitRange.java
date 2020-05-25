@@ -1,9 +1,15 @@
 package it.unisa.softwaredependability.model;
 
+import org.eclipse.jgit.revwalk.RevCommit;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class RepoCommitRange {
     private String startCommit;
     private String endCommit;
     private String repoUrl;
+    private List<String> commitIds;
 
     public RepoCommitRange() {
     }
@@ -11,6 +17,11 @@ public class RepoCommitRange {
     public RepoCommitRange(String startCommit, String endCommit, String repoUrl) {
         this.startCommit = startCommit;
         this.endCommit = endCommit;
+        this.repoUrl = repoUrl;
+    }
+
+    public RepoCommitRange(List<RevCommit> commits, String repoUrl) {
+        this.commitIds = commits.stream().map(x -> x.getId().getName()).collect(Collectors.toList());
         this.repoUrl = repoUrl;
     }
 
@@ -38,6 +49,15 @@ public class RepoCommitRange {
 
     public RepoCommitRange setRepoUrl(String repoUrl) {
         this.repoUrl = repoUrl;
+        return this;
+    }
+
+    public List<String> getCommits() {
+        return commitIds;
+    }
+
+    public RepoCommitRange setCommits(List<RevCommit> commits) {
+        this.commitIds = commits.stream().map(x -> x.getId().getName()).collect(Collectors.toList());
         return this;
     }
 
