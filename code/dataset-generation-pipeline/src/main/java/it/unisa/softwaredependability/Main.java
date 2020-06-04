@@ -5,7 +5,6 @@ import it.unisa.softwaredependability.cli.JobArgs;
 import it.unisa.softwaredependability.pipeline.DatasetExtractionPipeline;
 import it.unisa.softwaredependability.pipeline.RefactoringMiningPipeline;
 import it.unisa.softwaredependability.pipeline.StreamingPipeline;
-import spark.debug.DebugScreen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +17,6 @@ public class Main {
     public static void main(String[] args) {
 
         JobArgs jobArgs = CliParser.parse(args);
-
-        DebugScreen.enableDebugScreen();
 
         //executeRepositoryExtractionPipeline();
         executeRefactoringCommitPipeline(jobArgs);

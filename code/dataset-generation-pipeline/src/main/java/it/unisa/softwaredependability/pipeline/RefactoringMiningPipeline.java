@@ -2,8 +2,10 @@ package it.unisa.softwaredependability.pipeline;
 
 import it.unisa.softwaredependability.config.DatasetHeader;
 import it.unisa.softwaredependability.processor.CommitSplitter;
+import it.unisa.softwaredependability.processor.DiffContentExtractor;
 import it.unisa.softwaredependability.processor.RepositoryResolver;
 import it.unisa.softwaredependability.processor.StaticRefactoringMiner;
+import it.unisa.softwaredependability.processor.metric.CKMetricProcessor;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.Row;
@@ -63,6 +65,15 @@ public class RefactoringMiningPipeline extends Pipeline  {
                 .write()
                 .parquet((String) config.get("output.dir"));
 
+        commits
+                .map(x -> {
+                    String repo = x.getString(0);
+                    String commitId = x.getString(1);
+                    DiffContentExtractor diffContentExtractor = new DiffContentExtractor(repo);
+                    diffContentExtractor.addMetricProcessor(new CKMetricProcessor());
+                    diffContentExtractor.execute(commitId);
+                    return "";
+                }).count();
     }
 
     @Override
