@@ -23,4 +23,13 @@ public class InMemoryFile {
         if(pathParts.length == 0) return null;
         return pathParts[pathParts.length-1];
     }
+
+    public String getPathWithoutFile() {
+        String[] pathParts = path.split("/");
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < pathParts.length-1; i++) {
+            sb.append(pathParts[i]).append("/");
+        }
+        return sb.toString();
+    }
 }

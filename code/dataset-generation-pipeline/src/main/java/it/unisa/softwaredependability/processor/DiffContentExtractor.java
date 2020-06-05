@@ -1,11 +1,12 @@
 package it.unisa.softwaredependability.processor;
 
+import com.github.mauricioaniche.ck.CKClassResult;
 import it.unisa.softwaredependability.model.InMemoryFile;
-import it.unisa.softwaredependability.model.Metric;
-import it.unisa.softwaredependability.model.MetricResult;
+import it.unisa.softwaredependability.model.metrics.Metric;
+import it.unisa.softwaredependability.model.metrics.MetricResult;
 import it.unisa.softwaredependability.processor.metric.MetricProcessor;
-import it.unisa.softwaredependability.utils.FileService;
-import it.unisa.softwaredependability.utils.LocalStorageService;
+import it.unisa.softwaredependability.service.FileService;
+import it.unisa.softwaredependability.service.LocalStorageService;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
@@ -18,9 +19,7 @@ import org.eclipse.jgit.util.io.NullOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class DiffContentExtractor {
@@ -30,8 +29,8 @@ public class DiffContentExtractor {
     private List<MetricProcessor> metricProcessors;
     private final FileService fileService;
 
-    public final static int OLD_REPO_NAME = 0;
-    public final static int NEW_REPO_NAME = 1;
+    private File oldCommitDir;
+    private File newCommitDir;
 
     private Logger log = Logger.getLogger(getClass().getName());
 
@@ -47,13 +46,27 @@ public class DiffContentExtractor {
         return this;
     }
 
-    public void execute(String commitId) throws IOException, GitAPIException {
-        Map<Integer, File> fsMap = extractToFileSystem(commitId);
-        calculateMetricForContent(fsMap.get(OLD_REPO_NAME));
-        calculateMetricForContent(fsMap.get(NEW_REPO_NAME));
+    public List<MetricResult> execute(String commitId, String refactoringOperation) throws IOException, GitAPIException {
+        List<MetricResult> metricResults = extractToFileSystem(commitId, refactoringOperation);
+        for(MetricResult mr: metricResults) {
+            for(Metric<CKClassResult> oldMetric: calculateMetricForContent(oldCommitDir)) {
+                if(oldMetric.getValue().getFile().contains(mr.getFilePath())) {
+                    mr.addOldMetric(oldMetric);
+                }
+            }
+
+            for(Metric<CKClassResult> newMetric: calculateMetricForContent(newCommitDir)) {
+                if(newMetric.getValue().getFile().contains(mr.getFilePath())) {
+                    mr.addNewMetric(newMetric);
+                }
+            }
+        }
+        oldCommitDir.delete();
+        newCommitDir.delete();
+        return metricResults;
     }
 
-    private Map<Integer, File> extractToFileSystem(String commitId) throws IOException, GitAPIException {
+    private List<MetricResult> extractToFileSystem(String commitId, String refactoringOperation) throws IOException, GitAPIException {
         Git git = RepositoryManager.getInstance().openGitWithUrl(repoName);
         Repository repo = git.getRepository();
 
@@ -76,30 +89,37 @@ public class DiffContentExtractor {
         List<InMemoryFile> filesOldCommit = new ArrayList<>();
         List<InMemoryFile> filesNewCommit = new ArrayList<>();
 
+        List<MetricResult> metricResults = new ArrayList<>();
+
         for(DiffEntry d: diffEntries) {
             log.info("Extracting files between '" + d.getOldId().name() + "' and '" + d.getNewId().name() + "'");
+            MetricResult mr = new MetricResult();
+            mr.setCommitId(d.getNewId().name());
+            mr.setParentCommitId(d.getOldId().name());
+            mr.setFilePath(d.getNewPath());
+            mr.setModificationName(d.getChangeType().name());
+            mr.setRefactoringOperation(refactoringOperation);
+            mr.setRepository(repoName);
             if(d.getChangeType() != DiffEntry.ChangeType.ADD) {
                 filesOldCommit.add(new InMemoryFile(repo.getObjectDatabase().open(d.getOldId().toObjectId()).getBytes(), d.getOldPath()));
             }
             filesNewCommit.add(new InMemoryFile(repo.getObjectDatabase().open(d.getNewId().toObjectId()).getBytes(), d.getNewPath()));
+            metricResults.add(mr);
         }
 
-        File oldCommitDir = fileService.generateRepositoryCopy(filesOldCommit);
-        File newCommitDir = fileService.generateRepositoryCopy(filesNewCommit);
-        Map<Integer, File> dirs = new HashMap<>();
-        dirs.put(OLD_REPO_NAME, oldCommitDir);
-        dirs.put(NEW_REPO_NAME, newCommitDir);
+        oldCommitDir = fileService.generateRepositoryCopy(filesOldCommit);
+        newCommitDir = fileService.generateRepositoryCopy(filesNewCommit);
         walk.dispose();
-        return dirs;
+        return metricResults;
     }
 
-    private MetricResult calculateMetricForContent(File rootDir) {
-        MetricResult r = new MetricResult();
+    private List<Metric> calculateMetricForContent(File rootDir) {
+        List<Metric> metrics = new ArrayList<>();
         for(MetricProcessor p: metricProcessors) {
-            Metric m = p.calculate(rootDir);
-            if(m != null) r.addMetric(m);
+            List<Metric> m = p.calculate(rootDir);
+            if(m != null) metrics.addAll(m);
         }
-        return r;
+        return metrics;
     }
 
     public String getFileEnding() {

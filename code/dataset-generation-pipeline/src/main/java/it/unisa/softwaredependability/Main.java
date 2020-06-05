@@ -4,7 +4,6 @@ import it.unisa.softwaredependability.cli.CliParser;
 import it.unisa.softwaredependability.cli.JobArgs;
 import it.unisa.softwaredependability.pipeline.DatasetExtractionPipeline;
 import it.unisa.softwaredependability.pipeline.RefactoringMiningPipeline;
-import it.unisa.softwaredependability.pipeline.StreamingPipeline;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,15 +20,6 @@ public class Main {
         //executeRepositoryExtractionPipeline();
         executeRefactoringCommitPipeline(jobArgs);
         //executeStreamingRefactoringPipeline();
-    }
-
-    static void executeStreamingRefactoringPipeline() {
-        StreamingPipeline pipeline = new StreamingPipeline(new HashMap<>());
-        try {
-            pipeline.execute();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
     }
 
     static void executeRepositoryExtractionPipeline() {
@@ -57,8 +47,9 @@ public class Main {
         RefactoringMiningPipeline pipeline = null;
         try {
             Map<String, Object> config = new HashMap<>();
-            config.put("output.dir", jobArgs.getOutputDir().toString());
-            config.put("topRepositoriesList", jobArgs.getInputFile().toString());
+            config.put("output.dir.commits", jobArgs.getCommitsOutputDir().toString());
+            config.put("output.dir.metrics", jobArgs.getMetricsOutputDir().toString());
+            config.put("repository.list", jobArgs.getInputFile().toString());
             config.put("jobs.parallel", jobArgs.getParallelJobs());
             config.put("repos.parallel", jobArgs.getParallelRepos());
             config.put("github.user", jobArgs.getUsername());

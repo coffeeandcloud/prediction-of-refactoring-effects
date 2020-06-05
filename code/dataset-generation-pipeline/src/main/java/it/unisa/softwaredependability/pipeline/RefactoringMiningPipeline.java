@@ -1,16 +1,17 @@
 package it.unisa.softwaredependability.pipeline;
 
 import it.unisa.softwaredependability.config.DatasetHeader;
+import it.unisa.softwaredependability.model.metrics.MetricResult;
 import it.unisa.softwaredependability.processor.CommitSplitter;
 import it.unisa.softwaredependability.processor.DiffContentExtractor;
 import it.unisa.softwaredependability.processor.RepositoryResolver;
 import it.unisa.softwaredependability.processor.StaticRefactoringMiner;
 import it.unisa.softwaredependability.processor.metric.CKMetricProcessor;
-import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -20,7 +21,7 @@ public class RefactoringMiningPipeline extends Pipeline  {
 
     private final String APP_NAME = "RefactoringMiningPipeline";
 
-    private transient Logger log = Logger.getLogger(getClass().getName());
+    private final static transient Logger log = Logger.getLogger("RefactoringMiningPipeline");
 
     public RefactoringMiningPipeline(Map<String, Object> config) {
         super(config);
@@ -30,13 +31,7 @@ public class RefactoringMiningPipeline extends Pipeline  {
     public void init(Map<String, Object> config) {
         sparkSession = SparkSession.builder()
                 .appName(APP_NAME)
-                //.config("spark.local.dir", (String)config.get("spark.local.dir"))
-                //.config("spark.sql.warehouse.dir", (String)config.get("spark.sql.warehouse.dir"))
                 .getOrCreate();
-
-        SparkConf conf = new SparkConf();
-
-        //log.info("Starting app '" + APP_NAME + "'");
     }
 
     @Override
@@ -49,7 +44,7 @@ public class RefactoringMiningPipeline extends Pipeline  {
                 .option("header", "false")
                 .option("mode", "DROPMALFORMED")
                 .schema(DatasetHeader.getCommitCountHeader())
-                .load((String) config.get("topRepositoriesList"))
+                .load((String) config.get("repository.list"))
                 .toJavaRDD();
 
         JavaRDD<String> repos = repoList
@@ -59,27 +54,32 @@ public class RefactoringMiningPipeline extends Pipeline  {
         JavaRDD<Row> commits = repos
                 .flatMap(s -> new CommitSplitter((Integer) config.get("batch.size")).executeSingle(s).iterator())
                 .repartition((Integer) config.get("jobs.parallel"))
+                // row mapping is done within the StaticRefactoringMiner due to performance optimizations
                 .flatMap(x -> StaticRefactoringMiner.executeBlockingList(x).iterator());
 
         sparkSession.createDataFrame(commits, DatasetHeader.getSmallRefactoringCommitHeader())
                 .write()
-                .parquet((String) config.get("output.dir"));
+                .parquet((String) config.get("output.dir.commits"));
 
-        commits
-                .map(x -> {
+        JavaRDD<Row> commitMetricResults = commits
+                .flatMap(x -> {
                     String repo = x.getString(0);
                     String commitId = x.getString(1);
                     DiffContentExtractor diffContentExtractor = new DiffContentExtractor(repo);
                     diffContentExtractor.addMetricProcessor(new CKMetricProcessor());
-                    diffContentExtractor.execute(commitId);
-                    return "";
-                }).count();
+                    return diffContentExtractor.execute(commitId, x.getString(2)).iterator();
+                })
+                .map(MetricResult::toRow)
+                .flatMap(List::iterator);
+
+        sparkSession.createDataFrame(commitMetricResults, DatasetHeader.getCommitHeaderWithMetrics())
+                .write()
+                .parquet((String) config.get("output.dir.metrics"));
     }
 
     @Override
     public void shutdown() {
         try {
-            //RefactoringMinerIterator.cleanupTempFiles();
             sparkSession.close();
         } catch(Exception e) {
             e.printStackTrace();
