@@ -1,5 +1,6 @@
 package it.unisa.softwaredependability.pipeline;
 
+import com.google.common.collect.Lists;
 import it.unisa.softwaredependability.config.DatasetHeader;
 import it.unisa.softwaredependability.model.metrics.MetricResult;
 import it.unisa.softwaredependability.processor.CommitSplitter;
@@ -11,6 +12,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -62,15 +64,18 @@ public class RefactoringMiningPipeline extends Pipeline  {
                 .parquet((String) config.get("output.dir.commits"));
 
         JavaRDD<Row> commitMetricResults = commits
-                .flatMap(x -> {
-                    String repo = x.getString(0);
-                    String commitId = x.getString(1);
-                    DiffContentExtractor diffContentExtractor = new DiffContentExtractor(repo);
-                    diffContentExtractor.addMetricProcessor(new CKMetricProcessor());
-                    return diffContentExtractor.execute(commitId, x.getString(2)).iterator();
-                })
-                .map(MetricResult::toRow)
-                .flatMap(List::iterator);
+                .repartition((Integer) config.get("jobs.parallel"))
+                .mapPartitions(partitions -> {
+                    List<List<Row>> partition = Lists.partition(Lists.newArrayList(partitions), 1000);
+                    // Alternative: return partial list
+                    List<MetricResult> metricResults = new ArrayList<>();
+                    for(List<Row> p: partition) {
+                        DiffContentExtractor extractor = new DiffContentExtractor()
+                                .addMetricProcessor(new CKMetricProcessor());
+                        metricResults.addAll(extractor.executeBatch(p));
+                    }
+                    return metricResults.iterator();
+                }).flatMap(x -> x.toRow().iterator());
 
         sparkSession.createDataFrame(commitMetricResults, DatasetHeader.getCommitHeaderWithMetrics())
                 .write()

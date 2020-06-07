@@ -4,6 +4,7 @@ import it.unisa.softwaredependability.model.metrics.Metric;
 import it.unisa.softwaredependability.model.metrics.MetricResult;
 import it.unisa.softwaredependability.processor.metric.MetricProcessor;
 import org.apache.spark.SparkEnv;
+import org.apache.spark.sql.Row;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
@@ -39,17 +40,39 @@ public class DiffContentExtractor {
         this.repositoryManager = new RepositoryManager();
     }
 
+    public DiffContentExtractor() {
+        this(null);
+    }
+
     public DiffContentExtractor addMetricProcessor(MetricProcessor processor) {
         metricProcessors.add(processor);
         return this;
     }
 
+
     public List<MetricResult> execute(String commitId, String refactoringOperation) throws IOException, GitAPIException {
-        return calculateByCommitId(commitId, refactoringOperation);
+        Git git = repositoryManager.openGitWithUrl(repoName, SparkEnv.get().executorId());
+        List<MetricResult> metricResults = calculateByCommitId(commitId, refactoringOperation, git);
+        git.close();
+        return metricResults;
     }
 
-    private List<MetricResult> calculateByCommitId(String commitId, String refactoringOperation) throws IOException, GitAPIException {
-        Git git = repositoryManager.openGitWithUrl(repoName, SparkEnv.get().executorId());
+    public List<MetricResult> executeBatch(List<Row> commitRow) throws IOException, GitAPIException {
+        log.info("Executing batch of size " + commitRow.size());
+        Git git = null;
+        List<MetricResult> metricResults = new ArrayList<>();
+        for(Row r: commitRow) {
+            repoName = r.getString(0);
+            if(git == null) {
+                git = repositoryManager.openGitWithUrl(repoName, SparkEnv.get().executorId());
+            }
+            metricResults.addAll(calculateByCommitId(r.getString(1), r.getString(2), git));
+        }
+        git.close();
+        return metricResults;
+    }
+
+    private List<MetricResult> calculateByCommitId(String commitId, String refactoringOperation, Git git) throws IOException, GitAPIException {
         Repository repo = git.getRepository();
         RevWalk walk = new RevWalk(repo);
 
@@ -75,7 +98,6 @@ public class DiffContentExtractor {
             }
         }
         walk.dispose();
-        git.close();
         return results;
     }
 
