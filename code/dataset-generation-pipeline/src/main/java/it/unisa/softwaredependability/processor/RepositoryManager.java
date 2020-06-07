@@ -2,72 +2,67 @@ package it.unisa.softwaredependability.processor;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.lib.Repository;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class RepositoryManager {
 
-    private final static String TEMP_DIR = "/tmp/repos/";
-    private Map<String, String> repos;
-    private static RepositoryManager repositoryManager;
+    private final String TEMP_DIR;
     private transient Logger log = Logger.getLogger(getClass().getName());
-    private Long idCount = 0L;
-
-    public static RepositoryManager getInstance() {
-        if(repositoryManager == null) {
-            repositoryManager = new RepositoryManager();
-        }
-        return repositoryManager;
-    }
+    private String localPath;
 
     public RepositoryManager() {
-        repos = new HashMap<>();
+        this.TEMP_DIR = "/tmp/repos";
     }
 
-    public Git openGitWithUrl(String repoUrl) throws IOException, GitAPIException {
+    public RepositoryManager(String tempDir) {
+        this.TEMP_DIR = tempDir;
+    }
+
+    public Git openGitWithUrl(String repoUrl, String executorId) throws IOException, GitAPIException {
         if(repoUrl == null) throw new IOException("Repository not found.");
 
-        if(!repos.containsKey(repoUrl)) {
-            try {
-                return cloneRepository(repoUrl);
-            } catch (JGitInternalException e) {
-                log.info("Repository '"+repoUrl+"' already exists. Using local directory.");
-                addRepo(repoUrl, TEMP_DIR + extractRepoName(repoUrl));
-            }
+        localPath = generateExecutorDependentPath(repoUrl, executorId);
+        File repoPath = new File(localPath);
+
+        if(repoPath.exists() && repoPath.isDirectory()) {
+            return Git.open(repoPath);
         }
-        return Git.open(new File(repos.get(repoUrl)));
+        return cloneRepository(repoUrl, localPath);
     }
 
-    public Repository openGitRepositoryWithUrl(String repoUrl) throws IOException, GitAPIException {
-        return openGitWithUrl(repoUrl).getRepository();
+    public Repository openGitRepositoryWithUrl(String repoUrl, String executorId) throws IOException, GitAPIException {
+        return openGitWithUrl(repoUrl, executorId).getRepository();
     }
 
-    private Git cloneRepository(String repoUrl) throws GitAPIException {
-        String localDir = TEMP_DIR + extractRepoName(repoUrl);
+    private String generateExecutorDependentPath(String repoUrl, String executorId) {
+        String localDir = new StringBuilder()
+                .append(TEMP_DIR).append("/")
+                .append(executorId).append("/")
+                .append(extractRepoName(repoUrl)).toString();
+        return localDir;
+    }
+
+    private Git cloneRepository(String repoUrl, String localDir) throws GitAPIException {
         log.info("Cloning repository '" + repoUrl + "' to '" + localDir + "'");
         Git git =  Git.cloneRepository()
                 .setURI(repoUrl)
                 .setCloneAllBranches(false)
                 .setDirectory(new File(localDir))
                 .call();
-        addRepo(repoUrl, localDir);
         log.info("Cloning done.");
         return git;
-    }
-
-    private void addRepo(String repoUrl, String localDir) {
-        repos.put(repoUrl, localDir);
-        idCount++;
     }
 
     private String extractRepoName(String repoUrl) {
         String[] split = repoUrl.split("/");
         return split[split.length-1];
+    }
+
+    public String getLocalPath() {
+        return localPath;
     }
 }

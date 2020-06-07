@@ -6,11 +6,9 @@ import org.apache.spark.SparkEnv;
 import org.apache.spark.sql.Row;
 import org.eclipse.jgit.lib.Repository;
 import org.refactoringminer.api.GitHistoryRefactoringMiner;
-import org.refactoringminer.api.GitService;
 import org.refactoringminer.api.Refactoring;
 import org.refactoringminer.api.RefactoringHandler;
 import org.refactoringminer.rm1.GitHistoryRefactoringMinerImpl;
-import org.refactoringminer.util.GitServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,17 +24,13 @@ public class StaticRefactoringMiner {
         if(range == null || range.getRepoUrl() == null) {
             return Collections.emptyList();
         }
-        GitService gitService = new GitServiceImpl();
         GitHistoryRefactoringMiner miner = new GitHistoryRefactoringMinerImpl();
-
-        String[] repoName = range.getRepoUrl().split("/");
-
-        String localRepoDir = TEMP_FILE_DIR + "/" + SparkEnv.get().executorId() + "/" + repoName[repoName.length-1];
-        Repository repo = gitService.cloneIfNotExists(localRepoDir, range.getRepoUrl());
+        RepositoryManager repositoryManager = new RepositoryManager();
+        Repository repo = repositoryManager.openGitRepositoryWithUrl(range.getRepoUrl(), SparkEnv.get().executorId());
 
         List<Row> commits = new ArrayList<>();
 
-        log.info("Using repo at '" + localRepoDir + "'");
+        log.info("Using repo at '" + repositoryManager.getLocalPath() + "'");
 
         log.info("Mining commit range " + range.getCommits().get(0) + " (size: " + range.getCommits().size() + " commits)");
         Long iterCount = 0L;

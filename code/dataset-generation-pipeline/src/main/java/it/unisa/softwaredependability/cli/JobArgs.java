@@ -13,7 +13,7 @@ public class JobArgs {
     @Parameter(names = {"-i", "--input"}, description = "Input file", required = true)
     private URI inputFile;
 
-    @Parameter(names = {"-co", "--commit-output"}, description = "Output directory for refactoring commits", required = true)
+    @Parameter(names = {"-co", "--commits-output"}, description = "Output directory for refactoring commits", required = true)
     private URI commitsOutputDir;
 
     @Parameter(names = {"-mo", "--metrics-output"}, description = "Output directory for metrics", required = false)

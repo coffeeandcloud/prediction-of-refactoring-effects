@@ -15,12 +15,10 @@ public class MetricResult {
     private String committer;
     private String modificationName;
     private String refactoringOperation;
-    private List<Metric> oldMetrics;
-    private List<Metric> newMetrics;
+    private List<Metric> metrics;
 
     public MetricResult() {
-        this.oldMetrics = new ArrayList<>();
-        this.newMetrics = new ArrayList<>();
+        this.metrics = new ArrayList<>();
     }
 
     public String getCommitId() {
@@ -59,22 +57,17 @@ public class MetricResult {
         return this;
     }
 
-    public List<Metric> getOldMetrics() {
-        return oldMetrics;
+    public List<Metric> getMetrics() {
+        return metrics;
     }
 
-    public MetricResult setOldMetrics(List<Metric> oldMetrics) {
-        this.oldMetrics = oldMetrics;
+    public MetricResult setMetrics(List<Metric> metrics) {
+        this.metrics = metrics;
         return this;
     }
 
-    public MetricResult addOldMetric(Metric m) {
-        oldMetrics.add(m);
-        return this;
-    }
-
-    public MetricResult addNewMetric(Metric m) {
-        newMetrics.add(m);
+    public MetricResult addMetric(Metric m) {
+        metrics.add(m);
         return this;
     }
 
@@ -96,14 +89,6 @@ public class MetricResult {
         return this;
     }
 
-    public List<Metric> getNewMetrics() {
-        return newMetrics;
-    }
-
-    public MetricResult setNewMetrics(List<Metric> newMetrics) {
-        this.newMetrics = newMetrics;
-        return this;
-    }
 
     public String getRepository() {
         return repository;
@@ -117,13 +102,9 @@ public class MetricResult {
     public List<Row> toRow() {
         List<Row> rows = new ArrayList<>();
         // Generate row for old commit
-        if(!oldMetrics.isEmpty()) {
-            Metric<CKClassResult> om = ((Metric<CKClassResult>)oldMetrics.get(0));
-            rows.add(generateRow(om, null));
-        }
-        if(!newMetrics.isEmpty()) {
-            Metric<CKClassResult> nm = ((Metric<CKClassResult>)newMetrics.get(0));
-            rows.add(generateRow(nm, parentCommitId));
+        if(!metrics.isEmpty()) {
+            Metric<CKClassResult> metric = ((Metric<CKClassResult>) metrics.get(0));
+            rows.add(generateRow(metric, parentCommitId));
         }
         return rows;
     }
@@ -137,6 +118,7 @@ public class MetricResult {
                         m.getValue().getFile(),
                         refactoringOperation,
                         modificationName,
+                        m.getSide(),
                         m.getValue().getLoc(),
                         m.getValue().getDit(),
                         m.getValue().getWmc(),
@@ -156,7 +138,7 @@ public class MetricResult {
                 ", filePath='" + filePath + '\'' +
                 ", committer='" + committer + '\'' +
                 ", modificationName='" + modificationName + '\'' +
-                ", metricSize=" + oldMetrics.size() +
+                ", metricSize=" + metrics.size() +
                 '}';
     }
 }

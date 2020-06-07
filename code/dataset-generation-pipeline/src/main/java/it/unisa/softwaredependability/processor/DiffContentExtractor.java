@@ -1,16 +1,14 @@
 package it.unisa.softwaredependability.processor;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import it.unisa.softwaredependability.model.InMemoryFile;
 import it.unisa.softwaredependability.model.metrics.Metric;
 import it.unisa.softwaredependability.model.metrics.MetricResult;
 import it.unisa.softwaredependability.processor.metric.MetricProcessor;
-import it.unisa.softwaredependability.service.FileService;
-import it.unisa.softwaredependability.service.LocalStorageService;
+import org.apache.spark.SparkEnv;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
+import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
@@ -21,24 +19,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class DiffContentExtractor {
 
     private String fileEnding = ".java";
     private String repoName;
     private List<MetricProcessor> metricProcessors;
-    private final FileService fileService;
-
-    private File oldCommitDir;
-    private File newCommitDir;
 
     private Logger log = Logger.getLogger(getClass().getName());
+    private RepositoryManager repositoryManager;
+
+    public final static String LEFT_SIDE = "left";
+    public static final String RIGHT_SIDE = "right";
 
     public DiffContentExtractor(String repoName) {
         this.repoName = repoName;
         this.metricProcessors = new ArrayList<>();
-        fileService = new LocalStorageService();
-
+        this.repositoryManager = new RepositoryManager();
     }
 
     public DiffContentExtractor addMetricProcessor(MetricProcessor processor) {
@@ -47,79 +45,59 @@ public class DiffContentExtractor {
     }
 
     public List<MetricResult> execute(String commitId, String refactoringOperation) throws IOException, GitAPIException {
-        List<MetricResult> metricResults = extractToFileSystem(commitId, refactoringOperation);
-        for(MetricResult mr: metricResults) {
-            for(Metric<CKClassResult> oldMetric: calculateMetricForContent(oldCommitDir)) {
-                if(oldMetric.getValue().getFile().contains(mr.getFilePath())) {
-                    mr.addOldMetric(oldMetric);
-                }
-            }
-
-            for(Metric<CKClassResult> newMetric: calculateMetricForContent(newCommitDir)) {
-                if(newMetric.getValue().getFile().contains(mr.getFilePath())) {
-                    mr.addNewMetric(newMetric);
-                }
-            }
-        }
-        oldCommitDir.delete();
-        newCommitDir.delete();
-        return metricResults;
+        return calculateByCommitId(commitId, refactoringOperation);
     }
 
-    private List<MetricResult> extractToFileSystem(String commitId, String refactoringOperation) throws IOException, GitAPIException {
-        Git git = RepositoryManager.getInstance().openGitWithUrl(repoName);
+    private List<MetricResult> calculateByCommitId(String commitId, String refactoringOperation) throws IOException, GitAPIException {
+        Git git = repositoryManager.openGitWithUrl(repoName, SparkEnv.get().executorId());
         Repository repo = git.getRepository();
-
         RevWalk walk = new RevWalk(repo);
 
+        RevCommit headCommit = walk.parseCommit(repo.resolve(Constants.HEAD));
         RevCommit commit = walk.parseCommit(repo.resolve(commitId));
         RevCommit parentCommit = commit.getParent(0);
 
-        List<DiffEntry> diffEntries = new ArrayList<>();
+        List<MetricResult> results = new ArrayList<>();
 
         try(DiffFormatter diffFormatter = new DiffFormatter(NullOutputStream.INSTANCE)) {
             diffFormatter.setRepository(repo);
             for(DiffEntry diffEntry : diffFormatter.scan(parentCommit, commit)) {
                 if(diffEntry.getChangeType() != DiffEntry.ChangeType.DELETE && diffEntry.getNewPath().endsWith(fileEnding)) {
-                    diffEntries.add(diffEntry);
+                    // TODO add option to filter to avoid duplicates and/or filter by only diff containing files
+                    MetricResult metricResult = createMetricResult(diffEntry, refactoringOperation);
+                    git.checkout().setName(parentCommit.name()).call();
+                    metricResult.getMetrics().addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), LEFT_SIDE));
+                    git.checkout().setName(commit.name()).call();
+                    metricResult.getMetrics().addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), RIGHT_SIDE));
+                    git.checkout().setName(headCommit.name()).call();
+                    results.add(metricResult);
                 }
             }
         }
-
-        List<InMemoryFile> filesOldCommit = new ArrayList<>();
-        List<InMemoryFile> filesNewCommit = new ArrayList<>();
-
-        List<MetricResult> metricResults = new ArrayList<>();
-
-        for(DiffEntry d: diffEntries) {
-            log.info("Extracting files between '" + d.getOldId().name() + "' and '" + d.getNewId().name() + "'");
-            MetricResult mr = new MetricResult();
-            mr.setCommitId(d.getNewId().name());
-            mr.setParentCommitId(d.getOldId().name());
-            mr.setFilePath(d.getNewPath());
-            mr.setModificationName(d.getChangeType().name());
-            mr.setRefactoringOperation(refactoringOperation);
-            mr.setRepository(repoName);
-            if(d.getChangeType() != DiffEntry.ChangeType.ADD) {
-                filesOldCommit.add(new InMemoryFile(repo.getObjectDatabase().open(d.getOldId().toObjectId()).getBytes(), d.getOldPath()));
-            }
-            filesNewCommit.add(new InMemoryFile(repo.getObjectDatabase().open(d.getNewId().toObjectId()).getBytes(), d.getNewPath()));
-            metricResults.add(mr);
-        }
-
-        oldCommitDir = fileService.generateRepositoryCopy(filesOldCommit);
-        newCommitDir = fileService.generateRepositoryCopy(filesNewCommit);
         walk.dispose();
-        return metricResults;
+        git.close();
+        return results;
     }
 
-    private List<Metric> calculateMetricForContent(File rootDir) {
+    private MetricResult createMetricResult(DiffEntry d, String refactoringOperation) {
+        log.info("Extracting files between '" + d.getOldId().name() + "' and '" + d.getNewId().name() + "'");
+        MetricResult mr = new MetricResult();
+        mr.setCommitId(d.getNewId().name());
+        mr.setParentCommitId(d.getOldId().name());
+        mr.setModificationName(d.getChangeType().name());
+        mr.setRefactoringOperation(refactoringOperation);
+        mr.setRepository(repoName);
+        mr.setFilePath(d.getNewPath());
+        return mr;
+    }
+
+    private List<Metric> calculateMetricsInDir(File rootDir, String side) {
         List<Metric> metrics = new ArrayList<>();
         for(MetricProcessor p: metricProcessors) {
             List<Metric> m = p.calculate(rootDir);
             if(m != null) metrics.addAll(m);
         }
-        return metrics;
+        return metrics.stream().map(m -> m.setSide(side)).collect(Collectors.toList());
     }
 
     public String getFileEnding() {

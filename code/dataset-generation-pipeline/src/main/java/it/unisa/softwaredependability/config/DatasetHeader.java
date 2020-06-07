@@ -70,6 +70,7 @@ public class DatasetHeader {
                 .add("file", DataTypes.StringType, true)
                 .add("refactoring_operation", DataTypes.StringType, true)
                 .add("modification_type", DataTypes.StringType, true)
+                .add("side", DataTypes.StringType)
                 .add("loc", DataTypes.IntegerType, true)
                 .add("dit", DataTypes.IntegerType, true)
                 .add("wmc", DataTypes.IntegerType, true)
