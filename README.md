@@ -30,17 +30,26 @@ The local mode is the easiest way to try the Spark application. Have a look at t
 how a Spark job can be submitted. The application is parametrized and contains the following configuration parameter:
 
 **--master "local[1]":** Defines the mode how Spark is executed. Local means only one driver and executor are started on the local computer.
+
 **--class it.unisa.softwaredependability.Main:** Main class which Spark will execute
+
 **--driver-memory 8g:** Limit how much memory the driver is allowed to use. Driver memory is mainly important for local mode since there driver and executor is combined. 8gb is good value for run this application in single thread mode.
+
 **--conf "spark.serializer=org.apache.spark.serializer.KryoSerializer":** Objects between jobs are serialized when written to disk. Cryo is faster than the default Java serialization functionality.
+
 **target/dataset-generation-pipeline-1.0-SNAPSHOT.jar:** Path to the built jar file
+
 **--input "datasets/small.csv":** CSV file which contains the API path to the github repository and a number of commit counts. Examples can be found in `/datasets` folder or genereted with the DatasetExtactionPipeline contained within this project (extraction from GHTorrent files, not accessable from CLI, need to call the right pipeline in code).
+
 **--commits-output "commits":** Directory where Parquet files are written to (intermediate results, list of commits containing refactorings)
+
 **--metrics-output "commitmetricresults":**  Directory where the results are written to. Both paths can be also be on HDFS compatible file systems (including AWS S3 storage, just start the path with `s3n://mybucket/folder)
 **--parallel-jobs 1:** Number of repositories that are mined in parallel
 **--parallel-repos 1:** Number of parallel jobs the mining process is split into. This value should match the number of executors within the cluster for best performance.
 - **--batch-size 100:** Size of the generated batches the commits and files are processed. Higher batch size increases the computation speed due to less overhead, but can exceed the heap space when chosen to large. Values between 100 and 1000 are a good start, depending on the size of the repository and amout of memory installed on the machines.
+
 **--username "------------":** Your github username to resolve the api format of the repositories extracted from GHTorrent
+
 **--token "------------"** Token for accessing the github api, can be generated in your Github settings.
 
 ### Cluster mode
