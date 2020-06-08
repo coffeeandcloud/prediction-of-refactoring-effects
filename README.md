@@ -17,6 +17,8 @@ Spark only works with Java JDK 8 or OpenJDK 8. Also maven is required to build t
 file which Spark will execute. The POM is configured to include all needed dependencies within this jar. Also shaded packaging is enabled
 to avoid conflicts between different library versions (e.g. multiple conflicting versions of Google Guava).
 
+Additionally, you need to build the adapted version of RefactoringMiner which can be found as a forked project [here](https://github.com/im-a-giraffe/RefactoringMiner). After cloning, just run `gradle install` to build the jars and install them to your local repository. It is important to build this project with JDK 8, because otherwise you will run into problems when including it in the Spark application which is only able to run on version <= Java 8.
+
 ### Spark framework setup
 Make sure that you first download the [Apache Spark binary](https://spark.apache.org/downloads.html) (version 2.4.5)
 with Hadoop binaries included. Just unpack the archive and set the environment variable `SPARK_HOME` to that directory. Additonally,
@@ -27,19 +29,19 @@ setup, please refer to manuals which describe the setup process for windows/mac/
 The local mode is the easiest way to try the Spark application. Have a look at the `runLocal.sh` script to get basic understanding
 how a Spark job can be submitted. The application is parametrized and contains the following configuration parameter:
 
-- **--master "local[1]":** Defines the mode how Spark is executed. Local means only one driver and executor are started on the local computer.
-- **--class it.unisa.softwaredependability.Main:** Main class which Spark will execute
-- **--driver-memory 8g:** Limit how much memory the driver is allowed to use. Driver memory is mainly important for local mode since there driver and executor is combined. 8gb is good value for run this application in single thread mode.
-- **--conf "spark.serializer=org.apache.spark.serializer.KryoSerializer":** Objects between jobs are serialized when written to disk. Cryo is faster than the default Java serialization functionality.
-- **target/dataset-generation-pipeline-1.0-SNAPSHOT.jar:** Path to the built jar file
-- **--input "datasets/small.csv":** CSV file which contains the API path to the github repository and a number of commit counts. Examples can be found in `/datasets` folder or genereted with the DatasetExtactionPipeline contained within this project (extraction from GHTorrent files, not accessable from CLI, need to call the right pipeline in code).
-- **--commits-output "commits":** Directory where Parquet files are written to (intermediate results, list of commits containing refactorings)
-- **--metrics-output "commitmetricresults":**  Directory where the results are written to. Both paths can be also be on HDFS compatible file systems (including AWS S3 storage, just start the path with `s3n://mybucket/folder)
-- **--parallel-jobs 1:** Number of repositories that are mined in parallel
-- **--parallel-repos 1:** Number of parallel jobs the mining process is split into. This value should match the number of executors within the cluster for best performance.
+**--master "local[1]":** Defines the mode how Spark is executed. Local means only one driver and executor are started on the local computer.
+**--class it.unisa.softwaredependability.Main:** Main class which Spark will execute
+**--driver-memory 8g:** Limit how much memory the driver is allowed to use. Driver memory is mainly important for local mode since there driver and executor is combined. 8gb is good value for run this application in single thread mode.
+**--conf "spark.serializer=org.apache.spark.serializer.KryoSerializer":** Objects between jobs are serialized when written to disk. Cryo is faster than the default Java serialization functionality.
+**target/dataset-generation-pipeline-1.0-SNAPSHOT.jar:** Path to the built jar file
+**--input "datasets/small.csv":** CSV file which contains the API path to the github repository and a number of commit counts. Examples can be found in `/datasets` folder or genereted with the DatasetExtactionPipeline contained within this project (extraction from GHTorrent files, not accessable from CLI, need to call the right pipeline in code).
+**--commits-output "commits":** Directory where Parquet files are written to (intermediate results, list of commits containing refactorings)
+**--metrics-output "commitmetricresults":**  Directory where the results are written to. Both paths can be also be on HDFS compatible file systems (including AWS S3 storage, just start the path with `s3n://mybucket/folder)
+**--parallel-jobs 1:** Number of repositories that are mined in parallel
+**--parallel-repos 1:** Number of parallel jobs the mining process is split into. This value should match the number of executors within the cluster for best performance.
 - **--batch-size 100:** Size of the generated batches the commits and files are processed. Higher batch size increases the computation speed due to less overhead, but can exceed the heap space when chosen to large. Values between 100 and 1000 are a good start, depending on the size of the repository and amout of memory installed on the machines.
-- **--username "------------":** Your github username to resolve the api format of the repositories extracted from GHTorrent
-- **--token "------------"** Token for accessing the github api, can be generated in your Github settings.
+**--username "------------":** Your github username to resolve the api format of the repositories extracted from GHTorrent
+**--token "------------"** Token for accessing the github api, can be generated in your Github settings.
 
 ### Cluster mode
 Cluster mode is the more important mode to run Spark. You can submit to a running cluster by using the script `runLocalCluster.sh` which defers
