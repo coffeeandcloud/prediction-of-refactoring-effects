@@ -61,4 +61,23 @@ public class DatasetHeader {
                 .add("commit_id", DataTypes.StringType)
                 .add("type", DataTypes.StringType);
     }
+
+    public static StructType getCommitHeaderWithMetrics() {
+        return new StructType()
+                .add("repository", DataTypes.StringType)
+                .add("commit_id", DataTypes.StringType)
+                .add("parent_commit_id", DataTypes.StringType, true)
+                .add("file", DataTypes.StringType, true)
+                .add("refactoring_operation", DataTypes.StringType, true)
+                .add("modification_type", DataTypes.StringType, true)
+                .add("side", DataTypes.StringType)
+                .add("loc", DataTypes.IntegerType, true)
+                .add("dit", DataTypes.IntegerType, true)
+                .add("wmc", DataTypes.IntegerType, true)
+                .add("cbo", DataTypes.IntegerType, true)
+                .add("lcom", DataTypes.IntegerType, true)
+                .add("rfc", DataTypes.IntegerType, true)
+                .add("number_of_fields", DataTypes.IntegerType, true);
+
+    }
 }

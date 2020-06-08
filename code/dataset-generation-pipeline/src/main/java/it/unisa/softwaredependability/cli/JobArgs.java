@@ -13,8 +13,11 @@ public class JobArgs {
     @Parameter(names = {"-i", "--input"}, description = "Input file", required = true)
     private URI inputFile;
 
-    @Parameter(names = {"-o", "--output"}, description = "Output directory", required = true)
-    private URI outputDir;
+    @Parameter(names = {"-co", "--commits-output"}, description = "Output directory for refactoring commits", required = true)
+    private URI commitsOutputDir;
+
+    @Parameter(names = {"-mo", "--metrics-output"}, description = "Output directory for metrics", required = false)
+    private URI metricsOutputDir;
 
     @Parameter(names = {"-p", "--parallel-jobs"}, description = "Number of parallel mining jobs per repository")
     private int parallelJobs = 1;
@@ -46,12 +49,12 @@ public class JobArgs {
         return this;
     }
 
-    public URI getOutputDir() {
-        return outputDir;
+    public URI getCommitsOutputDir() {
+        return commitsOutputDir;
     }
 
-    public JobArgs setOutputDir(URI outputDir) {
-        this.outputDir = outputDir;
+    public JobArgs setCommitsOutputDir(URI commitsOutputDir) {
+        this.commitsOutputDir = commitsOutputDir;
         return this;
     }
 
@@ -115,6 +118,15 @@ public class JobArgs {
 
     public JobArgs setBatchSize(int batchSize) {
         this.batchSize = batchSize;
+        return this;
+    }
+
+    public URI getMetricsOutputDir() {
+        return metricsOutputDir;
+    }
+
+    public JobArgs setMetricsOutputDir(URI metricsOutputDir) {
+        this.metricsOutputDir = metricsOutputDir;
         return this;
     }
 }
