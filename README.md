@@ -68,10 +68,10 @@ This class is designed abstract and allows the implementation of an additional p
 after running the job are implemented and can be modified.
 - `DatasetExtractionPipeline`: This pipeline allows the extraction of the repositories with the most commits from the GHTorrent archive and requires the CSV files from their website (the MySQL dump).
 - `RefactoringMiningPipeline`: The heart of this project. Allows the extraction of refactoring commits in the first part and, with an intermediate result, afterwards calculate the metrics. Both parts are heavily built on JGit and allow a simple reconfiguration to filter for other commits one is interested in. It contains the following steps (listed chronological):
--- `RepositoryResolver`: Checks if the repository is still available by calling the github api and get's the full url back.
--- `CommitSplitter`: Splits the commit by the given batch size to avoid out of memory errors in larger repositories and enable the parallelization.
--- `StaticRefactoringMiner`: Wraps the RefactoringMiner library and outputs a list of refactoring operations. Please note that this project uses an slighty adapted version of RepositoryMiner which can be found [here](https://github.com/im-a-giraffe/RefactoringMiner). Just use clone the repo and use `mvn clean install` enable the dependency resolving. 
--- `DiffContentExtractor`: This calculates the diff between the earlier extracted refactoring commit id and its parent. Also checks out the repository by this commit id to make the correct files for CK library available.
+  - `RepositoryResolver`: Checks if the repository is still available by calling the github api and get's the full url back.
+  - `CommitSplitter`: Splits the commit by the given batch size to avoid out of memory errors in larger repositories and enable the parallelization.
+  - `StaticRefactoringMiner`: Wraps the RefactoringMiner library and outputs a list of refactoring operations. Please note that this project uses an slighty adapted version of RepositoryMiner which can be found [here](https://github.com/im-a-giraffe/RefactoringMiner). Just use clone the repo and use `mvn clean install` enable the dependency resolving. 
+  - `DiffContentExtractor`: This calculates the diff between the earlier extracted refactoring commit id and its parent. Also checks out the repository by this commit id to make the correct files for CK library available.
 
 ### Metric Processor
 This interface builds the abstraction of a metric calculation unit and can be implemented with other metric generation libraries as well. `CKMetricProcessor` is an implementation
