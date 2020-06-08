@@ -23,4 +23,15 @@ public class CKMetricProcessor implements MetricProcessor<CKClassResult> {
 
         return classResults;
     }
+
+    @Override
+    public List<Metric<CKClassResult>> calculate(File rootDir, String[] javaFiles) {
+        CK ck = new CK(false, 100, true);
+        List<Metric<CKClassResult>> classResults = new ArrayList<>();
+        ck.calculateWithGivenFiles(rootDir.getAbsolutePath(), javaFiles, result -> {
+            classResults.add(new Metric<>(result));
+        });
+
+        return classResults;
+    }
 }

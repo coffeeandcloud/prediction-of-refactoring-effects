@@ -1,5 +1,6 @@
 package it.unisa.softwaredependability.processor;
 
+import com.github.mauricioaniche.ck.CKClassResult;
 import it.unisa.softwaredependability.model.metrics.Metric;
 import it.unisa.softwaredependability.model.metrics.MetricResult;
 import it.unisa.softwaredependability.processor.metric.MetricProcessor;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -89,24 +91,55 @@ public class DiffContentExtractor {
         RevCommit parentCommit = commit.getParent(0);
 
         List<MetricResult> results = new ArrayList<>();
+        List<DiffEntry> diffs = new ArrayList<>();
 
         try(DiffFormatter diffFormatter = new DiffFormatter(NullOutputStream.INSTANCE)) {
             diffFormatter.setRepository(repo);
             for(DiffEntry diffEntry : diffFormatter.scan(parentCommit, commit)) {
                 if(diffEntry.getChangeType() != DiffEntry.ChangeType.DELETE && diffEntry.getNewPath().endsWith(fileEnding)) {
-                    // TODO add option to filter to avoid duplicates and/or filter by only diff containing files
-                    MetricResult metricResult = createMetricResult(diffEntry, refactoringOperation);
-                    git.checkout().setName(parentCommit.name()).call();
-                    metricResult.getMetrics().addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), LEFT_SIDE));
-                    git.checkout().setName(commit.name()).call();
-                    metricResult.getMetrics().addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), RIGHT_SIDE));
-                    git.checkout().setName(headCommit.name()).call();
-                    results.add(metricResult);
+                    diffs.add(diffEntry);
                 }
             }
         }
+
+        Set<String> interestingOldFilePaths = diffs.stream()
+                .map(d -> d.getOldPath())
+                .map(f -> repositoryManager.getLocalPath() + "/" + f).collect(Collectors.toSet());
+        Set<String> interestingNewFilePaths = diffs.stream()
+                .map(d -> d.getNewPath())
+                .map(f -> repositoryManager.getLocalPath() + "/" + f).collect(Collectors.toSet());
+
+        List<Metric> metrics = new ArrayList<>();
+
+        git.checkout().setName(parentCommit.name()).call();
+        metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingOldFilePaths.stream().collect(Collectors.toList()), LEFT_SIDE));
+        git.checkout().setName(commit.name()).call();
+        metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingNewFilePaths.stream().collect(Collectors.toList()), RIGHT_SIDE));
+        git.checkout().setName(headCommit.name()).call();
+
+        for(DiffEntry d: diffs) {
+            MetricResult result = createMetricResult(d, refactoringOperation);
+            result.getMetrics().addAll(filterMatchingMetrics(
+                    repositoryManager.getLocalPath() + "/" + d.getOldPath(),
+                    repositoryManager.getLocalPath() + "/" + d.getNewPath(),
+                    metrics));
+            results.add(result);
+        }
+
         walk.dispose();
         return results;
+    }
+
+    private List<Metric> filterMatchingMetrics(String oldPath, String newPath, List<Metric> metrics) {
+        List<Metric> filteredMetrics = new ArrayList<>();
+        for(Metric m: metrics) {
+            Metric<CKClassResult> ckMetric = (Metric<CKClassResult>) m;
+
+            if(ckMetric.getValue().getFile().equals(oldPath) || ckMetric.getValue().getFile().equals(newPath)) {
+                filteredMetrics.add(ckMetric);
+            }
+        }
+        return filteredMetrics;
     }
 
     private MetricResult createMetricResult(DiffEntry d, String refactoringOperation) {
@@ -121,10 +154,11 @@ public class DiffContentExtractor {
         return mr;
     }
 
-    private List<Metric> calculateMetricsInDir(File rootDir, String side) {
+    private List<Metric> calculateMetricsInDir(File rootDir, List<String> javaFiles, String side) {
+        String[] files = javaFiles.stream().toArray(String[]::new);
         List<Metric> metrics = new ArrayList<>();
         for(MetricProcessor p: metricProcessors) {
-            List<Metric> m = p.calculate(rootDir);
+            List<Metric> m = p.calculate(rootDir, files);
             if(m != null) metrics.addAll(m);
         }
         return metrics.stream().map(m -> m.setSide(side)).collect(Collectors.toList());
