@@ -66,10 +66,18 @@ public class DiffContentExtractor {
             if(git == null) {
                 git = repositoryManager.openGitWithUrl(repoName, SparkEnv.get().executorId());
             }
-            metricResults.addAll(calculateByCommitId(r.getString(1), r.getString(2), git));
+            metricResults.addAll(calculateByCommitId(r.getString(1), flattenList(r.getList(2)), git));
         }
         git.close();
         return metricResults;
+    }
+
+    private String flattenList(List<String> list) {
+        StringBuilder sb = new StringBuilder();
+        for(String s: list) {
+            sb.append(s).append(",");
+        }
+        return sb.toString();
     }
 
     private List<MetricResult> calculateByCommitId(String commitId, String refactoringOperation, Git git) throws IOException, GitAPIException {

@@ -9,13 +9,13 @@ import it.unisa.softwaredependability.processor.RepositoryResolver;
 import it.unisa.softwaredependability.processor.StaticRefactoringMiner;
 import it.unisa.softwaredependability.processor.metric.CKMetricProcessor;
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class RefactoringMiningPipeline extends Pipeline  {
 
@@ -41,6 +41,10 @@ public class RefactoringMiningPipeline extends Pipeline  {
         RepositoryResolver resolver = RepositoryResolver
                 .getInstance((String) config.get("github.user"), (String) config.get("github.token"));
 
+        /*
+         * Stage 1: Extract the refactorings
+         */
+
         JavaRDD<Row> repoList = sparkSession.read()
                 .format("csv")
                 .option("header", "false")
@@ -63,23 +67,42 @@ public class RefactoringMiningPipeline extends Pipeline  {
                 .write()
                 .parquet((String) config.get("output.dir.commits"));
 
-        JavaRDD<Row> commitMetricResults = commits
+        /*
+         * Stage 2: Extract the metrics
+         */
+
+        Dataset<Row> agg = sparkSession.read()
+                .schema(DatasetHeader.getSmallRefactoringCommitHeader())
+                .parquet((String) config.get("output.dir.commits"))
+                .groupBy("repository", "commit_id")
+                .agg(functions.collect_list(new ColumnName("type")).as("type_arr"));
+
+        JavaRDD<Row> commitMetricResults =
+                agg.toJavaRDD()
                 .repartition((Integer) config.get("jobs.parallel"))
-                .mapPartitions(partitions -> {
+                .mapPartitions((partitions) -> {
                     List<List<Row>> partition = Lists.partition(Lists.newArrayList(partitions), 1000);
+                    ArrayList<List<List<Row>>> lists = new ArrayList<>();
+                    lists.add(partition);
+                    return lists.iterator();
+                })
+                .flatMap(batchedPartition -> {
                     // Alternative: return partial list
                     List<MetricResult> metricResults = new ArrayList<>();
-                    for(List<Row> p: partition) {
+                    for (List<Row> p : batchedPartition) {
                         DiffContentExtractor extractor = new DiffContentExtractor()
                                 .addMetricProcessor(new CKMetricProcessor());
                         metricResults.addAll(extractor.executeBatch(p));
                     }
-                    return metricResults.iterator();
-                }).flatMap(x -> x.toRow().iterator());
+                    return metricResults.stream().map(x -> x.toRow()).collect(Collectors.toList()).iterator();
+                })
+                .flatMap(x -> x.iterator());
 
         sparkSession.createDataFrame(commitMetricResults, DatasetHeader.getCommitHeaderWithMetrics())
                 .write()
                 .parquet((String) config.get("output.dir.metrics"));
+
+
     }
 
     @Override
