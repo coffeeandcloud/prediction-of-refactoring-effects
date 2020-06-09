@@ -7,7 +7,8 @@ import it.unisa.softwaredependability.processor.metric.MetricProcessor;
 import org.apache.spark.SparkEnv;
 import org.apache.spark.sql.Row;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.ResetCommand;
+import org.eclipse.jgit.api.errors.*;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.lib.Constants;
@@ -111,23 +112,44 @@ public class DiffContentExtractor {
 
         List<Metric> metrics = new ArrayList<>();
 
-        git.checkout().setName(parentCommit.name()).call();
-        metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingOldFilePaths.stream().collect(Collectors.toList()), LEFT_SIDE));
-        git.checkout().setName(commit.name()).call();
-        metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingNewFilePaths.stream().collect(Collectors.toList()), RIGHT_SIDE));
-        git.checkout().setName(headCommit.name()).call();
+        try {
+            checkout(git, parentCommit.name());
+            metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingOldFilePaths.stream().collect(Collectors.toList()), LEFT_SIDE));
+            checkout(git, commit.name());
+            metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingNewFilePaths.stream().collect(Collectors.toList()), RIGHT_SIDE));
+            checkout(git, headCommit.name());
 
-        for(DiffEntry d: diffs) {
-            MetricResult result = createMetricResult(d, refactoringOperation);
-            result.getMetrics().addAll(filterMatchingMetrics(
-                    repositoryManager.getLocalPath() + "/" + d.getOldPath(),
-                    repositoryManager.getLocalPath() + "/" + d.getNewPath(),
-                    metrics));
-            results.add(result);
+            for(DiffEntry d: diffs) {
+                MetricResult result = createMetricResult(d, refactoringOperation);
+                result.getMetrics().addAll(filterMatchingMetrics(
+                        repositoryManager.getLocalPath() + "/" + d.getOldPath(),
+                        repositoryManager.getLocalPath() + "/" + d.getNewPath(),
+                        metrics));
+                results.add(result);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         walk.dispose();
         return results;
+    }
+
+    private void checkout(Git git, String commitId) throws GitAPIException {
+        try {
+            git.checkout().setName(commitId).call();
+        } catch (CheckoutConflictException e) {
+            git.reset().setMode(ResetCommand.ResetType.HARD).call();
+            git.checkout().setName(commitId).call();
+        } catch (InvalidRefNameException e) {
+            e.printStackTrace();
+        } catch (RefAlreadyExistsException e) {
+            e.printStackTrace();
+        } catch (RefNotFoundException e) {
+            e.printStackTrace();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
     }
 
     private List<Metric> filterMatchingMetrics(String oldPath, String newPath, List<Metric> metrics) {
