@@ -56,8 +56,10 @@ how a Spark job can be submitted. The application is parametrized and contains t
 ### Cluster mode
 Cluster mode is the more important mode to run Spark. You can submit to a running cluster by using the script `runLocalCluster.sh` which defers
 only in the following two parameters:
-- **--master "spark://myclusteradress:7077":** The address of the spark master node the job is submitted to.
-- **--executor-memory: 8g:** Defines how much memory one executor can use to execute the job. 8gb per executor is good value for larger repositories.
+
+**--master "spark://myclusteradress:7077":** The address of the spark master node the job is submitted to.
+
+**--executor-memory: 8g:** Defines how much memory one executor can use to execute the job. 8gb per executor is good value for larger repositories.
 
 
 ## Architecture
