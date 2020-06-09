@@ -15,7 +15,7 @@ public class CKMetricProcessor implements MetricProcessor<CKClassResult> {
 
     @Override
     public List<Metric<CKClassResult>> calculate(File rootDir) {
-        CK ck = new CK(false, 100, true);
+        CK ck = new CK(false, 10, true);
         List<Metric<CKClassResult>> classResults = new ArrayList<>();
         ck.calculate(rootDir.getAbsolutePath(), result -> {
             classResults.add(new Metric<>(result));

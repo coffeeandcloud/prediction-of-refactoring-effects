@@ -113,10 +113,13 @@ public class DiffContentExtractor {
         List<Metric> metrics = new ArrayList<>();
 
         try {
+            log.info("Checkout first");
             checkout(git, parentCommit.name());
             metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingOldFilePaths.stream().collect(Collectors.toList()), LEFT_SIDE));
+            log.info("Checkout second");
             checkout(git, commit.name());
             metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingNewFilePaths.stream().collect(Collectors.toList()), RIGHT_SIDE));
+            log.info("Checkout back to first");
             checkout(git, headCommit.name());
 
             for(DiffEntry d: diffs) {
@@ -137,6 +140,11 @@ public class DiffContentExtractor {
 
     private void checkout(Git git, String commitId) throws GitAPIException {
         try {
+            while(git.status().call().hasUncommittedChanges()) {
+                log.info("Has uncommitted changes. Resetting...");
+                git.reset().setMode(ResetCommand.ResetType.HARD).call();
+                Thread.sleep(1000);
+            }
             git.checkout().setName(commitId).call();
         } catch (CheckoutConflictException e) {
             git.reset().setMode(ResetCommand.ResetType.HARD).call();
@@ -148,6 +156,8 @@ public class DiffContentExtractor {
         } catch (RefNotFoundException e) {
             e.printStackTrace();
         } catch (GitAPIException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

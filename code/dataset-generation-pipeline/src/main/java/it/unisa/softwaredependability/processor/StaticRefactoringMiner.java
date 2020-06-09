@@ -47,6 +47,11 @@ public class StaticRefactoringMiner {
             public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {
                 log.info("onFinishCalled.");
             }
+
+            @Override
+            public void handleException(String commitId, Exception e) {
+                log.warning(e.getMessage());
+            }
         });
 
         repo.close();
