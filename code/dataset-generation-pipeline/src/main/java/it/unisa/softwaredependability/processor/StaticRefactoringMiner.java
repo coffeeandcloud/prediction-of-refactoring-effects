@@ -39,13 +39,18 @@ public class StaticRefactoringMiner {
             @Override
             public void handle(String commitId, List<Refactoring> refactorings) {
                 List<Row> refactoringRows = GitRefactoringCommit.createSmallRow(range.getRepoUrl(), commitId, refactorings);
-                if(!refactorings.isEmpty()) log.info("Adding " + refactorings.size());
+                //if(!refactorings.isEmpty()) log.info("Adding " + refactorings.size());
                 commits.addAll(refactoringRows);
             }
 
             @Override
             public void onFinish(int refactoringsCount, int commitsCount, int errorCommitsCount) {
                 log.info("onFinishCalled.");
+            }
+
+            @Override
+            public void handleException(String commitId, Exception e) {
+                log.warning(e.getMessage());
             }
         });
 

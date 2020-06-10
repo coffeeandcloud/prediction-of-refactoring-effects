@@ -7,6 +7,7 @@ import it.unisa.softwaredependability.model.metrics.Metric;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public class CKMetricProcessor implements MetricProcessor<CKClassResult> {
@@ -15,11 +16,25 @@ public class CKMetricProcessor implements MetricProcessor<CKClassResult> {
 
     @Override
     public List<Metric<CKClassResult>> calculate(File rootDir) {
-        CK ck = new CK(false, 100, true);
+        CK ck = new CK(false, 10, true);
         List<Metric<CKClassResult>> classResults = new ArrayList<>();
         ck.calculate(rootDir.getAbsolutePath(), result -> {
             classResults.add(new Metric<>(result));
         });
+
+        return classResults;
+    }
+
+    @Override
+    public List<Metric<CKClassResult>> calculate(File rootDir, String[] javaFiles) {
+        CK ck = new CK(false, 100, true);
+        List<Metric<CKClassResult>> classResults = new ArrayList<>();
+        String u = UUID.randomUUID().toString();
+        log.info("Starting calculation (id='" + u + "')");
+        ck.calculateWithGivenFiles(rootDir.getAbsolutePath(), javaFiles, result -> {
+            classResults.add(new Metric<>(result));
+        });
+        log.info("Ending calculation (id='" + u + "')");
 
         return classResults;
     }

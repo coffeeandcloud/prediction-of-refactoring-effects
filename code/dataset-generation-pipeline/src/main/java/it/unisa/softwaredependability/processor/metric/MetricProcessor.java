@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MetricProcessor<T> {
     List<Metric<T>> calculate(File rootDir);
+    List<Metric<T>> calculate(File rootDir, String[] javaFiles);
 }
