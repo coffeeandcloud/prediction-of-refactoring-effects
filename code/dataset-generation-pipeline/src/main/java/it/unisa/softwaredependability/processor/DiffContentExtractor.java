@@ -12,7 +12,9 @@ import org.eclipse.jgit.api.errors.*;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
 import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.StoredConfig;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.util.io.NullOutputStream;
@@ -22,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -52,26 +55,24 @@ public class DiffContentExtractor {
         return this;
     }
 
-
-    public List<MetricResult> execute(String commitId, String refactoringOperation) throws IOException, GitAPIException {
-        Git git = repositoryManager.openGitWithUrl(repoName, SparkEnv.get().executorId());
-        List<MetricResult> metricResults = calculateByCommitId(commitId, refactoringOperation, git);
-        git.close();
-        return metricResults;
-    }
-
     public List<MetricResult> executeBatch(List<Row> commitRow) throws IOException, GitAPIException {
-        log.info("Executing batch of size " + commitRow.size());
+        String batchId = UUID.randomUUID().toString();
+        //log.info("Executing batch of size " + commitRow.size() + " (batchId=" +batchId +")");
         Git git = null;
         List<MetricResult> metricResults = new ArrayList<>();
+        int it = 0;
         for(Row r: commitRow) {
+            //log.info("Iteration " + it + "/"+commitRow.size()+ "(batchId="+batchId+")");
             repoName = r.getString(0);
-            if(git == null) {
-                git = repositoryManager.openGitWithUrl(repoName, SparkEnv.get().executorId());
-            }
+            git = repositoryManager.openGitWithUrl(repoName, SparkEnv.get().executorId());
+
             metricResults.addAll(calculateByCommitId(r.getString(1), flattenList(r.getList(2)), git));
+            it++;
+            git.close();
+
         }
-        git.close();
+        //log.info("Closing patch processing (batchId=" +batchId +")");
+
         return metricResults;
     }
 
@@ -85,9 +86,14 @@ public class DiffContentExtractor {
 
     private List<MetricResult> calculateByCommitId(String commitId, String refactoringOperation, Git git) throws IOException, GitAPIException {
         Repository repo = git.getRepository();
+        StoredConfig config = repo.getConfig();
+        config.setString("core", null, "autocrlf", "false");
+        config.setBoolean("core", null, "ignorecase", true);
+        config.save();
+
         RevWalk walk = new RevWalk(repo);
 
-        RevCommit headCommit = walk.parseCommit(repo.resolve(Constants.HEAD));
+        ObjectId headCommit = repo.resolve(Constants.HEAD);
         RevCommit commit = walk.parseCommit(repo.resolve(commitId));
         RevCommit parentCommit = commit.getParent(0);
 
@@ -102,6 +108,7 @@ public class DiffContentExtractor {
                 }
             }
         }
+        walk.dispose();
 
         Set<String> interestingOldFilePaths = diffs.stream()
                 .map(d -> d.getOldPath())
@@ -113,13 +120,13 @@ public class DiffContentExtractor {
         List<Metric> metrics = new ArrayList<>();
 
         try {
-            log.info("Checkout first");
+            //log.info("Checkout first");
             checkout(git, parentCommit.name());
             metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingOldFilePaths.stream().collect(Collectors.toList()), LEFT_SIDE));
-            log.info("Checkout second");
+            //log.info("Checkout second");
             checkout(git, commit.name());
             metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingNewFilePaths.stream().collect(Collectors.toList()), RIGHT_SIDE));
-            log.info("Checkout back to first");
+            //log.info("Checkout back to first");
             checkout(git, headCommit.name());
 
             for(DiffEntry d: diffs) {
@@ -134,16 +141,25 @@ public class DiffContentExtractor {
             e.printStackTrace();
         }
 
-        walk.dispose();
         return results;
     }
 
     private void checkout(Git git, String commitId) throws GitAPIException {
         try {
+            // TODO reset the repository
+            int count = 0;
             while(git.status().call().hasUncommittedChanges()) {
-                log.info("Has uncommitted changes. Resetting...");
+                log.info("Has uncommitted changes. Resetting... " + commitId);
+                git.rm().addFilepattern(".").setCached(false).call();
                 git.reset().setMode(ResetCommand.ResetType.HARD).call();
-                Thread.sleep(1000);
+                git.clean().setForce(true).call();
+
+                count++;
+                if(count > 3) {
+                    log.info("We are stuck in an unresetable state caused by JGit handling the 'core.autocrlf' " +
+                            "setting. Some files may be not analyzed.");
+                    break;
+                }
             }
             git.checkout().setName(commitId).call();
         } catch (CheckoutConflictException e) {
@@ -156,8 +172,6 @@ public class DiffContentExtractor {
         } catch (RefNotFoundException e) {
             e.printStackTrace();
         } catch (GitAPIException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -175,7 +189,6 @@ public class DiffContentExtractor {
     }
 
     private MetricResult createMetricResult(DiffEntry d, String refactoringOperation) {
-        log.info("Extracting files between '" + d.getOldId().name() + "' and '" + d.getNewId().name() + "'");
         MetricResult mr = new MetricResult();
         mr.setCommitId(d.getNewId().name());
         mr.setParentCommitId(d.getOldId().name());

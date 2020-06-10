@@ -39,7 +39,7 @@ public class StaticRefactoringMiner {
             @Override
             public void handle(String commitId, List<Refactoring> refactorings) {
                 List<Row> refactoringRows = GitRefactoringCommit.createSmallRow(range.getRepoUrl(), commitId, refactorings);
-                if(!refactorings.isEmpty()) log.info("Adding " + refactorings.size());
+                //if(!refactorings.isEmpty()) log.info("Adding " + refactorings.size());
                 commits.addAll(refactoringRows);
             }
 
