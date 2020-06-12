@@ -40,6 +40,9 @@ public class JobArgs {
     @Parameter(names = {"--batch-size", "-bs"}, description = "Size of the batch in which the commits are splitted. Higher batch sizes require more system memory.")
     private int batchSize = 100;
 
+    @Parameter(names = {"--refactoring-mining-only"}, description = "If set to true, only the refactoring mining step is executed", required = false)
+    private boolean refactoringMiningOnly = false;
+
     public URI getInputFile() {
         return inputFile;
     }
@@ -127,6 +130,15 @@ public class JobArgs {
 
     public JobArgs setMetricsOutputDir(URI metricsOutputDir) {
         this.metricsOutputDir = metricsOutputDir;
+        return this;
+    }
+
+    public boolean isRefactoringMiningOnly() {
+        return refactoringMiningOnly;
+    }
+
+    public JobArgs setRefactoringMiningOnly(boolean refactoringMiningOnly) {
+        this.refactoringMiningOnly = refactoringMiningOnly;
         return this;
     }
 }
