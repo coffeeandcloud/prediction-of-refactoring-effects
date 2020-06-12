@@ -72,7 +72,7 @@ public class RefactoringMiningPipeline extends Pipeline  {
          * Stage 2: Extract the metrics
          */
 
-        if(config.containsKey("output.dir.commits")) {
+        if(!((boolean) config.get("mining.refactoring.only"))) {
             Dataset<Row> agg = sparkSession.read()
                     .schema(DatasetHeader.getSmallRefactoringCommitHeader())
                     .parquet((String) config.get("output.dir.commits"))

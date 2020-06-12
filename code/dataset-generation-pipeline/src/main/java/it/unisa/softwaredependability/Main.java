@@ -7,6 +7,7 @@ import it.unisa.softwaredependability.pipeline.RefactoringMiningPipeline;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public class Main {
@@ -48,8 +49,9 @@ public class Main {
         try {
             Map<String, Object> config = new HashMap<>();
             config.put("output.dir.commits", jobArgs.getCommitsOutputDir().toString());
-            config.put("output.dir.metrics", jobArgs.getMetricsOutputDir().toString());
+            config.put("output.dir.metrics", jobArgs.getMetricsOutputDir() == null ? UUID.randomUUID().toString() : jobArgs.getMetricsOutputDir().toString());
             config.put("repository.list", jobArgs.getInputFile().toString());
+            config.put("mining.refactoring.only", jobArgs.isRefactoringMiningOnly());
             config.put("jobs.parallel", jobArgs.getParallelJobs());
             config.put("repos.parallel", jobArgs.getParallelRepos());
             config.put("github.user", jobArgs.getUsername());
