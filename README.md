@@ -19,6 +19,8 @@ to avoid conflicts between different library versions (e.g. multiple conflicting
 
 Additionally, you need to build the adapted version of RefactoringMiner which can be found as a forked project [here](https://github.com/im-a-giraffe/RefactoringMiner). After cloning, just run `gradle install` to build the jars and install them to your local repository. It is important to build this project with JDK 8, because otherwise you will run into problems when including it in the Spark application which is only able to run on version <= Java 8.
 
+The same process applies for the CK library that is used to calculate the software quality metrics. The library was forked, adopted and can be found [here](https://github.com/im-a-giraffe/ck). It is a maven-based project, so running `mvn clean install` should be sufficient to install the modified version to your local repository.
+
 ### Spark framework setup
 Make sure that you first download the [Apache Spark binary](https://spark.apache.org/downloads.html) (version 2.4.5)
 with Hadoop binaries included. Just unpack the archive and set the environment variable `SPARK_HOME` to that directory. Additonally,
