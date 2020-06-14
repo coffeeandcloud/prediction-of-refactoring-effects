@@ -43,8 +43,10 @@ how a Spark job can be submitted. The application is parametrized and contains t
 
 **--commits-output "commits":** Directory where Parquet files are written to (intermediate results, list of commits containing refactorings)
 
-**--metrics-output "commitmetricresults":**  Directory where the results are written to. Both paths can be also be on HDFS compatible file systems (including AWS S3 storage, just start the path with `s3n://mybucket/folder)
+**--metrics-output "commitmetricresults":**  Directory where the results are written to. Both paths can be also be on HDFS compatible file systems (including AWS S3 storage, just start the path with `s3n://mybucket/folder`)
+
 **--parallel-jobs 1:** Number of repositories that are mined in parallel
+
 **--parallel-repos 1:** Number of parallel jobs the mining process is split into. This value should match the number of executors within the cluster for best performance.
 
 **--batch-size 100:** Size of the generated batches the commits and files are processed. Higher batch size increases the computation speed due to less overhead, but can exceed the heap space when chosen to large. Values between 100 and 1000 are a good start, depending on the size of the repository and amout of memory installed on the machines.
