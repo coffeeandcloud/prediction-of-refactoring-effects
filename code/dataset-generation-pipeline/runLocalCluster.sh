@@ -9,8 +9,8 @@ rm -R /Users/martinsteinhauer/Desktop/commitmetricresults
 --conf "spark.serializer=org.apache.spark.serializer.KryoSerializer" \
 target/dataset-generation-pipeline-1.0-SNAPSHOT.jar \
 --input "datasets/small.csv" \
---commits-output "/Users/martinsteinhauer/Desktop/commits" \
---metrics-output "/Users/martinsteinhauer/Desktop/commitmetricresults" \
+--commits-output "path/to/dir/commits" \
+--metrics-output "path/to/dir/commitmetricresults" \
 --refactoring-mining-only \
 --parallel-jobs 1 \
 --parallel-repos 1 \
