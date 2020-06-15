@@ -47,6 +47,8 @@ how a Spark job can be submitted. The application is parametrized and contains t
 
 **--metrics-output "commitmetricresults":**  Directory where the results are written to. Both paths can be also be on HDFS compatible file systems (including AWS S3 storage, just start the path with `s3n://mybucket/folder`)
 
+**--refactoring-mining-only:** This parameter is optional. When present, it only executes the refactoring mining part of the pipeline and saves the output to the `commits`-directory.
+
 **--parallel-jobs 1:** Number of repositories that are mined in parallel
 
 **--parallel-repos 1:** Number of parallel jobs the mining process is split into. This value should match the number of executors within the cluster for best performance.
