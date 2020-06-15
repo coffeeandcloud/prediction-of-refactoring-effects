@@ -8,19 +8,16 @@ import it.unisa.softwaredependability.pipeline.RefactoringMiningPipeline;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 public class Main {
-
-    static Logger logger = Logger.getGlobal();
 
     public static void main(String[] args) {
 
         JobArgs jobArgs = CliParser.parse(args);
 
+        // uncomment this line to enable the GHTorrent pipeline
         //executeRepositoryExtractionPipeline();
         executeRefactoringCommitPipeline(jobArgs);
-        //executeStreamingRefactoringPipeline();
     }
 
     static void executeRepositoryExtractionPipeline() {

@@ -120,13 +120,10 @@ public class DiffContentExtractor {
         List<Metric> metrics = new ArrayList<>();
 
         try {
-            //log.info("Checkout first");
             checkout(git, parentCommit.name());
             metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingOldFilePaths.stream().collect(Collectors.toList()), LEFT_SIDE));
-            //log.info("Checkout second");
             checkout(git, commit.name());
             metrics.addAll(calculateMetricsInDir(new File(repositoryManager.getLocalPath()), interestingNewFilePaths.stream().collect(Collectors.toList()), RIGHT_SIDE));
-            //log.info("Checkout back to first");
             checkout(git, headCommit.name());
 
             for(DiffEntry d: diffs) {
