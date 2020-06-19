@@ -1,0 +1,122 @@
+\documentclass[sigconf,table,screen,xcdraw,review]{acmart}
+
+\usepackage{booktabs} 
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{pifont}
+\usepackage{xspace}
+\usepackage{multirow}
+\usepackage{xcolor,colortbl}
+\usepackage{hhline}
+\usepackage{adjustbox}
+\usepackage{booktabs} 
+\usepackage{amssymb}
+\usepackage{balance}
+\usepackage{tcolorbox}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{paralist}
+\usepackage{enumitem}
+\usepackage{lipsum}
+\usepackage{listings}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.73,0.38,0.06}
+\definecolor{codepurple}{rgb}{0.27,0.38,0.97}
+\definecolor{codemagenta}{rgb}{0.74,0.09,0.42}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+% for footnotes on the same line
+\usepackage[para]{footmisc}
+\setcitestyle{numbers,sort&compress}
+
+\newcommand\iris{\textsc{Iris}\xspace}
+
+\newcommand*{\ColorIfNotInString}[1]{\color{codegray}\textbf{#1}}%
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codemagenta},
+    language=Java,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    keepspaces=true,                 
+    numbers=left,
+    xleftmargin=0.25cm,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=1,
+    frame=tb,
+    framerule=0pt,
+    literate=%
+    {0}{{{\ColorIfNotInString{0}}}}1
+    {1}{{{\ColorIfNotInString{1}}}}1
+    {2}{{{\ColorIfNotInString{2}}}}1
+    {3}{{{\ColorIfNotInString{3}}}}1
+    {4}{{{\ColorIfNotInString{4}}}}1
+    {5}{{{\ColorIfNotInString{5}}}}1
+    {6}{{{\ColorIfNotInString{6}}}}1
+    {7}{{{\ColorIfNotInString{7}}}}1
+    {8}{{{\ColorIfNotInString{8}}}}1
+    {9}{{{\ColorIfNotInString{9}}}}1
+}
+% \usepackage{inconsolata}
+\lstset{basicstyle=\fontsize{6}{6}\fontfamily{\ttdefault}\selectfont,style=mystyle}
+
+\renewcommand{\arraystretch}{1.2}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\include{macro}
+
+\sloppy
+
+\begin{document}
+
+\title[Speeding Up the Data Extraction of Machine Learning Approaches]{Speeding Up the Data Extraction of Machine Learning Approaches: A Distributed Framework}
+% \iris stays for d\textbf{I}st\textbf{R}ibuted m\textbf{I}ning \textbf{S}oftware repositories
+
+	\author{Martin Steinhauer}
+	\affiliation{%
+		\institution{SeSa Lab - University of Salerno}
+		\city{Fisciano (Salerno)}
+		\state{Italy}
+	}
+	\email{m.steinhauer@studenti.unisa.it}
+
+	\author{Fabio Palomba}
+	\affiliation{%
+	\institution{SeSa Lab - University of Salerno}
+	\city{Fisciano (Salerno)}
+	\state{Italy}
+	}
+	\email{fpalomba@unisa.it}
+
+\begin{abstract}
+TBD
+
+\end{abstract}
+
+\keywords{Machine Learning Pipelines; Distributed Mining; Mining Software Repositories.}
+\maketitle
+
+\input{introduction}
+\input{background}
+\input{approach}
+\input{study}
+\input{discussion}
+\input{conclusions}
+
+\clearpage
+\balance
+\bibliographystyle{abbrv}
+\bibliography{references}
+% That's all folks!
+\end{document}
