@@ -4,7 +4,11 @@
 
 \subsection{Discussion}
 \label{sec:observations}
-Here we should put some discussion/observations about the quantitative results. Why is the approach not able to reach even lower computational time? What about the overhead? etc. 
+The results in \ref{fig:relativeruntime} are showing that parallelization of the time dimension is has a positive impact on the overall runtime. The biggest impact is introduced when using two and four workers, eight workers minimize the runtime only by a very small amount and in case of Mahout even add additional time. This effect can be explained by the nature of Spark: While jobs can run concurrently, Spark waits until one computation step, in this case task 1 and 2, are completed. Because of reducing the heap usage, the Git history is split in batches of size \emph{k} which are typically ordered chronological. Since the amount of files is mostly increasing over time, the first batches have less computational effort than the ones with new commits. Therefore some workers just do nothing until all jobs are finished. Strengthened by table \ref{tab:variance}, the variance indicates that all job runtimes of task 1 are much more varying than task 2. The second task gets more homogeneous batches since for each refactoring commit one metric can be calculated.\\
+The task ratio table \ref{fig:taskratio} represents the way of the repository usage. Assuming that detecting refactorings is more effortful than only calculating some software quality metrics, task 1 is mostly less computational intense than task 2. The difference is how both libraries are accessing files: RefactoringMiner reads file contents directly from the object database, while CK needs a file system as input. Therefore, the repository has to be checked out before each metric calculation. This obviously takes more time than just reading the object database.\\
+Finally, the throughput in figure \ref{fig:throughput} shows that even when the effective runtime is decreased by parallelization, there is still some overhead introduced through Spark and data redistribution. This overhead is expressed by the number of less items that can be processed. By using the accumulated time, the waiting time described earlier is not considered.
 
 \subsection{Limitations of the framework}
+The biggest limitation of the IRIS implementation is the Git repository itself. 
+
 \label{sec:limitations}
