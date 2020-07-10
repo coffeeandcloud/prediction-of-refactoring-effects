@@ -4,7 +4,7 @@
 
 \subsection{Experimental Settings}
 \label{sec:method}
-The \emph{goal} of the study is to provide a preliminary assessment of the performance of the proposed framework, with the \emph{purpose} of understanding its potential usefulness for the data extraction stage of machine learning approaches. More specifically, we seek to understand computational time ... Hence, we pose the following research question:
+The \emph{goal} of the study is to provide a preliminary assessment of the performance of the proposed framework, with the \emph{purpose} of understanding its potential usefulness for the data extraction stage of machine learning approaches. More specifically, we seek to understand computational time, which heavily depends on the structure and dimension of the analyzed repositories. Hence, we pose the following research question:
 
 \begin{center}
 	\begin{examplebox}
@@ -12,8 +12,26 @@ The \emph{goal} of the study is to provide a preliminary assessment of the perfo
 	\end{examplebox}
 \end{center}
 
-\textbf{Context selection.} The \emph{context} of the study is composed of the version history of the systems reported in Table \ref{tab:systems}. The selection process is driven by... 
+\textbf{Context selection.} The \emph{context} of the study is composed of the version history of the systems reported in Table \ref{tab:systems}. The selection process of those repositories is driven by their amount of commits available on the master branch (or more specifically, the branch which HEAD is pointing to). We assume that repositories with the highest amount of commits also contain a lot of refactoring operations. Additionally, projects are selected by their popularity and active contribution of developers. \ref{tab:systems} shows auxiliary metrics to get a better understanding about the shape of the repository in terms of time and file dimension. Since the history is changing, we extracted information about the minimum and maximum amount of files as well as the mean number of files and the deviation. Time dimension is represented by the amount of commits available on the master branch.
 
+\begin{table}[htbp]
+\caption{Repository Dimensionality Metrics}
+\label{tab:systems}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Repository}&\textbf{File Min}&\textbf{File Max}&\textbf{File Mean}&\textbf{Commit Count}\\
+\hline
+reactivex/rxjava& * & * & * & 5755\\
+\hline
+apache/mahout& * & * & * & 4417\\
+\hline
+google/guava& * & * & * & 5295\\
+\hline
+\end{tabular}
+\label{tab2}
+\end{center}
+\end{table}
 
 \subsection{Analysis of the results}
 \label{sec:results}
