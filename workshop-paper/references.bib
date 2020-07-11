@@ -1,3150 +1,504 @@
-@Article{hindle2015,
-	author="Hindle, Abram",
-	title="Green mining: a methodology of relating software change and configuration to power consumption",
-	journal="Empirical Software Engineering",
-	year="2015",
-	month="Apr",
-	day="01",
-	volume="20",
-	number="2",
-	pages="374--409",
-	abstract="Power consumption is becoming more and more important with the increased popularity of smart-phones, tablets and laptops. The threat of reducing a customer's battery-life now hangs over the software developer, who now asks, ``will this next change be the one that causes my software to drain a customer's battery?'' One solution is to detect power consumption regressions by measuring the power usage of tests, but this is time-consuming and often noisy. An alternative is to rely on software metrics that allow us to estimate the impact that a change might have on power consumption thus relieving the developer from expensive testing. This paper presents a general methodology for investigating the impact of software change on power consumption, we relate power consumption to software changes, and then investigate the impact of OO software metrics and churn metrics on power consumption. We demonstrated that software change can effect power consumption using the Firefox web-browser and the Azureus/Vuze BitTorrent client. We found evidence of a potential relationship between some software metrics and power consumption. We also investigate the effect of library versioning on the power consumption of rTorrent. In conclusion, we investigate the effect of software change on power consumption on two projects; and we provide an initial investigation on the impact of software metrics on power consumption.",
-	issn="1573-7616",
-	doi="10.1007/s10664-013-9276-6",
-	url="https://doi.org/10.1007/s10664-013-9276-6"
+@article{Lin2019a,
+abstract = {Recent studies have demonstrated that software is natural, that is, its source code is highly repetitive and predictable like human languages. Also, previous studies suggested the existence of a relationship between code quality and its naturalness, presenting empirical evidence showing that buggy code is 'less natural' than non-buggy code. We conjecture that this qualitynaturalness relationship could be exploited to support refactoring activities (e.g., to locate source code areas in need of refactoring). We perform a first step in this direction by analyzing whether refactoring can improve the naturalness of code. We use state-of-The-Art tools to mine a large dataset of refactoring operations performed in open source systems. Then, we investigate the impact of different types of refactoring operations on the naturalness of the impacted code. We found that (i) code refactoring does not necessarily increase the naturalness of the refactored code; and (ii) the impact on the code naturalness strongly depends on the type of refactoring operations.},
+author = {Lin, Bin and Nagy, Csaba and Bavota, Gabriele and Lanza, Michele},
+doi = {10.1109/SANER.2019.8667992},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Lin et al. - On the Impact of Refactoring Operations on Code Quality Metrics - 2019.pdf:pdf},
+isbn = {9781728105918},
+journal = {SANER 2019 - Proceedings of the 2019 IEEE 26th International Conference on Software Analysis, Evolution, and Reengineering},
+keywords = {Naturalness,Open Source Software,Refactoring},
+mendeley-groups = {Software Dependability,Software Dependability/Related Work},
+pages = {594--598},
+title = {{On the Impact of Refactoring Operations on Code Quality Metrics}},
+year = {2019}
+}
+@article{McCabe1976e,
+abstract = {This paper describes a graph-theoretic complexity measure and illustrates how it can be used to manage and control program com- plexity .The paper first explains how the graph-theory concepts apply and gives an intuitive explanation of the graph concepts in programming terms. The control graphs of several actual Fortran programs are then presented to illustrate the conelation between intuitive complexity and the graph-theoretic complexity .Several properties of the graph- theoretic complexity are then proved which show, for example, that complexity is independent of physical size (adding or subtracting functional statements leaves complexity unchanged) and complexity depends only on the decision structure of a program. The issue of using non structured control flow )s also discussed. A characterization of nonstructured control graphs is given and a method of measuring the "structuredness" of a program is developed. The re- lationship between structure and reducibility is illustrated with several examples. The last section of this paper deals with a testing methodology used in conjunction with the complexity measure; a testing strategy is de- fined that dictates that a program can either admit of a certain minimal testing level or the program can be structurally reduced},
+author = {McCabe, Thomas J},
+doi = {10.1109/TSE.1976.233837},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/McCabe - A Complexity Measure - 1976.pdf:pdf},
+isbn = {2004200111},
+issn = {0098-5589},
+journal = {IEEE Transactions on Software Engineering},
+mendeley-groups = {Bachelorarbeit/Struktur/6 Complexity,Masterarbeit/2 Grundlagen/1 Software Qualit{\"{a}}t},
+number = {4},
+pages = {308--320},
+pmid = {300},
+title = {{A Complexity Measure}},
+year = {1976}
+}
+@article{Chidamber1994b,
+abstract = {We study a family of "classical" orthogonal polynomials which satisfy (apart from a 3-term recurrence relation) an eigenvalue problem with a differential operator of Dunkl-type. These polynomials can be obtained from the little {\$}q{\$}-Jacobi polynomials in the limit {\$}q=-1{\$}. We also show that these polynomials provide a nontrivial realization of the Askey-Wilson algebra for {\$}q=-1{\$}.},
+archivePrefix = {arXiv},
+arxivId = {1011.1669},
+author = {Chidamber, Shyam R. and Kemerer, Chris F.},
+doi = {10.1109/32.295895},
+eprint = {1011.1669},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Chidamber, Kemerer - A Metrics Suite for Object Oriented Design - 1994.pdf:pdf},
+isbn = {0098-5589},
+issn = {00985589},
+journal = {IEEE Transactions on Software Engineering},
+keywords = {CR categories and subject descriptors,Class,D.2.8[software engineering],General terms:,K.6.3 [management of computing and information sys,complexity,design,management,management F.2.3 [analysis of algorithms and probl,measurement,metrics,metrics; D.2.9 [software engineering],object orientation,performance,software management,tradeoffs among complexity measures},
+mendeley-groups = {Bachelorarbeit/Struktur/6 Complexity},
+number = {6},
+pages = {476--493},
+pmid = {21645860},
+title = {{A Metrics Suite for Object Oriented Design}},
+volume = {20},
+year = {1994}
+}
+@article{Markovtsev2018,
+abstract = {The number of open source software projects has been growing exponentially. The major online software repository host, GitHub, has accumulated tens of millions of publicly available Git version-controlled repositories. Although the research potential enabled by the available open source code is clearly substantial, no significant large-scale open source code datasets exist. In this paper, we present the Public Git Archive - dataset of 182,014 top-bookmarked Git repositories from GitHub. We describe the novel data retrieval pipeline to reproduce it. We also elaborate on the strategy for performing dataset updates and legal issues. The Public Git Archive occupies 3.0 TB on disk and is an order of magnitude larger than the current source code datasets. The dataset is made available through HTTP and provides the source code of the projects, the related metadata, and development history. The data retrieval pipeline employs an optimized worker queue model and an optimized archive format to efficiently store forked Git repositories, reducing the amount of data to download and persist. Public Git Archive aims to open a myriad of new opportunities for "Big Code" research.},
+archivePrefix = {arXiv},
+arxivId = {1803.10144},
+author = {Markovtsev, Vadim and Long, Waren},
+doi = {10.1145/3196398.3196464},
+eprint = {1803.10144},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Markovtsev, Long - Public git archive A big code dataset for all - 2018.pdf:pdf},
+isbn = {9781450357166},
+issn = {02705257},
+journal = {Proceedings - International Conference on Software Engineering},
+keywords = {development history!,git,github,open dataset,software repositories,source code},
+mendeley-groups = {Software Dependability/GithubMining},
+pages = {34--37},
+title = {{Public git archive: A big code dataset for all}},
+year = {2018}
+}
+@article{Gousios2012,
+abstract = {A common requirement of many empirical software engineering studies is the acquisition and curation of data from software repositories. During the last few years, GitHub has emerged as a popular project hosting, mirroring and collaboration platform. GitHub provides an extensive REST API, which enables researchers to retrieve both the commits to the projects' repositories and events generated through user actions on project resources. GHTorrent aims to create a scalable off line mirror of GitHub's event streams and persistent data, and offer it to the research community as a service. In this paper, we present the project's design and initial implementation and demonstrate how the provided datasets can be queried and processed. {\textcopyright} 2012 IEEE.},
+author = {Gousios, Georgios and Spinellis, Diomidis},
+doi = {10.1109/MSR.2012.6224294},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Gousios, Spinellis - GHTorrent Github's data from a firehose - 2012.pdf:pdf},
+isbn = {9781467317610},
+issn = {21601852},
+journal = {IEEE International Working Conference on Mining Software Repositories},
+keywords = {GitHub,commits,dataset,events,repository},
+mendeley-groups = {Software Dependability/GithubMining},
+pages = {12--21},
+title = {{GHTorrent: Github's data from a firehose}},
+year = {2012}
+}
+@article{Spadini2018,
+abstract = {Software repositories contain historical and valuable information about the overall development of software systems. Mining software repositories (MSR) is nowadays considered one of the most interesting growing fields within software engineering. MSR focuses on extracting and analyzing data available in software repositories to uncover interesting, useful, and actionable information about the system. Even though MSR plays an important role in software engineering research, few tools have been created and made public to support developers in extracting information from Git repository. In this paper, we present Pydriller, a Python Framework that eases the process of mining Git. We compare our tool against the state-of-the-art Python Framework GitPython, demonstrating that Pydriller can achieve the same results with, on average, 50{\%} less LOC and significantly lower complexity.},
+author = {Spadini, Davide and Aniche, Maur{\'{i}}cio and Bacchelli, Alberto},
+doi = {10.1145/3236024.3264598},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Spadini, Aniche, Bacchelli - PyDriller Python framework for mining software repositories - 2018.pdf:pdf},
+isbn = {9781450355735},
+journal = {ESEC/FSE 2018 - Proceedings of the 2018 26th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering},
+keywords = {Git,GitPython,Mining Software Repositories,Python},
+mendeley-groups = {Software Dependability/GithubMining},
+pages = {908--911},
+title = {{PyDriller: Python framework for mining software repositories}},
+year = {2018}
+}
+@article{Gousios2015,
+author = {Gousios, Georgios},
+doi = {10.1109/MSR.2013.6624034},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Gousios - The GHTorent dataset and tool suite The GHTorent Dataset and Tool Suite - 2015.pdf:pdf},
+mendeley-groups = {Software Dependability/GithubMining},
+number = {June},
+title = {{The GHTorent dataset and tool suite The GHTorent Dataset and Tool Suite}},
+year = {2015}
+}
+@article{Robles2010,
+abstract = {This paper is the result of reviewing all papers published in the proceedings of the former International Workshop on Mining Software Repositories (MSR) (2004-2006) and now Working Conference on MSR (2007-2009). We have analyzed the papers that contained any experimental analysis of software projects for their potentiality of being replicated. In this regard, three main issues have been addressed: i) the public availability of the data used as case study, ii) the public availability of the processed dataset used by researchers and iii) the public availability of the tools and scripts. A total number of 171 papers have been analyzed from the six workshops/working conferences up to date. Results show that MSR authors use in general publicly available data sources, mainly from free software repositories, but that the amount of publicly available processed datasets is very low. Regarding tools and scripts, for a majority of papers we have not been able to find any tool, even for papers where the authors explicitly state that they have built one. Lessons learned from the experience of reviewing the whole MSR literature and some potential solutions to lower the barriers of replicability are finally presented and discussed. {\textcopyright} 2010 IEEE.},
+author = {Robles, Gregorio},
+doi = {10.1109/MSR.2010.5463348},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Robles - Replicating MSR A study of the potential replicability of papers published in the Mining Software Repositories Proceedings - 20.pdf:pdf},
+isbn = {9781424468034},
+issn = {02705257},
+journal = {Proceedings - International Conference on Software Engineering},
+keywords = {Mining software repositories,Public datasets,Replication,Tools},
+mendeley-groups = {Software Dependability/GithubMining},
+pages = {171--180},
+publisher = {IEEE},
+title = {{Replicating MSR: A study of the potential replicability of papers published in the Mining Software Repositories Proceedings}},
+year = {2010}
+}
+@misc{repodriller,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {mauricioaniche/repodriller: a tool to support researchers on mining software repositories studies},
+url = {https://github.com/mauricioaniche/repodriller},
+urldate = {2020-06-08}
+}
+@misc{jgit,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{JGit | The Eclipse Foundation}},
+howpublished = {https://www.eclipse.org/jgit/},
+urldate = {2020-06-08}
+}
+@misc{pydriller,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{ishepard/pydriller: Python Framework to analyse Git repositories}},
+howpublished = {https://github.com/ishepard/pydriller},
+urldate = {2020-06-08}
+}
+@misc{gitpython,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{gitpython-developers/GitPython: GitPython is a python library used to interact with Git repositories.}},
+howpublished = {https://github.com/gitpython-developers/GitPython},
+urldate = {2020-06-08}
+}
+@misc{srcdissue,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{Getting connection refused {\textperiodcentered} Issue {\#}171 {\textperiodcentered} src-d/datasets}},
+howpublished = {https://github.com/src-d/datasets/issues/171},
+urldate = {2020-06-08}
 }
 
-@article{caldiera1994goal,
-	title={The goal question metric approach},
-	author={Caldiera, Victor R Basili1 Gianluigi and Rombach, H Dieter},
-	journal={Encyclopedia of software engineering},
-	pages={528--532},
-	year={1994}
+@inproceedings{Tsantalis:ICSE:2018:RefactoringMiner,
+author = {Tsantalis, Nikolaos and Mansouri, Matin and Eshkevari, Laleh M. and Mazinanian, Davood and Dig, Danny},
+title = {Accurate and Efficient Refactoring Detection in Commit History},
+booktitle = {Proceedings of the 40th International Conference on Software Engineering},
+series = {ICSE '18},
+year = {2018},
+isbn = {978-1-4503-5638-1},
+location = {Gothenburg, Sweden},
+pages = {483--494},
+numpages = {12},
+url = {http://doi.acm.org/10.1145/3180155.3180206},
+doi = {10.1145/3180155.3180206},
+acmid = {3180206},
+publisher = {ACM},
+address = {New York, NY, USA},
+keywords = {Git, Oracle, abstract syntax tree, accuracy, commit, refactoring},
 }
 
-@article{dietrich2017xcorpus,
-	title={XCorpus--an executable corpus of Java programs},
-	author={Dietrich, JB and Schole, Henrik and Sui, Li and Tempero, Ewan},
-	year={2017},
-	publisher={AITO}
-}
-
-@online{appendix,
-	Author = {Anonymous},
-	Title = {Do Not Be Too Eager to Deal Out Tests: Toward a Test Smell-Aware Approach to Automatic Unit Test Case Generation - Online Appendix}, 
-	Url = {TODO},
-	Year = {2020}
-}
-
-@article{fraser2014large,
-	title={A large-scale evaluation of automated unit test generation using evosuite},
-	author={Fraser, Gordon and Arcuri, Andrea},
-	journal={ACM Transactions on Software Engineering and Methodology (TOSEM)},
-	volume={24},
-	number={2},
-	pages={1--42},
-	year={2014},
-	publisher={ACM New York, NY, USA}
-}
-
-@book{pezze2008software,
-	title={Software testing and analysis: process, principles, and techniques},
-	author={Pezz{\`e}, Mauro and Young, Michal},
-	year={2008},
-	publisher={John Wiley \& Sons}
-}
-
-@article{garousi2018smells,
-	title={Smells in software test code: A survey of knowledge in industry and academia},
-	author={Garousi, Vahid and K{\"u}{\c{c}}{\"u}k, Bar{\i}{\c{s}}},
-	journal={Journal of Systems and Software},
-	volume={138},
-	pages={52--81},
-	year={2018},
-	publisher={Elsevier}
-}
-
-@article{o2007caution,
-author="O'brien, Robert M.",
-title="A Caution Regarding Rules of Thumb for Variance Inflation Factors",
-journal="Quality {\&} Quantity",
-year="2007",
-month="Oct",
-day="01",
-volume="41",
-number="5",
-pages="673--690",
-abstract="The Variance Inflation Factor (VIF) and tolerance are both widely used measures of the degree of multi-collinearity of the ith independent variable with the other independent variables in a regression model. Unfortunately, several rules of thumb -- most commonly the rule of 10 -- associated with VIF are regarded by many practitioners as a sign of severe or serious multi-collinearity (this rule appears in both scholarly articles and advanced statistical textbooks). When VIF reaches these threshold values researchers often attempt to reduce the collinearity by eliminating one or more variables from their analysis; using Ridge Regression to analyze their data; or combining two or more independent variables into a single index. These techniques for curing problems associated with multi-collinearity can create problems more serious than those they solve. Because of this, we examine these rules of thumb and find that threshold values of the VIF (and tolerance) need to be evaluated in the context of several other factors that influence the variance of regression coefficients. Values of the VIF of 10, 20, 40, or even higher do not, by themselves, discount the results of regression analyses, call for the elimination of one or more independent variables from the analysis, suggest the use of ridge regression, or require combining of independent variable into a single index.",
-issn="1573-7845",
-doi="10.1007/s11135-006-9018-6",
-url="https://doi.org/10.1007/s11135-006-9018-6"
-}
-
-@inproceedings{harman2010optimizing, 
-author={M. {Harman} and S. G. {Kim} and K. {Lakhotia} and P. {McMinn} and S. {Yoo}}, 
-booktitle={2010 Third International Conference on Software Testing, Verification, and Validation Workshops}, 
-title={Optimizing for the Number of Tests Generated in Search Based Test Data Generation with an Application to the Oracle Cost Problem}, 
-year={2010}, 
-volume={}, 
-number={}, 
-pages={182-191}, 
-keywords={formal specification;program testing;search based test data generation;oracle cost problem;checkable specifications;contract driven development;nontrivial search spaces;branch coverage;Cost function;Software testing;Automatic testing;System testing;Humans;Object oriented modeling;Benchmark testing;Software algorithms;Application software;Educational institutions;search based testing;oracle cost;test suite minimization}, 
-doi={10.1109/ICSTW.2010.31}, 
-ISSN={}, 
-month={April},}
-
-@inproceedings{leitner2007efficient,
- author = {Leitner, Andreas and Oriol, Manuel and Zeller, Andreas and Ciupa, Ilinca and Meyer, Bertrand},
- title = {Efficient Unit Test Case Minimization},
- booktitle = {Proceedings of the Twenty-second IEEE/ACM International Conference on Automated Software Engineering},
- series = {ASE '07},
- year = {2007},
- isbn = {978-1-59593-882-4},
- location = {Atlanta, Georgia, USA},
- pages = {417--420},
- numpages = {4},
- url = {http://doi.acm.org/10.1145/1321631.1321698},
- doi = {10.1145/1321631.1321698},
- acmid = {1321698},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {minimization, slicing, unit testing},
-} 
-
-
-@article{shapiro1965analysis,
-  title={An analysis of variance test for normality (complete samples)},
-  author={Shapiro, Samuel Sanford and Wilk, Martin B},
-  journal={Biometrika},
-  volume={52},
-  number={3/4},
-  pages={591--611},
-  year={1965},
-  publisher={JSTOR}
-}
-
-@inproceedings{asadollah2015survey,
- author = {Abbaspour Asadollah, Sara and Inam, Rafia and Hansson, Hans},
- title = {A Survey on Testing for Cyber Physical System},
- booktitle = {Proceedings of the 27th IFIP WG 6.1 International Conference on Testing Software and Systems - Volume 9447},
- series = {ICTSS 2015},
- year = {2015},
- isbn = {978-3-319-25944-4},
- location = {Sharjah and Dubai, United Arab Emirates},
- pages = {194--207},
- numpages = {14},
- url = {http://dx.doi.org/10.1007/978-3-319-25945-1_12},
- doi = {10.1007/978-3-319-25945-1_12},
- acmid = {2960301},
- publisher = {Springer-Verlag New York, Inc.},
- address = {New York, NY, USA},
- keywords = {Cyber physical systems, Survey, Testing},
-} 
-
-@inproceedings{hilton2017trade,
- author = {Hilton, Michael and Nelson, Nicholas and Tunnell, Timothy and Marinov, Darko and Dig, Danny},
- title = {Trade-offs in Continuous Integration: Assurance, Security, and Flexibility},
- booktitle = {Proceedings of the 2017 11th Joint Meeting on Foundations of Software Engineering},
- series = {ESEC/FSE 2017},
- year = {2017},
- isbn = {978-1-4503-5105-8},
- location = {Paderborn, Germany},
- pages = {197--207},
- numpages = {11},
- url = {http://doi.acm.org/10.1145/3106237.3106270},
- doi = {10.1145/3106237.3106270},
- acmid = {3106270},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {Automated Testing, Continuous Integration},
-} 
-
-@techreport{CPS:2011,
-	author = {Samad and A.M. Annaswamy},
-	title = {Cyber-physical Systems - The Impact of Control Technology},
-	year = {2011},
-	publisher = {IEEE Control Systems Society. 2011}
-} 
-
-@Inbook{torngren2018complexity,
-author="T{\"o}rngren, Martin
-and Sellgren, Ulf",
-title="Complexity Challenges in Development of Cyber-Physical Systems",
-bookTitle="Principles of Modeling: Essays Dedicated to Edward A. Lee on the Occasion of His 60th Birthday",
-year="2018",
-publisher="Springer International Publishing",
-address="Cham",
-pages="478--503",
-abstract="In embarking towards Cyber-Physical Systems (CPS) with unprecedented capabilities it becomes essential to improve our understanding of CPS complexity and how we can deal with it. We investigate facets of CPS complexity and the limitations of Collaborating Information Processing Systems (CIPS) in dealing with those facets. By CIPS we refer to teams of humans and computer-aided engineering systems that are used to develop CPS. Furthermore, we specifically analyze characteristic differences among software and physical parts within CPS. The analysis indicates that it will no longer be possible to rely only on architectures and skilled people, or process and model/tool centered approaches. The tight integration of heterogeneous physical, cyber, CPS components, aspects and systems, results in a situation with interfaces and interrelations everywhere, each requiring explicit consideration. The role of model-based and computer aided engineering will become even more essential, and design methodologies will need to deeply consider interwoven systems and software aspects, including the hidden costs of software.",
-isbn="978-3-319-95246-8",
-doi="10.1007/978-3-319-95246-8_27",
-url="https://doi.org/10.1007/978-3-319-95246-8_27"
-}
-
-@article{barr2015oracle, 
-author={E. T. {Barr} and M. {Harman} and P. {McMinn} and M. {Shahbaz} and S. {Yoo}}, 
-journal={IEEE Transactions on Software Engineering}, 
-title={The Oracle Problem in Software Testing: A Survey}, 
-year={2015}, 
-volume={41}, 
-number={5}, 
-pages={507-525}, 
-keywords={formal specification;program testing;test oracle problem;test oracle information;informal specifications;domain specific information;informal oracle guidance;software testing research;software testing practice;oracle automation;contract-driven development;metamorphic testing;oracle automation;Probabilistic logic;Licenses;Automation;Software testing;Market research;Reliability;Test oracle;Automatic testing;Testing formalism;Test oracle;automatic testing;testing formalism}, 
-doi={10.1109/TSE.2014.2372785}, 
-ISSN={0098-5589}, 
-month={May},}
-
-@inproceedings{zhang2018one,
- author = {Zhang, Yang and Vasilescu, Bogdan and Wang, Huaimin and Filkov, Vladimir},
- title = {One Size Does Not Fit All: An Empirical Study of Containerized Continuous Deployment Workflows},
- booktitle = {Proceedings of the 2018 26th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering},
- series = {ESEC/FSE 2018},
- year = {2018},
- isbn = {978-1-4503-5573-5},
- location = {Lake Buena Vista, FL, USA},
- pages = {295--306},
- numpages = {12},
- url = {http://doi.acm.org/10.1145/3236024.3236033},
- doi = {10.1145/3236024.3236033},
- acmid = {3236033},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {Containerization, Continuous Deployment, Docker, GitHub},
-} 
-
-@inproceedings{shi2014balancing,
-  title={Balancing trade-offs in test-suite reduction},
-  author={Shi, August and Gyori, Alex and Gligoric, Milos and Zaytsev, Andrey and Marinov, Darko},
-  booktitle={Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering},
-  pages={246--256},
-  year={2014},
-  organization={ACM}
-}
-
-@inproceedings{arcuri2011practical,
-  title={A practical guide for using statistical tests to assess randomized algorithms in software engineering},
-  author={Arcuri, Andrea and Briand, Lionel},
-  booktitle={2011 33rd International Conference on Software Engineering (ICSE)},
-  pages={1--10},
-  year={2011},
-  organization={IEEE}
-}
-
-@inproceedings{albert2011resource,
-  title={Resource-driven CLP-based test case generation},
-  author={Albert, Elvira and G{\'o}mez-Zamalloa, Miguel and Rojas, Jos{\'e} Miguel},
-  booktitle={International Symposium on Logic-Based Program Synthesis and Transformation},
-  pages={25--41},
-  year={2011},
-  organization={Springer}
-}
-
-@inproceedings{zhang2015assertions,
-	title={Assertions are strongly correlated with test suite effectiveness},
-	author={Zhang, Yucheng and Mesbah, Ali},
-	booktitle={Proceedings of the 2015 10th Joint Meeting on Foundations of Software Engineering},
-	pages={214--224},
-	year={2015},
-	organization={ACM}
-}
-
-@article{kintis2018effective,
-author="Kintis, Marinos
-and Papadakis, Mike
-and Papadopoulos, Andreas
-and Valvis, Evangelos
-and Malevris, Nicos
-and Le Traon, Yves",
-title="How effective are mutation testing tools? An empirical analysis of Java mutation testing tools with manual analysis and real faults",
-journal="Empirical Software Engineering",
-year="2018",
-month="Aug",
-day="01",
-volume="23",
-number="4",
-pages="2426--2463",
-abstract="Mutation analysis is a well-studied, fault-based testing technique. It requires testers to design tests based on a set of artificial defects. The defects help in performing testing activities by measuring the ratio that is revealed by the candidate tests. Unfortunately, applying mutation to real-world programs requires automated tools due to the vast number of defects involved. In such a case, the effectiveness of the method strongly depends on the peculiarities of the employed tools. Thus, when using automated tools, their implementation inadequacies can lead to inaccurate results. To deal with this issue, we cross-evaluate four mutation testing tools for Java, namely PIT, muJava, Major and the research version of PIT, PITRV, with respect to their fault-detection capabilities. We investigate the strengths of the tools based on: a) a set of real faults and b) manual analysis of the mutants they introduce. We find that there are large differences between the tools' effectiveness and demonstrate that no tool is able to subsume the others. We also provide results indicating the application cost of the method. Overall, we find that PITRV achieves the best results. In particular, PITRV outperforms the other tools by finding 6{\%} more faults than the other tools combined.",
-issn="1573-7616",
-doi="10.1007/s10664-017-9582-5",
-url="https://doi.org/10.1007/s10664-017-9582-5"
-}
-
-@InProceedings{rojas2015combining,
-author="Rojas, Jos{\'e} Miguel
-and Campos, Jos{\'e}
-and Vivanti, Mattia
-and Fraser, Gordon
-and Arcuri, Andrea",
-editor="Barros, M{\'a}rcio
-and Labiche, Yvan",
-title="Combining Multiple Coverage Criteria in Search-Based Unit Test Generation",
-booktitle="Search-Based Software Engineering",
-year="2015",
-publisher="Springer International Publishing",
-address="Cham",
-pages="93--108",
-abstract="Automated test generation techniques typically aim at maximising coverage of well-established structural criteria such as statement or branch coverage. In practice, generating tests only for one specific criterion may not be sufficient when testing object oriented classes, as standard structural coverage criteria do not fully capture the properties developers may desire of their unit test suites. For example, covering a large number of statements could be easily achieved by just calling the main method of a class; yet, a good unit test suite would consist of smaller unit tests invoking individual methods, and checking return values and states with test assertions. There are several different properties that test suites should exhibit, and a search-based test generator could easily be extended with additional fitness functions to capture these properties.",
-isbn="978-3-319-22183-0"
-}
-
-@inproceedings{panichella2018incremental,
-  title={Incremental Control Dependency Frontier Exploration for Many-Criteria Test Case Generation},
-  author={Panichella, Annibale and Kifetew, Fitsum Meshesha and Tonella, Paolo},
-  booktitle={International Symposium on Search Based Software Engineering},
-  pages={309--324},
-  year={2018},
-  organization={Springer}
-}
-
-@inproceedings{jin2012,
-	author = {Jin, Guoliang and Song, Linhai and Shi, Xiaoming and Scherpelz, Joel and Lu, Shan},
-	title = {Understanding and Detecting Real-world Performance Bugs},
-	booktitle = {Proceedings of the 33rd ACM SIGPLAN Conference on Programming Language Design and Implementation},
-	series = {PLDI '12},
-	year = {2012},
-	isbn = {978-1-4503-1205-9},
-	location = {Beijing, China},
-	pages = {77--88},
-	numpages = {12},
-	url = {http://doi.acm.org/10.1145/2254064.2254075},
-	doi = {10.1145/2254064.2254075},
-	acmid = {2254075},
-	publisher = {ACM},
-	address = {New York, NY, USA},
-	keywords = {characteristics study, performance bugs, rule-based bug detection},
-} 
-
-@inproceedings{just2014mutants,
-  title={Are mutants a valid substitute for real faults in software testing?},
-  author={Just, Ren{\'e} and Jalali, Darioush and Inozemtseva, Laura and Ernst, Michael D and Holmes, Reid and Fraser, Gordon},
-  booktitle={Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering},
-  pages={654--665},
-  year={2014},
-  organization={ACM}
-}
-
-@article{fraser2015achieving,
-  title={Achieving scalable mutation-based generation of whole test suites},
-  author={Fraser, Gordon and Arcuri, Andrea},
-  journal={Empirical Software Engineering},
-  volume={20},
-  number={3},
-  pages={783--812},
+@manual{aniche-ck,
+  title={Java code metrics calculator (CK)},
+  author={Maurício Aniche},
   year={2015},
-  publisher={Springer}
+  note={Available in https://github.com/mauricioaniche/ck/}
 }
 
-@inproceedings{andrews2005mutation,
-  title={Is mutation an appropriate tool for testing experiments?},
-  author={Andrews, James H and Briand, Lionel C and Labiche, Yvan},
-  booktitle={Proceedings of the 27th international conference on Software engineering},
-  pages={402--411},
-  year={2005},
-  organization={ACM}
+@article{Gote2019,
+abstract = {Data from software repositories have become an important foundation for the empirical study of software engineering processes. A recurring theme in the repository mining literature is the inference of developer networks capturing e.g. collaboration, coordination, or communication, from the commit history of projects. Most of the studied networks are based on the co-authorship of software artefacts defined at the level of files, modules, or packages. While this approach has led to insights into the social aspects of software development, it neglects detailed information on code changes and code ownership, e.g. which exact lines of code have been authored by which developers, that is contained in the commit log of software projects. Addressing this issue, we introduce git2net, a scalable python software that facilitates the extraction of fine-grained co-editing networks in large git repositories. It uses text mining techniques to analyse the detailed history of textual modifications within files. This information allows us to construct directed, weighted, and time-stamped networks, where a link signifies that one developer has edited a block of source code originally written by another developer. Our tool is applied in case studies of an Open Source and a commercial software project. We argue that it opens up a massive new source of high-resolution data on human collaboration patterns.},
+archivePrefix = {arXiv},
+arxivId = {arXiv:1903.10180v1},
+author = {Gote, Christoph and Scholtes, Ingo and Schweitzer, Frank},
+doi = {10.1109/MSR.2019.00070},
+eprint = {arXiv:1903.10180v1},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Gote, Scholtes, Schweitzer - Git2net - Mining time-stamped co-editing networks from large git repositories - 2019.pdf:pdf},
+isbn = {9781728134123},
+issn = {21601860},
+journal = {IEEE International Working Conference on Mining Software Repositories},
+keywords = {Co editing networks,Collaboration network,Data analysis,Empirical software engineering,Git,Network analysis,Open source,Repository mining,Social networks,Temporal networks},
+mendeley-groups = {Software Dependability/GithubMining},
+number = {i},
+pages = {433--444},
+title = {{Git2net - Mining time-stamped co-editing networks from large git repositories}},
+volume = {2019-May},
+year = {2019}
 }
 
-@inproceedings{inozemtseva2014coverage,
-  title={Coverage is not strongly correlated with test suite effectiveness},
-  author={Inozemtseva, Laura and Holmes, Reid},
-  booktitle={Proceedings of the 36th International Conference on Software Engineering},
-  pages={435--445},
-  year={2014},
-  organization={ACM}
+@article{mapreduce2008,
+abstract = {MapReduce is a programming model and an associated implementation for processing and generating large datasets that is amenable to a broad variety of real-world tasks. Users specify the computation in terms of a map and a reduce function, and the underlying runtime system automatically parallelizes the computation across large-scale clusters of machines, handles machine failures, and schedules inter-machine communication to make efficient use of the network and disks. Programmers find the system easy to use: more than ten thousand distinct MapReduce programs have been implemented internally at Google over the past four years, and an average of one hundred thousand MapReduce jobs are executed on Google's clusters every day, processing a total of more than twenty petabytes of data per day.},
+author = {Dean, Jeffrey and Ghemawat, Sanjay},
+doi = {10.1145/1327452.1327492},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Dean, Ghemawat - MapReduce Simplified data processing on large clusters - 2008.pdf:pdf},
+issn = {00010782},
+journal = {Communications of the ACM},
+number = {1},
+pages = {107--113},
+title = {{MapReduce: Simplified data processing on large clusters}},
+volume = {51},
+year = {2008}
 }
 
-@incollection{wei2012branch,
-  title={Is branch coverage a good measure of testing effectiveness?},
-  author={Wei, Yi and Meyer, Bertrand and Oriol, Manuel},
-  booktitle={Empirical Software Engineering and Verification},
-  pages={194--212},
-  year={2012},
-  publisher={Springer}
+@inproceedings{hadoop,
+abstract = {The Hadoop Distributed File System (HDFS) is designed to store very large data sets reliably, and to stream those data sets at high bandwidth to user applications. In a large cluster, thousands of servers both host directly attached storage and execute user application tasks. By distributing storage and computation across many servers, the resource can grow with demand while remaining economical at every size. We describe the architecture of HDFS and report on experience using HDFS to manage 25 petabytes of enterprise data at Yahoo!.},
+author = {Shvachko, K and Kuang, H and Radia, S and Chansler, R},
+booktitle = {2010 IEEE 26th Symposium on Mass Storage Systems and Technologies (MSST)},
+doi = {10.1109/MSST.2010.5496972},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Shvachko et al. - The Hadoop Distributed File System - 2010.pdf:pdf},
+keywords = {Bandwidth,Clustering algorithms,Computer architecture,Concurrent computing,Distributed computing,Facebook,File servers,File systems,HDFS,Hadoop,Hadoop distributed file system,Internet,Protection,Protocols,Yahoo!,data storage,data stream,distributed databases,distributed file system,enterprise data,network operating systems},
+mendeley-groups = {Masterarbeit/2 Grundlagen/7 Apache Spark},
+month = {may},
+pages = {1--10},
+title = {{The Hadoop Distributed File System}},
+year = {2010}
 }
 
-@article{offutt2011mutation,
-  title={A mutation carol: Past, present and future},
-  author={Offutt, Jeff},
-  journal={Information and Software Technology},
-  volume={53},
-  number={10},
-  pages={1098--1107},
-  year={2011},
-  publisher={Elsevier}
+@misc{parquet,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{Apache Parquet}},
+url = {https://parquet.apache.org/},
+urldate = {2020-06-13}
 }
 
-@article{jia2011analysis,
-  title={An analysis and survey of the development of mutation testing},
-  author={Jia, Yue and Harman, Mark},
-  journal={IEEE transactions on software engineering},
-  volume={37},
-  number={5},
-  pages={649--678},
-  year={2011},
-  publisher={IEEE}
+@article{Lin2019a,
+abstract = {Recent studies have demonstrated that software is natural, that is, its source code is highly repetitive and predictable like human languages. Also, previous studies suggested the existence of a relationship between code quality and its naturalness, presenting empirical evidence showing that buggy code is 'less natural' than non-buggy code. We conjecture that this qualitynaturalness relationship could be exploited to support refactoring activities (e.g., to locate source code areas in need of refactoring). We perform a first step in this direction by analyzing whether refactoring can improve the naturalness of code. We use state-of-The-Art tools to mine a large dataset of refactoring operations performed in open source systems. Then, we investigate the impact of different types of refactoring operations on the naturalness of the impacted code. We found that (i) code refactoring does not necessarily increase the naturalness of the refactored code; and (ii) the impact on the code naturalness strongly depends on the type of refactoring operations.},
+author = {Lin, Bin and Nagy, Csaba and Bavota, Gabriele and Lanza, Michele},
+doi = {10.1109/SANER.2019.8667992},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Lin et al. - On the Impact of Refactoring Operations on Code Quality Metrics - 2019.pdf:pdf},
+isbn = {9781728105918},
+journal = {SANER 2019 - Proceedings of the 2019 IEEE 26th International Conference on Software Analysis, Evolution, and Reengineering},
+keywords = {Naturalness,Open Source Software,Refactoring},
+mendeley-groups = {Software Dependability,Software Dependability/Related Work},
+pages = {594--598},
+title = {{On the Impact of Refactoring Operations on Code Quality Metrics}},
+year = {2019}
+}
+@article{McCabe1976e,
+abstract = {This paper describes a graph-theoretic complexity measure and illustrates how it can be used to manage and control program com- plexity .The paper first explains how the graph-theory concepts apply and gives an intuitive explanation of the graph concepts in programming terms. The control graphs of several actual Fortran programs are then presented to illustrate the conelation between intuitive complexity and the graph-theoretic complexity .Several properties of the graph- theoretic complexity are then proved which show, for example, that complexity is independent of physical size (adding or subtracting functional statements leaves complexity unchanged) and complexity depends only on the decision structure of a program. The issue of using non structured control flow )s also discussed. A characterization of nonstructured control graphs is given and a method of measuring the "structuredness" of a program is developed. The re- lationship between structure and reducibility is illustrated with several examples. The last section of this paper deals with a testing methodology used in conjunction with the complexity measure; a testing strategy is de- fined that dictates that a program can either admit of a certain minimal testing level or the program can be structurally reduced},
+author = {McCabe, Thomas J},
+doi = {10.1109/TSE.1976.233837},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/McCabe - A Complexity Measure - 1976.pdf:pdf},
+isbn = {2004200111},
+issn = {0098-5589},
+journal = {IEEE Transactions on Software Engineering},
+mendeley-groups = {Bachelorarbeit/Struktur/6 Complexity,Masterarbeit/2 Grundlagen/1 Software Qualit{\"{a}}t},
+number = {4},
+pages = {308--320},
+pmid = {300},
+title = {{A Complexity Measure}},
+year = {1976}
+}
+@article{Chidamber1994b,
+abstract = {We study a family of "classical" orthogonal polynomials which satisfy (apart from a 3-term recurrence relation) an eigenvalue problem with a differential operator of Dunkl-type. These polynomials can be obtained from the little {\$}q{\$}-Jacobi polynomials in the limit {\$}q=-1{\$}. We also show that these polynomials provide a nontrivial realization of the Askey-Wilson algebra for {\$}q=-1{\$}.},
+archivePrefix = {arXiv},
+arxivId = {1011.1669},
+author = {Chidamber, Shyam R. and Kemerer, Chris F.},
+doi = {10.1109/32.295895},
+eprint = {1011.1669},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Chidamber, Kemerer - A Metrics Suite for Object Oriented Design - 1994.pdf:pdf},
+isbn = {0098-5589},
+issn = {00985589},
+journal = {IEEE Transactions on Software Engineering},
+keywords = {CR categories and subject descriptors,Class,D.2.8[software engineering],General terms:,K.6.3 [management of computing and information sys,complexity,design,management,management F.2.3 [analysis of algorithms and probl,measurement,metrics,metrics; D.2.9 [software engineering],object orientation,performance,software management,tradeoffs among complexity measures},
+mendeley-groups = {Bachelorarbeit/Struktur/6 Complexity},
+number = {6},
+pages = {476--493},
+pmid = {21645860},
+title = {{A Metrics Suite for Object Oriented Design}},
+volume = {20},
+year = {1994}
+}
+@article{Markovtsev2018,
+abstract = {The number of open source software projects has been growing exponentially. The major online software repository host, GitHub, has accumulated tens of millions of publicly available Git version-controlled repositories. Although the research potential enabled by the available open source code is clearly substantial, no significant large-scale open source code datasets exist. In this paper, we present the Public Git Archive - dataset of 182,014 top-bookmarked Git repositories from GitHub. We describe the novel data retrieval pipeline to reproduce it. We also elaborate on the strategy for performing dataset updates and legal issues. The Public Git Archive occupies 3.0 TB on disk and is an order of magnitude larger than the current source code datasets. The dataset is made available through HTTP and provides the source code of the projects, the related metadata, and development history. The data retrieval pipeline employs an optimized worker queue model and an optimized archive format to efficiently store forked Git repositories, reducing the amount of data to download and persist. Public Git Archive aims to open a myriad of new opportunities for "Big Code" research.},
+archivePrefix = {arXiv},
+arxivId = {1803.10144},
+author = {Markovtsev, Vadim and Long, Waren},
+doi = {10.1145/3196398.3196464},
+eprint = {1803.10144},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Markovtsev, Long - Public git archive A big code dataset for all - 2018.pdf:pdf},
+isbn = {9781450357166},
+issn = {02705257},
+journal = {Proceedings - International Conference on Software Engineering},
+keywords = {development history!,git,github,open dataset,software repositories,source code},
+mendeley-groups = {Software Dependability/GithubMining},
+pages = {34--37},
+title = {{Public git archive: A big code dataset for all}},
+year = {2018}
+}
+@article{Gousios2012,
+abstract = {A common requirement of many empirical software engineering studies is the acquisition and curation of data from software repositories. During the last few years, GitHub has emerged as a popular project hosting, mirroring and collaboration platform. GitHub provides an extensive REST API, which enables researchers to retrieve both the commits to the projects' repositories and events generated through user actions on project resources. GHTorrent aims to create a scalable off line mirror of GitHub's event streams and persistent data, and offer it to the research community as a service. In this paper, we present the project's design and initial implementation and demonstrate how the provided datasets can be queried and processed. {\textcopyright} 2012 IEEE.},
+author = {Gousios, Georgios and Spinellis, Diomidis},
+doi = {10.1109/MSR.2012.6224294},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Gousios, Spinellis - GHTorrent Github's data from a firehose - 2012.pdf:pdf},
+isbn = {9781467317610},
+issn = {21601852},
+journal = {IEEE International Working Conference on Mining Software Repositories},
+keywords = {GitHub,commits,dataset,events,repository},
+mendeley-groups = {Software Dependability/GithubMining},
+pages = {12--21},
+title = {{GHTorrent: Github's data from a firehose}},
+year = {2012}
+}
+@article{Spadini2018,
+abstract = {Software repositories contain historical and valuable information about the overall development of software systems. Mining software repositories (MSR) is nowadays considered one of the most interesting growing fields within software engineering. MSR focuses on extracting and analyzing data available in software repositories to uncover interesting, useful, and actionable information about the system. Even though MSR plays an important role in software engineering research, few tools have been created and made public to support developers in extracting information from Git repository. In this paper, we present Pydriller, a Python Framework that eases the process of mining Git. We compare our tool against the state-of-the-art Python Framework GitPython, demonstrating that Pydriller can achieve the same results with, on average, 50{\%} less LOC and significantly lower complexity.},
+author = {Spadini, Davide and Aniche, Maur{\'{i}}cio and Bacchelli, Alberto},
+doi = {10.1145/3236024.3264598},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Spadini, Aniche, Bacchelli - PyDriller Python framework for mining software repositories - 2018.pdf:pdf},
+isbn = {9781450355735},
+journal = {ESEC/FSE 2018 - Proceedings of the 2018 26th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering},
+keywords = {Git,GitPython,Mining Software Repositories,Python},
+mendeley-groups = {Software Dependability/GithubMining},
+pages = {908--911},
+title = {{PyDriller: Python framework for mining software repositories}},
+year = {2018}
+}
+@article{Gousios2015,
+author = {Gousios, Georgios},
+doi = {10.1109/MSR.2013.6624034},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Gousios - The GHTorent dataset and tool suite The GHTorent Dataset and Tool Suite - 2015.pdf:pdf},
+mendeley-groups = {Software Dependability/GithubMining},
+number = {June},
+title = {{The GHTorent dataset and tool suite The GHTorent Dataset and Tool Suite}},
+year = {2015}
+}
+@article{Robles2010,
+abstract = {This paper is the result of reviewing all papers published in the proceedings of the former International Workshop on Mining Software Repositories (MSR) (2004-2006) and now Working Conference on MSR (2007-2009). We have analyzed the papers that contained any experimental analysis of software projects for their potentiality of being replicated. In this regard, three main issues have been addressed: i) the public availability of the data used as case study, ii) the public availability of the processed dataset used by researchers and iii) the public availability of the tools and scripts. A total number of 171 papers have been analyzed from the six workshops/working conferences up to date. Results show that MSR authors use in general publicly available data sources, mainly from free software repositories, but that the amount of publicly available processed datasets is very low. Regarding tools and scripts, for a majority of papers we have not been able to find any tool, even for papers where the authors explicitly state that they have built one. Lessons learned from the experience of reviewing the whole MSR literature and some potential solutions to lower the barriers of replicability are finally presented and discussed. {\textcopyright} 2010 IEEE.},
+author = {Robles, Gregorio},
+doi = {10.1109/MSR.2010.5463348},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Robles - Replicating MSR A study of the potential replicability of papers published in the Mining Software Repositories Proceedings - 20.pdf:pdf},
+isbn = {9781424468034},
+issn = {02705257},
+journal = {Proceedings - International Conference on Software Engineering},
+keywords = {Mining software repositories,Public datasets,Replication,Tools},
+mendeley-groups = {Software Dependability/GithubMining},
+pages = {171--180},
+publisher = {IEEE},
+title = {{Replicating MSR: A study of the potential replicability of papers published in the Mining Software Repositories Proceedings}},
+year = {2010}
+}
+@misc{repodriller,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {mauricioaniche/repodriller: a tool to support researchers on mining software repositories studies},
+url = {https://github.com/mauricioaniche/repodriller},
+urldate = {2020-06-08}
+}
+@misc{jgit,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{JGit | The Eclipse Foundation}},
+url = {https://www.eclipse.org/jgit/},
+urldate = {2020-06-08}
+}
+@misc{pydriller,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{ishepard/pydriller: Python Framework to analyse Git repositories}},
+url = {https://github.com/ishepard/pydriller},
+urldate = {2020-06-08}
+}
+@misc{gitpython,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{gitpython-developers/GitPython: GitPython is a python library used to interact with Git repositories.}},
+url = {https://github.com/gitpython-developers/GitPython},
+urldate = {2020-06-08}
+}
+@misc{srcdissue,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{Getting connection refused {\textperiodcentered} Issue {\#}171 {\textperiodcentered} src-d/datasets}},
+url = {https://github.com/src-d/datasets/issues/171},
+urldate = {2020-06-08}
 }
 
-@inproceedings{campos2014continuous,
-  title={Continuous test generation: enhancing continuous integration with automated test generation},
-  author={Campos, Jos{\'e} and Arcuri, Andrea and Fraser, Gordon and Abreu, Rui},
-  booktitle={Proceedings of the 29th ACM/IEEE international conference on Automated software engineering},
-  pages={55--66},
-  year={2014}
+@inproceedings{Tsantalis:ICSE:2018:RefactoringMiner,
+author = {Tsantalis, Nikolaos and Mansouri, Matin and Eshkevari, Laleh M. and Mazinanian, Davood and Dig, Danny},
+title = {Accurate and Efficient Refactoring Detection in Commit History},
+booktitle = {Proceedings of the 40th International Conference on Software Engineering},
+series = {ICSE '18},
+year = {2018},
+isbn = {978-1-4503-5638-1},
+location = {Gothenburg, Sweden},
+pages = {483--494},
+numpages = {12},
+url = {http://doi.acm.org/10.1145/3180155.3180206},
+doi = {10.1145/3180155.3180206},
+acmid = {3180206},
+publisher = {ACM},
+address = {New York, NY, USA},
+keywords = {Git, Oracle, abstract syntax tree, accuracy, commit, refactoring},
 }
 
-@inproceedings{georges2007,
-	author = {Georges, Andy and Buytaert, Dries and Eeckhout, Lieven},
-	title = {Statistically Rigorous Java Performance Evaluation},
-	booktitle = {Proceedings of the 22Nd Annual ACM SIGPLAN Conference on Object-oriented Programming Systems and Applications},
-	series = {OOPSLA '07},
-	year = {2007},
-	isbn = {978-1-59593-786-5},
-	location = {Montreal, Quebec, Canada},
-	pages = {57--76},
-	numpages = {20},
-	url = {http://doi.acm.org/10.1145/1297027.1297033},
-	doi = {10.1145/1297027.1297033},
-	acmid = {1297033},
-	publisher = {ACM},
-	address = {New York, NY, USA},
-	keywords = {benchmarking, data analysis, java, methodology, statistics},
-} 
-
-@inproceedings{shamshiri2015random,
-  title={Random or genetic algorithm search for object-oriented test suite generation?},
-  author={Shamshiri, Sina and Rojas, Jos{\'e} Miguel and Fraser, Gordon and McMinn, Phil},
-  booktitle={Proceedings of the 2015 Annual Conference on Genetic and Evolutionary Computation},
-  pages={1367--1374},
+@manual{aniche-ck,
+  title={Java code metrics calculator (CK)},
+  author={Maurício Aniche},
   year={2015},
-  organization={ACM}
+  note={Available in https://github.com/mauricioaniche/ck/}
 }
 
-@inproceedings{panichella2017java,
-  title={Java Unit Testing Tool Competition-Fifth Round},
-  author={Panichella, Annibale and Molina, Urko Rueda},
-  booktitle={Search-Based Software Testing (SBST), 2017 IEEE/ACM 10th International Workshop on},
-  pages={32--38},
-  year={2017},
-  organization={IEEE}
+@article{Gote2019,
+abstract = {Data from software repositories have become an important foundation for the empirical study of software engineering processes. A recurring theme in the repository mining literature is the inference of developer networks capturing e.g. collaboration, coordination, or communication, from the commit history of projects. Most of the studied networks are based on the co-authorship of software artefacts defined at the level of files, modules, or packages. While this approach has led to insights into the social aspects of software development, it neglects detailed information on code changes and code ownership, e.g. which exact lines of code have been authored by which developers, that is contained in the commit log of software projects. Addressing this issue, we introduce git2net, a scalable python software that facilitates the extraction of fine-grained co-editing networks in large git repositories. It uses text mining techniques to analyse the detailed history of textual modifications within files. This information allows us to construct directed, weighted, and time-stamped networks, where a link signifies that one developer has edited a block of source code originally written by another developer. Our tool is applied in case studies of an Open Source and a commercial software project. We argue that it opens up a massive new source of high-resolution data on human collaboration patterns.},
+archivePrefix = {arXiv},
+arxivId = {arXiv:1903.10180v1},
+author = {Gote, Christoph and Scholtes, Ingo and Schweitzer, Frank},
+doi = {10.1109/MSR.2019.00070},
+eprint = {arXiv:1903.10180v1},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Gote, Scholtes, Schweitzer - Git2net - Mining time-stamped co-editing networks from large git repositories - 2019.pdf:pdf},
+isbn = {9781728134123},
+issn = {21601860},
+journal = {IEEE International Working Conference on Mining Software Repositories},
+keywords = {Co editing networks,Collaboration network,Data analysis,Empirical software engineering,Git,Network analysis,Open source,Repository mining,Social networks,Temporal networks},
+mendeley-groups = {Software Dependability/GithubMining},
+number = {i},
+pages = {433--444},
+title = {{Git2net - Mining time-stamped co-editing networks from large git repositories}},
+volume = {2019-May},
+year = {2019}
 }
 
-@article{fraser2014large,
-  title={A large-scale evaluation of automated unit test generation using EvoSuite},
-  author={Fraser, Gordon and Arcuri, Andrea},
-  journal={ACM Transactions on Software Engineering and Methodology (TOSEM)},
-  volume={24},
-  number={2},
-  pages={8},
-  year={2014},
-  publisher={ACM}
+@article{mapreduce2008,
+abstract = {MapReduce is a programming model and an associated implementation for processing and generating large datasets that is amenable to a broad variety of real-world tasks. Users specify the computation in terms of a map and a reduce function, and the underlying runtime system automatically parallelizes the computation across large-scale clusters of machines, handles machine failures, and schedules inter-machine communication to make efficient use of the network and disks. Programmers find the system easy to use: more than ten thousand distinct MapReduce programs have been implemented internally at Google over the past four years, and an average of one hundred thousand MapReduce jobs are executed on Google's clusters every day, processing a total of more than twenty petabytes of data per day.},
+author = {Dean, Jeffrey and Ghemawat, Sanjay},
+doi = {10.1145/1327452.1327492},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Dean, Ghemawat - MapReduce Simplified data processing on large clusters - 2008.pdf:pdf},
+issn = {00010782},
+journal = {Communications of the ACM},
+number = {1},
+pages = {107--113},
+title = {{MapReduce: Simplified data processing on large clusters}},
+volume = {51},
+year = {2008}
 }
 
-@inproceedings{Rojas:2015,
- author = {Rojas, Jos{\'e} Miguel and Fraser, Gordon and Arcuri, Andrea},
-title = {Automated Unit Test Generation During Software Development: A
-Controlled Experiment and Think-aloud Observations},
-booktitle = {Proceedings of the International Symposium on Software Testing and
-Analysis (ISSTA)},
- year = {2015},
- pages = {338--349},
- numpages = {12},
- publisher = {ACM}
-} 
-
-@article{bukh1992art,
-  author    = {Tzvi Raz},
-  title     = {The Art of Computer Systems Performance Analysis: Techniques for Experimental
-               Design, Measurement, Simulation, and Modeling (Raj Jain)},
-  journal   = {{SIAM} Review},
-  volume    = {34},
-  number    = {3},
-  pages     = {518--519},
-  year      = {1992},
-  url       = {https://doi.org/10.1137/1034111},
-  doi       = {10.1137/1034111},
-  timestamp = {Wed, 17 May 2017 14:25:30 +0200},
-  biburl    = {https://dblp.org/rec/bib/journals/siamrev/Raz92},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+@inproceedings{hadoop,
+abstract = {The Hadoop Distributed File System (HDFS) is designed to store very large data sets reliably, and to stream those data sets at high bandwidth to user applications. In a large cluster, thousands of servers both host directly attached storage and execute user application tasks. By distributing storage and computation across many servers, the resource can grow with demand while remaining economical at every size. We describe the architecture of HDFS and report on experience using HDFS to manage 25 petabytes of enterprise data at Yahoo!.},
+author = {Shvachko, K and Kuang, H and Radia, S and Chansler, R},
+booktitle = {2010 IEEE 26th Symposium on Mass Storage Systems and Technologies (MSST)},
+doi = {10.1109/MSST.2010.5496972},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Shvachko et al. - The Hadoop Distributed File System - 2010.pdf:pdf},
+keywords = {Bandwidth,Clustering algorithms,Computer architecture,Concurrent computing,Distributed computing,Facebook,File servers,File systems,HDFS,Hadoop,Hadoop distributed file system,Internet,Protection,Protocols,Yahoo!,data storage,data stream,distributed databases,distributed file system,enterprise data,network operating systems},
+mendeley-groups = {Masterarbeit/2 Grundlagen/7 Apache Spark},
+month = {may},
+pages = {1--10},
+title = {{The Hadoop Distributed File System}},
+year = {2010}
 }
 
-@book{myers2011art,
-	title={The art of software testing},
-	author={Myers, Glenford J and Sandler, Corey and Badgett, Tom},
-	year={2011},
-	publisher={John Wiley \& Sons}
+@misc{parquet,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{Apache Parquet}},
+url = {https://parquet.apache.org/},
+urldate = {2020-06-13}
 }
 
-@inproceedings{Ermira2015,
-  author={Ermira Daka and
-          Jose Campos and
-        Gordon Fraser and 
-        Jonathan Dorn and 
-        Westley Weimer },
-  title={Modeling Readability to Improve Unit Tests},
-booktitle={Proceedings of the 10th Joint Meeting of the European Software
-Engineering Conference and the ACM SIGSOFT Symposium on the Foundations of
-Software Engineering (ESEC/FSE)},
-  year={2015},
-  note = {To appear},
-  organization={ACM},
-}
+@INPROCEEDINGS{sociotech,  author={M. {Joblin} and W. {Mauerer} and S. {Apel} and J. {Siegmund} and D. {Riehle}},  booktitle={2015 IEEE/ACM 37th IEEE International Conference on Software Engineering},   title={From Developer Networks to Verified Communities: A Fine-Grained Approach},   year={2015},  volume={1},  number={},  pages={563-573},}
 
+@INPROCEEDINGS{palomba,  author={M. {Tufano} and F. {Palomba} and G. {Bavota} and R. {Oliveto} and M. {Di Penta} and A. {De Lucia} and D. {Poshyvanyk}},  booktitle={2015 IEEE/ACM 37th IEEE International Conference on Software Engineering},   title={When and Why Your Code Starts to Smell Bad},   year={2015},  volume={1},  number={},  pages={403-414},}
 
-@article{Fraser:study2014,
-title={Does Automated Unit Test Generation Really Help Software Testers? A
-Controlled Empirical Study},
-author={Fraser, Gordon and Staats, Matt and McMinn, Phil and Arcuri, Andrea and
-Padberg, Frank},
-  	Journal = {ACM Trans. Softw. Eng. Methodol},
-  	publisher = {ACM},
-  	note = {To Appear}
-}
-
-@inproceedings{Almasi:2017:IEU:3103112.3103146,
- author = {Almasi, M. Moein and Hemmati, Hadi and Fraser, Gordon and Arcuri, Andrea and Benefelds, J\={a}nis},
- title = {An Industrial Evaluation of Unit Test Generation: Finding Real Faults in a Financial Application},
- booktitle = {Proceedings of the 39th International Conference on Software Engineering: Software Engineering in Practice Track},
- series = {ICSE-SEIP '17},
- year = {2017},
- isbn = {978-1-5386-2717-4},
- location = {Buenos Aires, Argentina},
- pages = {263--272},
- numpages = {10},
- url = {https://doi.org/10.1109/ICSE-SEIP.2017.27},
- doi = {10.1109/ICSE-SEIP.2017.27},
- acmid = {3103146},
- publisher = {IEEE Press},
- address = {Piscataway, NJ, USA},
- keywords = {automated tests generation, empirical software engineering, random testing, search-based testing},
-} 
-
-@inproceedings{Shamshiri:2015:AGU:2916135.2916250,
- author = {Shamshiri, Sina and Just, Rene and Rojas, Jose Miguel and Fraser, Gordon and McMinn, Phil and Arcuri, Andrea},
- title = {Do Automatically Generated Unit Tests Find Real Faults? An Empirical Study of Effectiveness and Challenges (T)},
- booktitle = {Proceedings of the 2015 30th IEEE/ACM International Conference on Automated Software Engineering (ASE)},
- series = {ASE '15},
- year = {2015},
- isbn = {978-1-5090-0025-8},
- pages = {201--211},
- numpages = {11},
- url = {https://doi.org/10.1109/ASE.2015.86},
- doi = {10.1109/ASE.2015.86},
- acmid = {2916250},
- publisher = {IEEE Computer Society},
- address = {Washington, DC, USA},
-} 
-
-@article{Ceccato:2015,
-author = {Ceccato, Mariano and Marchetto, Alessandro and Mariani, Leonardo and
-Nguyen, Cu D. and Tonella, Paolo},
-title = {Do Automatically Generated Test Cases Make Debugging Easier? An
-Experimental Assessment of Debugging Effectiveness and Efficiency},
- journal = {ACM Trans. Softw. Eng. Methodol.},
- volume = {25},
- number = {1},
- year = {2015},
- issn = {1049-331X},
- pages = {5:1--5:38},
- numpages = {38},
- doi = {10.1145/2768829},
- publisher = {ACM}
-} 
-
-@inproceedings{Afshan:icst2013, 
-author={Afshan, S. and McMinn, P. and Stevenson, M.}, 
-booktitle={Proceedings International Conference on Software Testing,
-Verification and Validation (ICST)},
-title={Evolving Readable String Test Inputs Using a Natural Language Model to
-Reduce Human Oracle Cost},
-year={2013},
-pages={352-361},
-publisher = {IEEE}
-}
-
-
-@inproceedings{Xuan:fse2014,
- 	author = {Xuan, Jifeng and Monperrus, Martin},
-	 title = {Test Case Purification for Improving Fault Localization},
-booktitle = {Proceedings of the International Symposium on Foundations of
-Software 	Engineering (FSE)},
- 	year = {2014},
-	 location = {Hong Kong, China},
- 	pages = {52--63},
- 	numpages = {12},
- 	publisher = {ACM},
-} 
-
-@article{rojas2017detailed,
-  title={A detailed investigation of the effectiveness of whole test suite generation},
-  author={Rojas, Jos{\'e} Miguel and Vivanti, Mattia and Arcuri, Andrea and Fraser, Gordon},
-  journal={Empirical Software Engineering},
-  volume={22},
-  number={2},
-  pages={852--893},
-  year={2017},
-  publisher={Springer}
-}
-
-@inproceedings{de2017perphecy,
-	title = {Perphecy: Performance Regression Test Selection Made Simple but Effective},
-	booktitle = {Proceedings of the 10th IEEE International Conference on Software Testing, Verification and Validation (ICST)},
-	year = {2017},
-	address = {Tokyo, Japan},
-	abstract = {<p>Developers of performance sensitive production software are in a dilemma: performance regression tests are too costly to run at each commit, but skipping the tests delays and complicates performance regression detection. Ideally, developers would have a system that predicts whether a given commit is likely to impact performance and suggests which tests to run to detect a potential performance regression. Prior approaches towards this problem require static or dynamic analyses that limit their generality and applicability. This paper presents an approach that is simple and general, and that works surprisingly well for real applications.</p>
-	},
-	author = {Augusto Born de Oliveira and Sebastian Fischmeister and Amer Diwan and Matthias Hauswirth and Peter Sweeney}
-}
-
-@inproceedings{mostafa2017,
-	Acmid = {3092725},
-	Address = {New York, NY, USA},
-	Author = {Mostafa, Shaikh and Wang, Xiaoyin and Xie, Tao},
-	Booktitle = {Proceedings of the 26th ACM SIGSOFT International Symposium on Software Testing and Analysis},
-	Doi = {10.1145/3092703.3092725},
-	Isbn = {978-1-4503-5076-1},
-	Location = {Santa Barbara, CA, USA},
-	Numpages = {12},
-	Pages = {23--34},
-	Publisher = {ACM},
-	Series = {ISSTA '17},
-	Title = {{PerfRanker: Prioritization of Performance Regression Tests for Collection-Intensive Software}},
-	Url = {http://doi.acm.org/10.1145/3092703.3092725},
-	Year = {2017},
-}
-
-@inproceedings{huang2014,
-	author = {Huang, Peng and Ma, Xiao and Shen, Dongcai and Zhou, Yuanyuan},
-	title = {{Performance Regression Testing Target Prioritization via Performance Risk Analysis}},
-	booktitle = {Proceedings of the 36th International Conference on Software Engineering},
-	series = {ICSE 2014},
-	year = {2014},
-	isbn = {978-1-4503-2756-5},
-	location = {Hyderabad, India},
-	pages = {60--71},
-	numpages = {12},
-	url = {http://doi.acm.org/10.1145/2568225.2568232},
-	doi = {10.1145/2568225.2568232},
-	acmid = {2568232},
-	publisher = {ACM},
-	address = {New York, NY, USA},
-	keywords = {Performance regression, cost modeling, performance risk analysis},
-}
-
-@inproceedings{kifetew2013orthogonal,
-  title={Orthogonal exploration of the search space in evolutionary test case generation},
-  author={Kifetew, Fitsum M and Panichella, Annibale and De Lucia, Andrea and Oliveto, Rocco and Tonella, Paolo},
-  booktitle={Proceedings of the 2013 International Symposium on Software Testing and Analysis},
-  pages={257--267},
-  year={2013},
-  organization={ACM}
-}
-
-@article{von2014survey,
-  title={A survey on multi-objective evolutionary algorithms for many-objective problems},
-  author={von L{\"u}cken, Christian and Bar{\'a}n, Benjam{\'\i}n and Brizuela, Carlos},
-  journal={Computational optimization and applications},
-  volume={58},
-  number={3},
-  pages={707--756},
-  year={2014},
-  publisher={Springer}
-}
-
-@article{fowler2006continuous,
-  title={Continuous integration},
-  author={Fowler, Martin and Foemmel, Matthew},
-  journal={Thought-Works) http://www. thoughtworks. com/Continuous Integration. pdf},
-  volume={122},
-  pages={14},
-  year={2006}
-}
-
-@article{aravind2004fast,
-  title={A fast and elitist multiobjective genetic algorithm: NSGA-II},
-  author={Deb, Kalyanmoy and Pratap, Amrit and Agarwal, Sameer and Meyarivan, TAMT},
-  journal={IEEE Transactions on Evolutionary Computation},
-  volume={6},
-  number={2},
-  pages={182--197},
-  year={2002},
-  publisher={IEEE}
-}
-
-@book{duvall2007continuous,
-  title={Continuous integration: improving software quality and reducing risk},
-  author={Duvall, Paul M and Matyas, Steve and Glover, Andrew},
-  year={2007},
-  publisher={Pearson Education}
-}
-
-@inproceedings{elbaum2014techniques,
-  title={Techniques for improving regression testing in continuous integration development environments},
-  author={Elbaum, Sebastian and Rothermel, Gregg and Penix, John},
-  booktitle={Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering},
-  pages={235--245},
-  year={2014},
-  organization={ACM}
-}
-
-@inproceedings{woodside2007future,
-  title={The future of software performance engineering},
-  author={Woodside, Murray and Franks, Greg and Petriu, Dorina C},
-  booktitle={2007 Future of Software Engineering},
-  pages={171--187},
-  year={2007},
-  organization={IEEE Computer Society}
-}
-
-@article{balsamo2004model,
-  title={Model-based performance prediction in software development: A survey},
-  author={Balsamo, Simonetta and Di Marco, Antinisca and Inverardi, Paola and Simeoni, Marta},
-  journal={IEEE Transactions on Software Engineering},
-  volume={30},
-  number={5},
-  pages={295--310},
-  year={2004},
-  publisher={IEEE}
-}
-
-@inproceedings{harman2007current,
-  title={The current state and future of search based software engineering},
-  author={Harman, Mark},
-  booktitle={2007 Future of Software Engineering},
-  pages={342--357},
-  year={2007},
-  organization={IEEE Computer Society}
-}
-
-@inproceedings{fraser2011evosuite,
-  title={Evosuite: automatic test suite generation for object-oriented software},
-  author={Fraser, Gordon and Arcuri, Andrea},
-  booktitle={Proceedings of the 19th ACM SIGSOFT symposium and the 13th European conference on Foundations of software engineering},
-  pages={416--419},
-  year={2011},
-  organization={ACM}
-}
-
-@book{beizer2003software,
-  title={Software testing techniques},
-  author={Beizer, Boris},
-  year={2003},
-  publisher={Dreamtech Press}
-}
-
-@inproceedings{de2017perphecy,
-  title={Perphecy: Performance Regression Test Selection Made Simple but Effective},
-  author={De Oliveira, Augusto Born and Fischmeister, Sebastian and Diwan, Amer and Hauswirth, Matthias and Sweeney, Peter F},
-  booktitle={Software Testing, Verification and Validation (ICST), 2017 IEEE International Conference on},
-  pages={103--113},
-  year={2017},
-  organization={IEEE}
-}
-
-@inproceedings{xuan2014test,
- 	author = {Xuan, Jifeng and Monperrus, Martin},
-	 title = {Test Case Purification for Improving Fault Localization},
- 	booktitle = {Proceedings of the International Symposium on Foundations of Software 	Engineering (FSE)},
- 	year = {2014},
-	 location = {Hong Kong, China},
- 	pages = {52--63},
- 	numpages = {12},
- 	publisher = {ACM},
-} 
-
-
-@inproceedings{beller2015developerstest,
-author={Beller, Moritz and Gousios, Georgios and Panichella, Annibale and
-Zaidman, Andy},
-  title={When, How, and Why Developers (Do Not) Test in Their {IDE}s},
-booktitle={Proceedings of the 10th Joint Meeting of the European Software
-Engineering Conference and the ACM SIGSOFT Symposium on the Foundations of
-Software Engineering (ESEC/FSE)},
-  year={2015},
-  note = {To appear},
-  organization={ACM},
-}
-
-@book{Brooks1975,
-  author = {Brooks, Frederick P. Jr.},
-  publisher = {Addison-Wesley},
-  title = {The Mythical Man-Month},
-  year = 1975
-}
-
-
-@inproceedings{Vassallo2016,
-  author    = {Carmine Vassallo and
-               Fiorella Zampetti and
-               Daniele Romano and
-               Moritz Beller and
-               Annibale Panichella and
-               Massimiliano Di Penta and
-               Andy Zaidman},
-title     = {Continuous Delivery Practices in a Large Financial Organization},
-booktitle = {2016 {IEEE} International Conference on Software Maintenance and
-Evolution,
-               {ICSME} 2016, Raleigh, NC, USA, October 2-7, 2016},
-  pages     = {519--528},
-  year      = {2016},
-  url       = {http://dx.doi.org/10.1109/ICSME.2016.72},
-  doi       = {10.1109/ICSME.2016.72},
-  biburl    = {http://dblp.uni-trier.de/rec/bib/conf/icsm/VassalloZRBPPZ16},
-  bibsource = {dblp computer science bibliography, http://dblp.org}
-}
-
-
-@inproceedings{panichella2016impact,
-  author    = {Sebastiano Panichella and
-               Annibale Panichella and
-               Moritz Beller and
-               Andy Zaidman and
-               Harald C. Gall},
-  title     = {The impact of test case summaries on bug fixing performance: an empirical
-               investigation},
-  booktitle = {Proceedings of the 38th International Conference on Software Engineering,
-               {ICSE} 2016, Austin, TX, USA, May 14-22, 2016},
-  pages     = {547--558},
-  year      = {2016},
-  url       = {http://doi.acm.org/10.1145/2884781.2884847},
-  doi       = {10.1145/2884781.2884847},
-  timestamp = {Thu, 15 Jun 2017 21:42:42 +0200},
-  biburl    = {http://dblp.uni-trier.de/rec/bib/conf/icse/PanichellaPBZG16},
-  bibsource = {dblp computer science bibliography, http://dblp.org}
-}
-
-
-@inproceedings{arcuri2010does,
-  title={It does matter how you normalise the branch distance in search based software testing},
-  author={Arcuri, Andrea},
-  booktitle={Software Testing, Verification and Validation (ICST), 2010 Third International Conference on},
-  pages={205--214},
-  year={2010},
-  organization={IEEE}
-}
-
-@inproceedings{pinto2010multi,
-  title={A multi-objective genetic algorithm to test data generation},
-  author={Pinto, Gustavo HL and Vergilio, Silvia R},
-  booktitle={Tools with Artificial Intelligence (ICTAI), 2010 22nd IEEE International Conference on},
-  volume={1},
-  pages={129--134},
-  year={2010},
-  organization={IEEE}
-}
-
-@inproceedings{oster2006automatic,
-  title={Automatic test data generation by multi-objective optimisation},
-  author={Oster, Norbert and Saglietti, Francesca},
-  booktitle={International Conference on Computer Safety, Reliability, and Security},
-  pages={426--438},
-  year={2006},
-  organization={Springer}
-}
-
-@Inbook{deb2014multi,
-author="Deb, Kalyanmoy",
-editor="Burke, Edmund K.
-and Kendall, Graham",
-title="Multi-Objective Optimization",
-bookTitle="Search Methodologies: Introductory Tutorials in Optimization and Decision Support Techniques",
-year="2005",
-publisher="Springer US",
-address="Boston, MA",
-pages="273--316",
-abstract="Many real-world search and optimization problems are naturally posed as non-linear programming problems having multiple objectives. Due to the lack of suitable solution techniques, such problems were artificially converted into a single-objective problem and solved. The difficulty arose because such problems give rise to a set of trade-off optimal solutions (known as Pareto-optimal solutions), instead of a single optimum solution. It then becomes important to find not just one Pareto-optimal solution, but as many of them as possible. This is because any two such solutions constitutes a trade-off among the objectives and users would be in a better position to make a choice when many such trade-off solutions are unveiled.",
-isbn="978-0-387-28356-2",
-doi="10.1007/0-387-28356-0_10",
-url="https://doi.org/10.1007/0-387-28356-0_10"
-}
-
-
-
-@inproceedings{lakhotia2007a,
- author = {Lakhotia, Kiran and Harman, Mark and McMinn, Phil},
- title = {A Multi-objective Approach to Search-based Test Data Generation},
- booktitle = {Proceedings of the 9th Annual Conference on Genetic and Evolutionary Computation},
- series = {GECCO '07},
- year = {2007},
- isbn = {978-1-59593-697-4},
- location = {London, England},
- pages = {1098--1105},
- numpages = {8},
- url = {http://doi.acm.org/10.1145/1276958.1277175},
- doi = {10.1145/1276958.1277175},
- acmid = {1277175},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {automated test data generation, evolutionary testing, multi-objective genetic algorithms},
-}
-
-@book{goldberg2006genetic,
- author = {Goldberg, David E.},
- title = {Genetic Algorithms in Search, Optimization and Machine Learning},
- year = {1989},
- isbn = {0201157675},
- edition = {1st},
- publisher = {Addison-Wesley Longman Publishing Co., Inc.},
- address = {Boston, MA, USA},
-} 
-
-@article{panichella2018automated,
-  title={Automated test case generation as a many-objective optimisation problem with dynamic selection of the targets},
-  author={Panichella, Annibale and Kifetew, Fitsum Meshesha and Tonella, Paolo},
-  journal={IEEE Transactions on Software Engineering},
+@article{lakshman2010cassandra,
+  title={Cassandra: a decentralized structured storage system},
+  author={Lakshman, Avinash and Malik, Prashant},
+  journal={ACM SIGOPS Operating Systems Review},
   volume={44},
   number={2},
-  pages={122--158},
-  year={2018},
-  publisher={IEEE}
-}
-
-@inproceedings{orso1998open,
-	title={Open Issues and Research Directions in Object-Oriented Testing},
-	author={Orso, Alessandro and Silva, Sergio},
-	booktitle={Proceedings of the 4th International Conference on” Achieving Quality in Software: Software Quality in the Communication Society”(AQUIS’98)},
-	year={1998}
-}
-
-@inproceedings{palomba2016diffusion,
-	title={On the diffusion of test smells in automatically generated test code: An empirical study},
-	author={Palomba, Fabio and Di Nucci, Dario and Panichella, Annibale and Oliveto, Rocco and De Lucia, Andrea},
-	booktitle={2016 IEEE/ACM 9th International Workshop on Search-Based Software Testing (SBST)},
-	pages={5--14},
-	year={2016},
-	organization={IEEE}
-}
-
-@article{grano2019scented,
-	title={Scented since the beginning: On the diffuseness of test smells in automatically generated test code},
-	author={Grano, Giovanni and Palomba, Fabio and Di Nucci, Dario and De Lucia, Andrea and Gall, Harald C},
-	journal={Journal of Systems and Software},
-	volume={156},
-	pages={312--327},
-	year={2019},
-	publisher={Elsevier}
-}
-
-@inproceedings{harrold1992incremental,
-	title={Incremental testing of object-oriented class structures},
-	author={Harrold, Mary Jean and McGregor, John D and Fitzpatrick, Kevin J},
-	booktitle={Proceedings of the 14th international conference on Software engineering},
-	pages={68--80},
-	year={1992}
-}
-
-@inproceedings{mcminn2011search,
-  title={Search-based software testing: Past, present and future},
-  author={McMinn, Phil},
-  booktitle={Software testing, verification and validation workshops (icstw), 2011 ieee fourth international conference on},
-  pages={153--163},
-  year={2011},
-  organization={IEEE}
-} 
-
-@article{fraser2013whole,
- author = {Fraser, Gordon and Arcuri, Andrea},
- title = {Whole Test Suite Generation},
- journal = {IEEE Trans. Softw. Eng.},
- issue_date = {February 2013},
- volume = {39},
- number = {2},
- month = feb,
- year = {2013},
- issn = {0098-5589},
- pages = {276--291},
- numpages = {16},
- url = {http://dx.doi.org/10.1109/TSE.2012.14},
- doi = {10.1109/TSE.2012.14},
- acmid = {2478706},
- publisher = {IEEE Press},
- address = {Piscataway, NJ, USA},
- keywords = {Software,Genetic algorithms,Search problems,Arrays,Genetic programming,Software testing,collateral coverage,Search-based software engineering,length,branch coverage,genetic algorithm,infeasible goal},
-} 
-
-@book{conover1999practical,
-  title={Practical nonparametric statistics},
-  author={Conover, W.J.},
-  isbn={9780471160687},
-  lccn={98008521},
-  series={Wiley series in probability and statistics: Applied probability and statistics},
-  url={https://books.google.nl/books?id=dYEpAQAAMAAJ},
-  year={1999},
-  publisher={Wiley}
-}
-
-@article{vargha2000acritique,
-    author = {Vargha, A. and Delaney, H. D.},
-    citeulike-article-id = {9950190},
-    journal = {Journal on Educational and Behavioral Statistics},
-    number = {2},
-    pages = {101--132},
-    posted-at = {2011-10-27 09:12:35},
-    priority = {2},
-    title = {{A Critique and Improvement of the CL Common Language Effect Size Statistics of McGraw and Wong}},
-    volume = {25},
-    year = {2000}
-}
-
-@article{arcuri2013parameters,
-  author    = {Andrea Arcuri and
-               Gordon Fraser},
-  title     = {Parameter tuning or default values? An empirical investigation in
-               search-based software engineering},
-  journal   = {Empirical Software Engineering},
-  volume    = {18},
-  number    = {3},
-  pages     = {594--623},
-  year      = {2013}
-}
-
-@article{mcminn2004search-based,
- author = {Mc{M}inn, Phil},
- title = {Search-based Software Test Data Generation: A Survey},
- journal = {Softw. Test. Verif. Reliab.},
- issue_date = {June 2004},
- volume = {14},
- number = {2},
- month = jun,
- year = {2004},
- issn = {0960-0833},
- pages = {105--156},
- numpages = {52},
- url = {http://dx.doi.org/10.1002/stvr.v14:2},
- doi = {10.1002/stvr.v14:2},
- acmid = {1077279},
- publisher = {John Wiley and Sons Ltd.},
- address = {Chichester, UK},
- keywords = {automated software test data generation, evolutionary algorithms, evolutionary testing, metaheuristic search, search-based software engineering, simulated annealing},
-} 
-
-@InProceedings{scalabrino2016search-based,
-author="Scalabrino, Simone
-and Grano, Giovanni
-and Di Nucci, Dario
-and Oliveto, Rocco
-and De Lucia, Andrea",
-editor="Sarro, Federica
-and Deb, Kalyanmoy",
-title="Search-Based Testing of Procedural Programs: Iterative Single-Target or Multi-target Approach?",
-booktitle="Search Based Software Engineering",
-year="2016",
-publisher="Springer International Publishing",
-address="Cham",
-pages="64--79",
-abstract="In the context of testing of Object-Oriented (OO) software systems, researchers have recently proposed search based approaches to automatically generate whole test suites by considering simultaneously all targets (e.g., branches) defined by the coverage criterion (multi-target approach). The goal of whole suite approaches is to overcome the problem of wasting search budget that iterative single-target approaches (which iteratively generate test cases for each target) can encounter in case of infeasible targets. However, whole suite approaches have not been implemented and experimented in the context of procedural programs. In this paper we present OCELOT (Optimal Coverage sEarch-based tooL for sOftware Testing), a test data generation tool for C programs which implements both a state-of-the-art whole suite approach and an iterative single-target approach designed for a parsimonious use of the search budget. We also present an empirical study conducted on 35 open-source C programs to compare the two approaches implemented in OCELOT. The results indicate that the iterative single-target approach provides a higher efficiency while achieving the same or an even higher level of coverage than the whole suite approach.",
-isbn="978-3-319-47106-8"
-}
-
-@inproceedings{Fraser:study2013,
-author = {Fraser, Gordon and Staats, Matt and McMinn, Phil and Arcuri, Andrea
-and Padberg, Frank},
-title = {Does Automated White-box Test Generation Really Help Software
-Testers?},
-booktitle = {Proceedings of the International Symposium on Software Testing and
-Analysis (ISSTA)},
- 	year = {2013},
-  	pages = {291--301},
- 	numpages = {11},
- 	publisher = {ACM}
-} 
-
- @article{Csallner:2004,
- author = {Csallner, Christoph and Smaragdakis, Yannis},
- title = {JCrasher: An Automatic Robustness Tester for Java},
- journal = {Softw. Pract. Exper.},
- volume = {34},
- number = {11},
- year = {2004},
- pages = {1025--1050},
- publisher = {John Wiley \& Sons, Inc.},
-} 
-
-
-@article{FraEMSE:2015,
-title={1600 faults in 100 projects: automatically finding faults while
-achieving high coverage with EvoSuite},
-author={Fraser, Gordon and Arcuri, Andrea},
-year={2015},
-journal={Empirical Software Engineering},
-volume={20},
-number={3},
-publisher={Springer US},
-pages={611-639}
-}
-
-@inproceedings{panichella15reformulating,
-  author    = {Annibale Panichella and
-               Fitsum Meshesha Kifetew and
-               Paolo Tonella},
-  title     = {Reformulating Branch Coverage as a Many-Objective Optimization Problem},
-  booktitle = {{ICST}},
-  pages     = {1--10},
-  publisher = {{IEEE} Computer Society},
-  year      = {2015}
-}
-
-@article{ferrer2012evolutionary,
- author = {Ferrer, Javier and Chicano, Francisco and Alba, Enrique},
- title = {Evolutionary Algorithms for the Multi-objective Test Data Generation Problem},
- journal = {Softw. Pract. Exper.},
- issue_date = {November 2012},
- volume = {42},
- number = {11},
- month = nov,
- year = {2012},
- issn = {0038-0644},
- pages = {1331--1362},
- numpages = {32},
- url = {http://dx.doi.org/10.1002/spe.1135},
- doi = {10.1002/spe.1135},
- acmid = {2389476},
- publisher = {John Wiley \& Sons, Inc.},
- address = {New York, NY, USA},
- keywords = {branch coverage, evolutionary algorithms, evolutionary testing, multi-objective test data generation, oracle cost, search-based software engineering},
-} 
-
-@inproceedings{palomba2016automatic,
- author = {Palomba, Fabio and Panichella, Annibale and Zaidman, Andy and Oliveto, Rocco and De Lucia, Andrea},
- title = {Automatic Test Case Generation: What if Test Code Quality Matters?},
- booktitle = {Proceedings of the 25th International Symposium on Software Testing and Analysis},
- series = {ISSTA 2016},
- year = {2016},
- isbn = {978-1-4503-4390-9},
- location = {Saarbr\&\#252;cken, Germany},
- pages = {130--141},
- numpages = {12},
- url = {http://doi.acm.org/10.1145/2931037.2931057},
- doi = {10.1145/2931037.2931057},
- acmid = {2931057},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {Evolutionary testing, branch coverage, many-objective optimization, test code quality},
-} 
-
-@inproceedings{afshan2013evolving,
- author = {Afshan, Sheeva and McMinn, Phil and Stevenson, Mark},
- title = {Evolving Readable String Test Inputs Using a Natural Language Model to Reduce Human Oracle Cost},
- booktitle = {Proceedings of the 2013 IEEE Sixth International Conference on Software Testing, Verification and Validation},
- series = {ICST '13},
- year = {2013},
- isbn = {978-0-7695-4968-2},
- pages = {352--361},
- numpages = {10},
- url = {http://dx.doi.org/10.1109/ICST.2013.11},
- doi = {10.1109/ICST.2013.11},
- acmid = {2511616},
- publisher = {IEEE Computer Society},
- address = {Washington, DC, USA},
- keywords = {Search-Based Testing, Strings, Language Model, Crowd-Sourced Human Study},
-} 
-
-@inproceedings{Albunian:ssbse17,
-  author    = {Nasser M. Albunian},
-  title     = {Diversity in Search-Based Unit Test Suite Generation},
-  booktitle = {Proceedings of the 9th International Symposium Search Based Software Engineering},
-  series = {SSBSE '17},
-  location = {Paderborn, Germany},
-  pages     = {183--189},
-  numpages = {7},
-  year      = {2017},
-  publisher = {Springer},
-}
-
-@inproceedings{arcuri:2010, 
-author={Andrea Arcuri}, 
-booktitle={Third International Conference on Software Testing, Verification and Validation, {ICST}}, 
-title={It Does Matter How You Normalise the Branch Distance in Search Based Software Testing}, 
-year={2010},  
-pages={205--214},  
-month={April},}
-
-@inproceedings{Koppen:2007,
- author = {K\"{o}ppen, Mario and Yoshida, Kaori},
- title = {Substitute Distance Assignments in {NSGA-II} for Handling Many-objective Optimization Problems},
- booktitle = {Proceedings of the 4th International Conference on Evolutionary Multi-criterion Optimization},
- series = {EMO'07},
- year = {2007},
- isbn = {978-3-540-70927-5},
- location = {Matsushima, Japan},
- pages = {727--741},
- numpages = {15},
- url = {http://dl.acm.org/citation.cfm?id=1762545.1762607},
- acmid = {1762607},
- publisher = {Springer-Verlag},
- address = {Berlin, Heidelberg},
-}
-
-@article{vcrepinvsek2013,
-  title={Exploration and exploitation in evolutionary algorithms: A survey},
-  author={{\v{C}}repin{\v{s}}ek, Matej and Liu, Shih-Hsi and Mernik, Marjan},
-  journal={ACM Computing Surveys (CSUR)},
-  volume={45},
-  number={3},
-  pages={35},
-  year={2013},
-  publisher={ACM}
-}
-
-@inproceedings{campos2017empirical,
-  author    = {Jos{\'{e}} Campos and
-               Yan Ge and
-               Gordon Fraser and
-               Marcelo Eler and
-               Andrea Arcuri},
-  title     = {An Empirical Evaluation of Evolutionary Algorithms for Test Suite
-               Generation},
-  booktitle = {Proceedings of the 9th International Symposium on Search Based Software Engineering {SSBSE}
-               2017},
-  pages     = {33--48},
-  year      = {2017},
-  doi       = {10.1007/978-3-319-66299-2_3},
-  timestamp = {Tue, 29 Aug 2017 15:14:25 +0200},
-}
-
-@inproceedings{Tonella:2004,
- author = {Tonella, Paolo},
- title = {Evolutionary Testing of Classes},
- booktitle = {Proceedings of the 2004 ACM SIGSOFT International Symposium on Software Testing and Analysis},
- series = {ISSTA '04},
- year = {2004},
- isbn = {1-58113-820-2}, pages = {119--128},
- numpages = {10},
- acmid = {1007528},
- publisher = {ACM},
- address = {New York, NY, USA},
-} 
-
-@book{McAllister:2008,
- author = {McAllister, William},
- title = {Data Structures And Algorithms Using Java},
- year = {2008},
- isbn = {076375756X, 9780763757564},
- edition = {1st},
- publisher = {Jones and Bartlett Publishers, Inc.},
- address = {USA},
-} 
-
-@book{shirazi2003java,
- author = {Shirazi, Jack},
- title = {Java Performance Tuning},
- year = {2002},
- isbn = {0596003773},
- edition = {2nd},
- publisher = {O'Reilly \& Associates, Inc.},
- address = {Sebastopol, CA, USA},
-} 
-
-@inproceedings{Yoo:2007,
- author = {Yoo, Shin and Harman, Mark},
- title = {Pareto Efficient Multi-objective Test Case Selection},
- booktitle = {Proceedings of the 2007 International Symposium on Software Testing and Analysis},
- series = {ISSTA '07},
- year = {2007},
- isbn = {978-1-59593-734-6},
- pages = {140--150},
- numpages = {11},
- acmid = {1273483}
-} 
-
-@article{panichella:ist2018,
-title = {A Large Scale Empirical Comparison of State-of-the-art Search-based Test Case Generators},
-journal = {Information and Software Technology},
-year = {2018},
-issn = {0950-5849},
-doi = {https://doi.org/10.1016/j.infsof.2018.08.009},
-url = {http://www.sciencedirect.com/science/article/pii/S0950584917304950},
-author = {Panichella, Annibale and Kifetew, {Fitsum Meshesha} and Tonella, Paolo}
-}
-
-@article{campos:ist2018,
-title = {An Empirical Evaluation of Evolutionary Algorithms for Unit Test Suite Generation},
-journal = {Information and Software Technology},
-year = {2018},
-issn = {0950-5849},
-doi = {https://doi.org/10.1016/j.infsof.2018.08.010},
-url = {http://www.sciencedirect.com/science/article/pii/S0950584917304858},
-author = {Jos\'{e} Campos and Yan Ge and Nasser Albunian and Gordon Fraser and Marcelo Eler and Andrea Arcuri},
-keywords = {Evolutionary algorithms, Test suite generation, Empirical study}
-}
-
-@article{chen2015star,
-  title={STAR: stack trace based automatic crash reproduction via symbolic execution},
-  author={Chen, Ning and Kim, Sunghun},
-  journal={IEEE transactions on software engineering},
-  volume={41},
-  number={2},
-  pages={198--220},
-  year={2015},
-  publisher={IEEE}
-}
-
-@article{soltani2018search,
-  title={Search-Based Crash Reproduction and Its Impact on Debugging},
-  author={Soltani, Mozhan and Panichella, Annibale and Van Deursen, Arie},
-  journal={IEEE Transactions on Software Engineering},
-  year={2018},
-  publisher={IEEE}
-}
-
-@misc{giovanni_grano_2019_2571468,
-  author       = {Giovanni Grano and
-                  Fabio Palomba and
-                  Harald C. Gall},
-  title        = {{Lightweight Assessment of Test-Case Effectiveness 
-                   using Source-Code-Quality Indicators - Replication
-                   Package}},
-  month        = feb,
-  year         = 2019,
-  doi          = {10.5281/zenodo.2571468},
-  url          = {https://doi.org/10.5281/zenodo.2571468}
-}
-
-@article{cawley2010over,
-  title={On over-fitting in model selection and subsequent selection bias in performance evaluation},
-  author={Cawley, Gavin C and Talbot, Nicola LC},
-  journal={Journal of Machine Learning Research},
-  volume={11},
-  number={Jul},
-  pages={2079--2107},
-  year={2010}
-}
-
-@article{borges2018s,
-  title={What’s in a GitHub star? understanding repository starring practices in a social coding platform},
-  author={Borges, Hudson and Valente, Marco Tulio},
-  journal={Journal of Systems and Software},
-  volume={146},
-  pages={112--129},
-  year={2018},
-  publisher={Elsevier}
-}
-
-@inproceedings{brown2017care,
-  title={The care and feeding of wild-caught mutants},
-  author={Brown, David Bingham and Vaughn, Michael and Liblit, Ben and Reps, Thomas},
-  booktitle={Proceedings of the 2017 11th Joint Meeting on Foundations of Software Engineering},
-  pages={511--522},
-  year={2017},
-  organization={ACM}
-}
-
-@article{zhu2018systematic,
-  title={A systematic literature review of how mutation testing supports quality assurance processes},
-  author={Zhu, Qianqian and Panichella, Annibale and Zaidman, Andy},
-  journal={Software Testing, Verification and Reliability},
-  volume={28},
-  number={6},
-  pages={e1675},
-  year={2018},
-  publisher={Wiley Online Library}
-}
-
-@article{scalabrino2018comprehensive,
-  title={A comprehensive model for code readability},
-  author={Scalabrino, Simone and Linares-V{\'a}squez, Mario and Oliveto, Rocco and Poshyvanyk, Denys},
-  journal={Journal of Software: Evolution and Process},
-  volume={30},
-  number={6},
-  pages={e1958},
-  year={2018},
-  publisher={Wiley Online Library}
-}
-
-@article{van2007detection,
-  title={On the detection of test smells: A metrics-based approach for general fixture and eager test},
-  author={Van Rompaey, Bart and Du Bois, Bart and Demeyer, Serge and Rieger, Matthias},
-  journal={IEEE Transactions on Software Engineering},
-  volume={33},
-  number={12},
-  pages={800--817},
-  year={2007},
-  publisher={IEEE}
-}
-
-@inproceedings{liu2006approach,
-  title={An approach to test data generation for killing multiple mutants},
-  author={Liu, Ming-Hao and Gao, You-Feng and Shan, Jin-Hui and Liu, Jiang-Hong and Zhang, Lu and Sun, Jia-Su},
-  booktitle={Software Maintenance, 2006. ICSM'06. 22nd IEEE International Conference on},
-  pages={113--122},
-  year={2006},
-  organization={IEEE}
-}
-
-@article{rothermel2001prioritizing,
-  title={Prioritizing test cases for regression testing},
-  author={Rothermel, Gregg and Untch, Roland H. and Chu, Chengyun and Harrold, Mary Jean},
-  journal={IEEE Transactions on software engineering},
-  volume={27},
-  number={10},
-  pages={929--948},
-  year={2001},
-  publisher={IEEE}
-}
-
-@inproceedings{offutt1996detecting,
-  title={Detecting equivalent mutants and the feasible path problem},
-  author={Offutt, A Jefferson and Pan, Jie},
-  booktitle={Computer Assurance, 1996. COMPASS'96, Systems Integrity. Software Safety. Process Security. Proceedings of the Eleventh Annual Conference on},
-  pages={224--236},
-  year={1996},
-  organization={IEEE}
-}
-
-@inproceedings{fernandes2017avoiding,
-  title={Avoiding useless mutants},
-  author={Fernandes, Leonardo and Ribeiro, M{\'a}rcio and Carvalho, Luiz and Gheyi, Rohit and Mongiovi, Melina and Santos, Andr{\'e} and Cavalcanti, Ana and Ferrari, Fabiano and Maldonado, Jos{\'e} Carlos},
-  booktitle={ACM SIGPLAN Notices},
-  volume={52},
-  number={12},
-  pages={187--198},
-  year={2017},
-  organization={ACM}
-}
-
-@inproceedings{kocaguneli2010use,
-  title={When to use data from other projects for effort estimation},
-  author={Kocaguneli, Ekrem and Gay, Gregory and Menzies, Tim and Yang, Ye and Keung, Jacky W},
-  booktitle={Proceedings of the IEEE/ACM international conference on Automated software engineering},
-  pages={321--324},
+  pages={35--40},
   year={2010},
-  organization={ACM}
+  publisher={ACM New York, NY, USA}
 }
 
-@article{krstajic2014cross,
-  title={Cross-validation pitfalls when selecting and assessing regression and classification models},
-  author={Krstajic, Damjan and Buturovic, Ljubomir J and Leahy, David E and Thomas, Simon},
-  journal={Journal of cheminformatics},
-  volume={6},
-  number={1},
-  pages={10},
-  year={2014},
-  publisher={Nature Publishing Group}
+@misc{graphx,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{GraphX - Spark 2.4.6 Documentation}},
+howpublished = {https://spark.apache.org/docs/latest/graphx-programming-guide.html},
+urldate = {2020-06-15}
 }
-
-@phdthesis{hall1999correlation,
-  title={Correlation-based feature selection for machine learning},
-  author={Hall, Mark Andrew},
-  year={1999},
-  publisher={University of Waikato Hamilton}
-}
-
-@article{menzies2010defect,
-  title={Defect prediction from static code features: current results, limitations, new approaches},
-  author={Menzies, Tim and Milton, Zach and Turhan, Burak and Cukic, Bojan and Jiang, Yue and Bener, Ay{\c{s}}e},
-  journal={Automated Software Engineering},
-  volume={17},
-  number={4},
-  pages={375--407},
-  year={2010},
-  publisher={Springer}
-}
-
-@article{stone1974cross,
-  title={Cross-validatory choice and assessment of statistical predictions},
-  author={Stone, Mervyn},
-  journal={Journal of the royal statistical society. Series B (Methodological)},
-  pages={111--147},
-  year={1974},
-  publisher={JSTOR}
-}
-
-@article{anand2013orchestrated,
-	title={An orchestrated survey of methodologies for automated software test case generation},
-	author={Anand, Saswat and Burke, Edmund K and Chen, Tsong Yueh and Clark, John and Cohen, Myra B and Grieskamp, Wolfgang and Harman, Mark and Harrold, Mary Jean and Mcminn, Phil and Bertolino, Antonia and others},
-	journal={Journal of Systems and Software},
-	volume={86},
-	number={8},
-	pages={1978--2001},
-	year={2013},
-	publisher={Elsevier}
-}
-
-@article{beller2017developer,
-	title={Developer testing in the ide: Patterns, beliefs, and behavior},
-	author={Beller, Moritz and Gousios, Georgios and Panichella, Annibale and Proksch, Sebastian and Amann, Sven and Zaidman, Andy},
-	journal={IEEE Transactions on Software Engineering},
-	volume={45},
-	number={3},
-	pages={261--284},
-	year={2017},
-	publisher={IEEE}
-}
-
-@article{erdogmus2005effectiveness,
-	title={On the effectiveness of the test-first approach to programming},
-	author={Erdogmus, Hakan and Morisio, Maurizio and Torchiano, Marco},
-	journal={IEEE Transactions on software Engineering},
-	volume={31},
-	number={3},
-	pages={226--237},
-	year={2005},
-	publisher={IEEE}
-}
-
-@inproceedings{williams2009effectiveness,
-	title={On the effectiveness of unit test automation at microsoft},
-	author={Williams, Laurie and Kudrjavets, Gunnar and Nagappan, Nachiappan},
-	booktitle={2009 20th International Symposium on Software Reliability Engineering},
-	pages={81--89},
-	year={2009},
-	organization={IEEE}
-}
-
-@article{song2011general,
-  title={A general software defect-proneness prediction framework},
-  author={Song, Qinbao and Jia, Zihan and Shepperd, Martin and Ying, Shi and Liu, Jin},
-  journal={IEEE Transactions on Software Engineering},
-  volume={37},
-  number={3},
-  pages={356--370},
-  year={2011},
-  publisher={IEEE}
-}
-
-@book{ammann2016introduction,
-	title={Introduction to software testing},
-	author={Ammann, Paul and Offutt, Jeff},
-	year={2016},
-	publisher={Cambridge University Press}
-}
-
-@inproceedings{tantithamthavorn2016automated,
-  title={Automated parameter optimization of classification techniques for defect prediction models},
-  author={Tantithamthavorn, Chakkrit and McIntosh, Shane and Hassan, Ahmed E and Matsumoto, Kenichi},
-  booktitle={Software Engineering (ICSE), 2016 IEEE/ACM 38th International Conference on},
-  pages={321--332},
-  year={2016},
-  organization={IEEE}
-}
-
-@book{klaus1980content,
-  title={Content analysis: An introduction to its methodology},
-  author={Klaus, Krippendorff},
-  year={1980},
-  publisher={Sage Publications}
-}
-
-@inproceedings{Palomba:icsme18,
-  author = {Palomba, Fabio and Zaidman, Andy and {De Lucia}, Andrea},
-  title = {{Automatic Test Smell Detection using Information Retrieval Techniques}},
-  booktitle = {International Conference on Software Maintenance and Evolution (ICSME)},
-  year = {2018},
-  pages = {to appear},
-  publisher = {IEEE}
-}
-
-@inproceedings{spadini2018relation,
-  title={On the relation of test smells to software code quality},
-  author={Spadini, Davide and Palomba, Fabio and Zaidman, Andy and Bruntink, Magiel and Bacchelli, Alberto},
-  booktitle={2018 IEEE International Conference on Software Maintenance and Evolution (ICSME)},
-  pages={1--12},
-  year={2018},
-  organization={IEEE}
-}
-
-@inproceedings{Shaheen:2009hi,
-author = {Shaheen, Muhammad Rabee and Bousquet, Lydie du},
-title = {{Is Depth of Inheritance Tree a Good Cost Prediction for Branch Coverage Testing?}},
-booktitle = {2009 First International Conference on Advances in System Testing and Validation Lifecycle (VALID)},
-year = {2009},
-pages = {42--47},
-publisher = {IEEE}
-}
-
-@article{zhang2018predictive,
-  title={Predictive mutation testing},
-  author={Zhang, Jie and Zhang, Lingming and Harman, Mark and Hao, Dan and Jia, Yue and Zhang, Lu},
-  journal={IEEE Transactions on Software Engineering},
-  year={2018},
-  publisher={IEEE}
-}
-
-@inproceedings{qusef2011scotch,
-  title={Scotch: Test-to-code traceability using slicing and conceptual coupling},
-  author={Qusef, Abdallah and Bavota, Gabriele and Oliveto, Rocco and De Lucia, Andrea and Binkley, David},
-  booktitle={Software Maintenance (ICSM), 2011 27th IEEE International Conference on},
-  pages={63--72},
-  year={2011},
-  organization={IEEE}
-}
-
-@article{qusef2013evaluating,
-  title={Evaluating test-to-code traceability recovery methods through controlled experiments},
-  author={Qusef, Abdallah and Bavota, Gabriele and Oliveto, Rocco and Lucia, Andrea De and Binkley, David},
-  journal={Journal of Software: Evolution and Process},
-  volume={25},
-  number={11},
-  pages={1167--1191},
-  year={2013},
-  publisher={Wiley Online Library}
-}
-
-@inproceedings{just2014efficient,
-  title={Efficient mutation analysis by propagating and partitioning infected execution states},
-  author={Just, Ren{\'e} and Ernst, Michael D and Fraser, Gordon},
-  booktitle={Proceedings of the 2014 International Symposium on Software Testing and Analysis},
-  pages={315--326},
-  year={2014},
-  organization={ACM}
-}
-
-@inproceedings{strug2012machine,
-  title={Machine learning approach in mutation testing},
-  author={Strug, Joanna and Strug, Barbara},
-  booktitle={IFIP International Conference on Testing Software and Systems},
-  pages={200--214},
-  year={2012},
-  organization={Springer}
-}
-
-@inproceedings{kurtz2015static,
-  title={Static analysis of mutant subsumption},
-  author={Kurtz, Bob and Ammann, Paul and Offutt, Jeff},
-  booktitle={Software Testing, Verification and Validation Workshops (ICSTW), 2015 IEEE Eighth International Conference on},
-  pages={1--10}
-}
-
-@inproceedings{shi2014balancing,
-  title={Balancing trade-offs in test-suite reduction},
-  author={Shi, August and Gyori, Alex and Gligoric, Milos and Zaytsev, Andrey and Marinov, Darko},
-  booktitle={Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering},
-  pages={246--256},
-  year={2014},
-  organization={ACM}
-}
-
-@article{delahaye2015selecting,
-  title={Selecting a software engineering tool: lessons learnt from mutation analysis},
-  author={Delahaye, Micka{\"e}l and Bousquet, Lydie},
-  journal={Software: Practice and Experience},
-  volume={45},
-  number={7},
-  pages={875--891},
-  year={2015},
-  publisher={Wiley Online Library}
-}
-
-@inproceedings{coles2016pit,
-  title={PIT: a practical mutation testing tool for {J}ava},
-  author={Coles, Henry and Laurent, Thomas and Henard, Christopher and Papadakis, Mike and Ventresque, Anthony},
-  booktitle={Proceedings of the 25th International Symposium on Software Testing and Analysis}
-}
-
-@inproceedings{andrews2005mutation,
-  title={Is mutation an appropriate tool for testing experiments?},
-  author={Andrews, James H and Briand, Lionel C and Labiche, Yvan},
-  booktitle={Proceedings of the 27th international conference on Software engineering},
-  pages={402--411},
-  year={2005},
-  organization={ACM}
-}
-
-@inproceedings{qianqian2018investigation,
-author = {Zhu, Qianqian and Panichella, Annibale and Zaidman, Andy},
-year = {2018},
-month = {04},
-booktitle={IEEE Conference on Software Testing, Validation and Verification},
-title = {An Investigation of Compression Techniques to Speed up Mutation Testing}
-}
-
-@article{jia2011analysis,
-  title={An analysis and survey of the development of mutation testing},
-  author={Jia, Yue and Harman, Mark},
-  journal={IEEE transactions on software engineering},
-  volume={37},
-  number={5},
-  pages={649--678},
-  year={2011},
-  publisher={IEEE}
-}
-
-@phdthesis{budd1981mutation,
- author = {Budd, Timothy Alan},
- title = {Mutation Analysis of Program Test Data},
- year = {1980},
- note = {AAI8025191},
- publisher = {Yale University},
- address = {New Haven, CT, USA},
-} 
-
-@article{offutt2011mutation,
-  title={A mutation carol: Past, present and future},
-  author={Offutt, Jeff},
-  journal={Information and Software Technology},
-  volume={53},
-  number={10},
-  pages={1098--1107},
-  year={2011},
-  publisher={Elsevier}
-}
-
-@techreport{hsu2003practical,
-  abstract = {Support vector machine (SVM) is a popular technique for classification. However, beginners who are not familiar with SVM often get unsatisfactory results since they miss some easy but significant steps. In this guide, we propose a simple procedure, which usually gives reasonable results.},
-  added-at = {2009-07-08T16:22:45.000+0200},
-  author = {Hsu, Chih-Wei and Chang, Chih-Chung and Lin, Chih-Jen},
-  biburl = {https://www.bibsonomy.org/bibtex/2c04ef97dc3c3de168e684c3e4abe061b/zeno},
-  institution = {Department of Computer Science, National Taiwan University},
-  interhash = {272d3522c22f3cf354b02c5ce6c4612a},
-  intrahash = {c04ef97dc3c3de168e684c3e4abe061b},
-  keywords = {guide libsvm svm tutorial},
-  timestamp = {2009-07-08T16:22:46.000+0200},
-  title = {A Practical Guide to Support Vector Classification},
-  url = {http://www.csie.ntu.edu.tw/~cjlin/papers.html},
-  year = 2003
-}
-
-@article{bergstra2012random,
-  title={Random search for hyper-parameter optimization},
-  author={Bergstra, James and Bengio, Yoshua},
-  journal={Journal of Machine Learning Research},
-  volume={13},
-  number={Feb},
-  pages={281--305},
-  year={2012}
-}
-
-@article{marcus2008using,
-  title={Using the conceptual cohesion of classes for fault prediction in object-oriented systems},
-  author={Marcus, Andrian and Poshyvanyk, Denys and Ferenc, Rudolf},
-  journal={IEEE Transactions on Software Engineering},
-  volume={34},
-  number={2},
-  pages={287--300},
-  year={2008},
-  publisher={IEEE}
-}
-
-@article{zheng2006value,
-  title={On the value of static analysis for fault detection in software},
-  author={Zheng, Jiang and Williams, Laurie and Nagappan, Nachiappan and Snipes, Will and Hudepohl, John P and Vouk, Mladen A},
-  journal={IEEE transactions on software engineering},
-  volume={32},
-  number={4},
-  pages={240--253},
-  year={2006},
-  publisher={IEEE}
-}
-
-@article{lui2006pair,
-  title={Pair programming productivity: Novice--novice vs. expert--expert},
-  author={Lui, Kim Man and Chan, Keith CC},
-  journal={International Journal of Human-computer studies},
-  volume={64},
-  number={9},
-  pages={915--925},
-  year={2006},
-  publisher={Elsevier}
-}
-
-@article{fontana2016comparing,
-  title={Comparing and experimenting machine learning techniques for code smell detection},
-  author={Fontana, Francesca Arcelli and M{\"a}ntyl{\"a}, Mika V and Zanoni, Marco and Marino, Alessandro},
-  journal={Empirical Software Engineering},
-  volume={21},
-  number={3},
-  pages={1143--1191},
-  year={2016},
-  publisher={Springer}
-}
-
-@inproceedings{palomba2016textual,
-  title={A textual-based technique for smell detection},
-  author={Palomba, Fabio and Panichella, Annibale and De Lucia, Andrea and Oliveto, Rocco and Zaidman, Andy},
-  booktitle={Program Comprehension (ICPC), 2016 IEEE 24th International Conference on},
-  pages={1--10},
-  year={2016},
-  organization={IEEE}
-}
-
-@article{palomba2015mining,
-  title={Mining version histories for detecting code smells},
-  author={Palomba, Fabio and Bavota, Gabriele and Di Penta, Massimiliano and Oliveto, Rocco and Poshyvanyk, Denys and De Lucia, Andrea},
-  journal={IEEE Transactions on Software Engineering},
-  volume={41},
-  number={5},
-  pages={462--489},
-  year={2015},
-  publisher={IEEE}
-}
-
-@inproceedings{palomba2014they,
-  title={Do they really smell bad? a study on developers' perception of bad code smells},
-  author={Palomba, Fabio and Bavota, Gabriele and Di Penta, Massimiliano and Oliveto, Rocco and De Lucia, Andrea},
-  booktitle={Software maintenance and evolution (ICSME), 2014 IEEE international conference on},
-  pages={101--110},
-  year={2014},
-  organization={IEEE}
-}
-
-@inproceedings{abbes2011empirical,
-  title={An empirical study of the impact of two antipatterns, blob and spaghetti code, on program comprehension},
-  author={Abbes, Marwen and Khomh, Foutse and Gueheneuc, Yann-Gael and Antoniol, Giuliano},
-  booktitle={Software maintenance and reengineering (CSMR), 2011 15th European conference on},
-  pages={181--190},
-  year={2011},
-}
-
-@book{brown1998antipatterns,
-  title={AntiPatterns: refactoring software, architectures, and projects in crisis},
-  author={Brown, William H and Malveau, Raphael C and McCormick, Hays W and Mowbray, Thomas J},
-  year={1998},
-  publisher={John Wiley \& Sons, Inc.}
-}
-
-@article{moha2010decor,
-  title={Decor: A method for the specification and detection of code and design smells},
-  author={Moha, Naouel and Gueheneuc, Yann-Gael and Duchien, Laurence and Le Meur, Anne-Francoise},
-  journal={IEEE Transactions on Software Engineering},
-  volume={36},
-  number={1},
-  pages={20--36},
-  year={2010},
-  publisher={IEEE}
-}
-
-@article{nerur2005challenges,
-  title={Challenges of migrating to agile methodologies},
-  author={Nerur, Sridhar and Mahapatra, RadhaKanta and Mangalaraj, George},
-  journal={Communications of the ACM},
-  volume={48},
-  number={5},
-  pages={72--78},
-  year={2005},
-  publisher={ACM}
-}
-
-@article{basili1996validation,
-  title={A validation of object-oriented design metrics as quality indicators},
-  author={Basili, Victor R and Briand, Lionel C. and Melo, Walc{\'e}lio L},
-  journal={IEEE Transactions on software engineering},
-  volume={22},
-  number={10},
-  pages={751--761},
-  year={1996},
-  publisher={IEEE}
-}
-
-@article{palomba2017diffuseness,
-  title={On the diffuseness and the impact on maintainability of code smells: a large scale empirical investigation},
-  author={Palomba, Fabio and Bavota, Gabriele and Di Penta, Massimiliano and Fasano, Fausto and Oliveto, Rocco and De Lucia, Andrea},
-  journal={Empirical Software Engineering},
-  pages={1--34},
-  year={2017},
-  publisher={Springer}
-}
-
-@inproceedings{lo1998preliminary,
-  title={A preliminary testability model for object-oriented software},
-  author={Lo, Bruce WN and Shi, Haifeng},
-  booktitle={Software Engineering: Education \& Practice, 1998. Proceedings. 1998 International Conference},
-  pages={330--337}
-}
-
-@article{mccabe1976complexity,
-  title={A complexity measure},
-  author={McCabe, Thomas J},
-  journal={IEEE Transactions on software Engineering},
-  number={4},
-  pages={308--320},
-  year={1976},
-  publisher={IEEE}
-}
-
-@book{henderson1995object,
-  title={Object-oriented metrics: measures of complexity},
-  author={Henderson-Sellers, Brian},
-  year={1995},
-  publisher={Prentice-Hall, Inc.}
-}
-
-@article{van2007detection,
-  title={On the detection of test smells: A metrics-based approach for general fixture and eager test},
-  author={Van Rompaey, Bart and Du Bois, Bart and Demeyer, Serge and Rieger, Matthias},
-  journal={IEEE Transactions on Software Engineering},
-  volume={33},
-  number={12},
-  pages={800--817},
-  year={2007},
-  publisher={IEEE}
-}
-
-@inproceedings{greiler2013automated,
-  title={Automated detection of test fixture strategies and smells},
-  author={Greiler, Michaela and Van Deursen, Arie and Storey, Margaret-Anne},
-  booktitle={Software Testing, Verification and Validation (ICST)},
-  pages={322--331},
+@inproceedings{miller2013graph,
+  title={Graph database applications and concepts with Neo4j},
+  author={Miller, Justin J},
+  booktitle={Proceedings of the Southern Association for Information Systems Conference, Atlanta, GA, USA},
+  volume={2324},
+  number={36},
   year={2013}
 }
 
-@inproceedings{greiler2013strategies,
-	title={Strategies for avoiding text fixture smells during software evolution},
-	author={Greiler, Michaela and Zaidman, Andy and Van Deursen, Arie and Storey, Margaret-Anne},
-	booktitle={2013 10th Working Conference on Mining Software Repositories (MSR)},
-	pages={387--396},
-	year={2013},
-	organization={IEEE}
+@article{Arora2019,
+abstract = {Understanding dependency relationship between various program elements in an object-oriented system is essential for many software engineering applications. In this paper, we propose a novel approach of transforming a Java project into a connected graph comprising of program elements (represented as graph nodes) connected to each other using ownership and dependency relationships (represented as edges). These graphs, named as JavaRelationshipGraphs (JRG) are created and stored using Neo4j Graph Database. Additionally, the proposed JavaRelationshipGraphs framework provides details about the two-staged conversion process along with the algorithms involved. The JRG framework uses compiled Java project to obtain the corresponding graph, which can be effectively visualized and queried using the Neo4j browser. JRG is capable of representing most of the important object-oriented features like inheritance, encapsulation, method overloading and overriding. Hence, they are suitable for use in software engineering applications like program dependence analysis, code mining, etc.},
+author = {Arora, Ritu and Goel, Sanjay},
+doi = {10.1145/3305160.3305173},
+file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Arora, Goel - Transforming Java projects into graphs using neo4j graph databases - 2019.pdf:pdf},
+isbn = {9781450366427},
+journal = {ACM International Conference Proceeding Series},
+keywords = {Dependency analysis in Java programs,Dependency graphs,Neo4j graph databases,Object-oriented languages},
+pages = {80--84},
+title = {{Transforming Java projects into graphs using neo4j graph databases}},
+year = {2019}
+}
+
+@Misc{neo4j,
+mendeley-groups = {Software Dependability/GithubMining},
+title = {{Neo4j Graph Platform – The Leader in Graph Databases}},
+url = {https://neo4j.com/},
+howpublished = {https://github.com/neo4j/neo4j},
+urldate = {2020-07-11}
 }
-
-@inproceedings{tufano2016empirical,
-  title={An empirical investigation into the nature of test smells},
-  author={Tufano, Michele and Palomba, Fabio and Bavota, Gabriele and Di Penta, Massimiliano and Oliveto, Rocco and De Lucia, Andrea and Poshyvanyk, Denys},
-  booktitle={Proceedings of the 31st IEEE/ACM International Conference on Automated Software Engineering},
-  pages={4--15},
-  year={2016}
-}
-
-@inproceedings{luo2014empirical,
-	title={An empirical analysis of flaky tests},
-	author={Luo, Qingzhou and Hariri, Farah and Eloussi, Lamyaa and Marinov, Darko},
-	booktitle={Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering},
-	pages={643--653},
-	year={2014}
-}
-
-
-@inproceedings{palomba2017does,
-  title={Does refactoring of test smells induce fixing flaky tests?},
-  author={Palomba, Fabio and Zaidman, Andy},
-  booktitle={Software Maintenance and Evolution (ICSME), 2017 IEEE International Conference on},
-  pages={1--12},
-  year={2017},
-  organization={IEEE}
-}
-
-@inproceedings{palomba2016diffusion,
-  title={On the diffusion of test smells in automatically generated test code: An empirical study},
-  author={Palomba, Fabio and Di Nucci, Dario and Panichella, Annibale and Oliveto, Rocco and De Lucia, Andrea},
-  booktitle={Proceedings of the 9th International Workshop on Search-Based Software Testing},
-  pages={5--14},
-  year={2016},
-  organization={ACM}
-}
-
-@article{bavota2015test,
-  title={Are test smells really harmful? An empirical study},
-  author={Bavota, Gabriele and Qusef, Abdallah and Oliveto, Rocco and De Lucia, Andrea and Binkley, Dave},
-  journal={Empirical Software Engineering},
-  volume={20},
-  number={4},
-  pages={1052--1094},
-  year={2015},
-  publisher={Springer}
-}
-
-@book{meszaros2007xunit,
-  title={xUnit test patterns: Refactoring test code},
-  author={Meszaros, Gerard},
-  year={2007},
-  publisher={Pearson Education}
-}
-
-
-@inproceedings{van2001refactoring,
-  title={Refactoring test code},
-  author={Van Deursen, Arie and Moonen, Leon and van den Bergh, Alex and Kok, Gerard},
-  booktitle={Proceedings of the 2nd international conference on extreme programming and flexible processes in software engineering (XP2001)},
-  pages={92--95},
-  year={2001}
-}
-
-@article{yang2007survey,
-  title={A survey of coverage-based testing tools},
-  author={Yang, Qian and Li, J Jenny and Weiss, David M},
-  journal={The Computer Journal},
-  volume={52},
-  number={5},
-  pages={589--597},
-  year={2007},
-  publisher={Oxford University Press}
-}
-
-@inproceedings{gopinath2014code,
-  title={Code coverage for suite evaluation by developers},
-  author={Gopinath, Rahul and Jensen, Carlos and Groce, Alex},
-  booktitle={Proceedings of the 36th International Conference on Software Engineering},
-  pages={72--82},
-  year={2014},
-  organization={ACM}
-}
-
-@article{tian2015automated,
-  title={Automated prediction of bug report priority using multi-factor analysis},
-  author={Tian, Yuan and Lo, David and Xia, Xin and Sun, Chengnian},
-  journal={Empirical Software Engineering},
-  volume={20},
-  number={5},
-  pages={1354--1383},
-  year={2015},
-  publisher={Springer}
-}
-
-@inproceedings{tian2015characteristics,
-  title={What are the characteristics of high-rated apps? a case study on free android applications},
-  author={Tian, Yuan and Nagappan, Meiyappan and Lo, David and Hassan, Ahmed E},
-  booktitle={Software Maintenance and Evolution (ICSME), 2015 IEEE International Conference on},
-  pages={301--310},
-  year={2015},
-  organization={IEEE}
-}
-
-@InProceedings{bavota2012empirical,
-  author       = {Bavota, Gabriele and Qusef, Abdallah and Oliveto, Rocco and De Lucia, Andrea and Binkley, David},
-  title        = {An empirical analysis of the distribution of unit test smells and their impact on software maintenance},
-  booktitle    = {Software Maintenance (ICSM), 2012 28th IEEE International Conference on},
-  year         = {2012},
-  pages        = {56--65},
-  organization = {IEEE},
-}
-
-@article{pedregosa2011scikit,
-  title={Scikit-learn: Machine learning in Python},
-  author={Pedregosa, Fabian and Varoquaux, Ga{\"e}l and Gramfort, Alexandre and Michel, Vincent and Thirion, Bertrand and Grisel, Olivier and Blondel, Mathieu and Prettenhofer, Peter and Weiss, Ron and Dubourg, Vincent and others},
-  journal={Journal of machine learning research},
-  volume={12},
-  number={Oct},
-  pages={2825--2830},
-  year={2011}
-}
-
-@article{efron1983estimating,
-  title={Estimating the error rate of a prediction rule: improvement on cross-validation},
-  author={Efron, Bradley},
-  journal={Journal of the American statistical association},
-  volume={78},
-  number={382},
-  pages={316--331},
-  year={1983},
-  publisher={Taylor \& Francis Group}
-}
-
-@Article{bavota2015test,
-  author    = {Bavota, Gabriele and Qusef, Abdallah and Oliveto, Rocco and De Lucia, Andrea and Binkley, Dave},
-  title     = {Are test smells really harmful? An empirical study},
-  journal   = {Empirical Software Engineering},
-  year      = {2015},
-  volume    = {20},
-  number    = {4},
-  pages     = {1052--1094},
-  publisher = {Springer},
-}
-
-@book{conover1980practical,
-  address = {New York, NY [u.a.]},
-  author = {Conover, {William Jay}},
-  edition = {3. ed},
-  isbn = {0471160687},
-  publisher = {Wiley},
-  series = {Wiley series in probability and statistics},
-  title = {Practical nonparametric statistics},
-  year = 1999
-}
-
-
-
-@inproceedings{inozemtseva2014coverage,
-  title={Coverage is not strongly correlated with test suite effectiveness},
-  author={Inozemtseva, Laura and Holmes, Reid},
-  booktitle={Proceedings of the 36th International Conference on Software Engineering},
-  pages={435--445},
-  year={2014},
-  organization={ACM}
-}
-
-@inproceedings{grechanik2016mutation,
-  title={Mutation integration testing},
-  author={Grechanik, Mark and Devanla, Gurudev},
-  booktitle={Software Quality, Reliability and Security (QRS), 2016 IEEE International Conference on},
-  pages={353--364},
-  year={2016},
-  organization={IEEE}
-}
-
-@book{grissom2005effect,
-  title={Effect Sizes for Research: A Broad Practical Approach},
-  author={Grissom, Robert J and Kim, John J},
-  isbn={9780805850147},
-  lccn={2004053284},
-  year={2005},
-  publisher={Lawrence Erlbaum Associates},
-  address={New Jersey, United States}
-}
-
-@book{beizer2003software,
-  title={Software testing techniques},
-  author={Beizer, Boris},
-  year={2003},
-  publisher={Dreamtech Press}
-}
-
-@article{mcminn2004search,
-  title={Search-based software test data generation: a survey},
-  author={McMinn, Phil},
-  journal={Software Testing, Verification and Reliability},
-  volume={14},
-  number={2},
-  pages={105--156},
-  year={2004},
-  publisher={Wiley Online Library}
-}
-
-@inproceedings{Campos:2014,
- author = {Campos, Jos{\'e} and Arcuri, Andrea and Fraser, Gordon and Abreu, Rui},
- title = {Continuous Test Generation: Enhancing Continuous Integration with Automated Test Generation},
- booktitle = {Proceedings of the 29th ACM/IEEE International Conference on Automated Software Engineering},
- series = {ASE '14},
- year = {2014},
- isbn = {978-1-4503-3013-8},
- location = {Vasteras, Sweden},
- pages = {55--66},
- numpages = {12},
- url = {http://doi.acm.org/10.1145/2642937.2643002},
- doi = {10.1145/2642937.2643002},
- acmid = {2643002},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {automated test generation, continuous integration, continuous testing, unit testing},
-} 
-
-@inbook{ocelot,
-  address={Cham},
-  author={Scalabrino, Simone and Grano, Giovanni and Di Nucci, Dario and Oliveto, Rocco and De Lucia, Andrea},
-  booktitle={Search Based Software Engineering : 8th International Symposium, SSBSE 2016, Raleigh, NC, USA, October 8-10, 2016, Proceedings},
-  doi={10.1007/978-3-319-47106-8_5},
-  editor={Sarro, Federica and Deb, Kalyanmoy},
-  isbn={978-3-319-47106-8},
-  issn={0302-9743},
-  number=9962,
-  pages={64-79},
-  publisher={Springer},
-  series={Lecture Notes in Computer Science},
-  title={Search-based testing of procedural programs: iterative single-target or multi-target approach?},
-  year=2016,
-}
-
-@article{kruchten2012technical,
-  title={Technical debt: From metaphor to theory and practice},
-  author={Kruchten, Philippe and Nord, Robert L and Ozkaya, Ipek},
-  journal={Ieee software},
-  volume={29},
-  number={6},
-  pages={18--21},
-  year={2012},
-  publisher={IEEE}
-}
-
-@inproceedings{evosuite,
- author = {Fraser, Gordon and Arcuri, Andrea},
- title = {EvoSuite: Automatic Test Suite Generation for Object-oriented Software},
- booktitle = {Proceedings of the 19th ACM SIGSOFT Symposium and the 13th European Conference on Foundations of Software Engineering},
- series = {ESEC/FSE '11},
- year = {2011},
- isbn = {978-1-4503-0443-6},
- location = {Szeged, Hungary},
- pages = {416--419},
- numpages = {4},
- url = {http://doi.acm.org/10.1145/2025113.2025179},
- doi = {10.1145/2025113.2025179},
- acmid = {2025179},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {assertion generation, search based soft- ware testing, test case generation},
-} 
-
-@inproceedings{bavota2013evolution,
- author = {Bavota, Gabriele and Canfora, Gerardo and Penta, Massimiliano Di and Oliveto, Rocco and Panichella, Sebastiano},
- title = {The Evolution of Project Inter-dependencies in a Software Ecosystem: The Case of Apache},
- booktitle = {Proceedings of the 2013 IEEE International Conference on Software Maintenance},
- series = {ICSM '13},
- year = {2013},
- isbn = {978-0-7695-4981-1},
- pages = {280--289},
- numpages = {10},
- url = {http://dx.doi.org/10.1109/ICSM.2013.39},
- doi = {10.1109/ICSM.2013.39},
- acmid = {2550583},
- publisher = {IEEE Computer Society},
- address = {Washington, DC, USA},
-} 
-
-@inproceedings{Zimmermann:2009,
- author = {Zimmermann, Thomas and Nagappan, Nachiappan and Gall, Harald and Giger, Emanuel and Murphy, Brendan},
- title = {Cross-project Defect Prediction: A Large Scale Experiment on Data vs. Domain vs. Process},
- booktitle = {Proceedings of the the 7th Joint Meeting of the European Software Engineering Conference and the ACM SIGSOFT Symposium on The Foundations of Software Engineering},
- series = {ESEC/FSE '09},
- year = {2009},
- isbn = {978-1-60558-001-2},
- location = {Amsterdam, The Netherlands},
- pages = {91--100},
- numpages = {10},
- url = {http://doi.acm.org/10.1145/1595696.1595713},
- doi = {10.1145/1595696.1595713},
- acmid = {1595713},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {churn, cross-project, decision trees, defect prediction, logistic regression, prediction quality},
-} 
-
-@misc{cla,
-author={Mike Clark},
-title={jdepend: A {J}ava package dependency analyzer that generates design quality metrics},
-howpublished={\url{https://github.com/clarkware/jdepend}}
-}
-
-@misc{aniche,
-author={Aniche, Mauricio},
-title={ck: extracts code metrics from {J}ava code by means of static analysis},
-howpublished={\url{https://github.com/mauricioaniche/ck}}
-}
-
-@article{chidamber1994metrics,
-  title={A metrics suite for object oriented design},
-  author={Chidamber, Shyam R and Kemerer, Chris F},
-  journal={IEEE Transactions on software engineering},
-  volume={20},
-  number={6},
-  pages={476--493},
-  year={1994},
-  publisher={IEEE}
-}
-
-@book{han2011data,
-  title={Data mining: concepts and techniques},
-  author={Han, Jiawei and Pei, Jian and Kamber, Micheline},
-  year={2011},
-  publisher={Elsevier}
-}
-
-@article{retrieval,
-  added-at = {2012-05-16T00:00:00.000+0200},
-  author = {Sanderson, Mark and Croft, W. Bruce},
-  biburl = {https://www.bibsonomy.org/bibtex/2e7cc81965ec1e38c18ee82b683349c51/dblp},
-  ee = {http://dx.doi.org/10.1109/JPROC.2012.2189916},
-  interhash = {301a0d87a039f1be8fff019148540b01},
-  intrahash = {e7cc81965ec1e38c18ee82b683349c51},
-  journal = {Proceedings of the IEEE},
-  keywords = {dblp},
-  number = {Centennial-Issue},
-  pages = {1444-1451},
-  timestamp = {2012-05-17T11:33:27.000+0200},
-  title = {The History of Information Retrieval Research.},
-  url = {http://dblp.uni-trier.de/db/journals/pieee/pieee100.html#SandersonC12},
-  volume = 100,
-  year = 2012
-}
-
-@INPROCEEDINGS{885858, 
-author={S. Benlarbi and K. El Emam and N. Goel and S. Rai}, 
-booktitle={Proceedings 11th International Symposium on Software Reliability Engineering. ISSRE 2000}, 
-title={Thresholds for object-oriented measures}, 
-year={2000}, 
-volume={}, 
-number={}, 
-pages={24-38}, 
-keywords={C++ language;bibliographies;object-oriented programming;reverse engineering;software metrics;software performance evaluation;software quality;telecommunication computing;C++ telecommunications systems;CK measures;cognitive theory;dependent variable;fault introduction;fault-proneness;field failures;object oriented classes;object oriented measure thresholds;object oriented programs;object oriented systems;psychological complexity;short-term human memory overflow;threshold effects;understandability;Councils;Hospitals;Humans;Inspection;Object oriented modeling;Particle measurements;Psychology;Quality management;Software measurement;System testing}, 
-doi={10.1109/ISSRE.2000.885858}, 
-ISSN={1071-9458}, 
-month={},}
-
-@inproceedings{Bertolino:2007,
- author = {Bertolino, Antonia},
- title = {Software Testing Research: Achievements, Challenges, Dreams},
- booktitle = {2007 Future of Software Engineering},
- series = {FOSE '07},
- year = {2007},
- isbn = {0-7695-2829-5},
- pages = {85--103},
- numpages = {19},
- url = {http://dx.doi.org/10.1109/FOSE.2007.25},
- doi = {10.1109/FOSE.2007.25},
- acmid = {1254712},
- publisher = {IEEE Computer Society},
- address = {Washington, DC, USA},
-} 
-
-@article{Hailpern:2002,
- author = {Hailpern, B. and Santhanam, P.},
- title = {Software Debugging, Testing, and Verification},
- journal = {IBM Syst. J.},
- issue_date = {January 2002},
- volume = {41},
- number = {1},
- month = jan,
- year = {2002},
- issn = {0018-8670},
- pages = {4--12},
- numpages = {9},
- url = {http://dx.doi.org/10.1147/sj.411.0004},
- doi = {10.1147/sj.411.0004},
- acmid = {1660994},
- publisher = {IBM Corp.},
- address = {Riverton, NJ, USA},
-} 
-
-@article{Ferrer:2013,
- author = {Ferrer, Javier and Chicano, Francisco and Alba, Enrique},
- title = {Estimating Software Testing Complexity},
- journal = {Inf. Softw. Technol.},
- issue_date = {December, 2013},
- volume = {55},
- number = {12},
- month = dec,
- year = {2013},
- issn = {0950-5849},
- pages = {2125--2139},
- numpages = {15},
- url = {http://dx.doi.org/10.1016/j.infsof.2013.07.007},
- doi = {10.1016/j.infsof.2013.07.007},
- acmid = {2535154},
- publisher = {Butterworth-Heinemann},
- address = {Newton, MA, USA},
- keywords = {Branch coverage, Complexity, Evolutionary algorithms, Evolutionary testing, Search based software engineering, Testability},
-} 
-
-@article{buse2010learning,
-  title={Learning a metric for code readability},
-  author={Buse, Raymond PL and Weimer, Westley R},
-  journal={IEEE Transactions on Software Engineering},
-  volume={36},
-  number={4},
-  pages={546--558},
-  year={2010},
-  publisher={IEEE}
-}
-
-@article{scikit-learn,
- title={Scikit-learn: Machine Learning in {P}ython},
- author={Pedregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V.
-         and Thirion, B. and Grisel, O. and Blondel, M. and Prettenhofer, P.
-         and Weiss, R. and Dubourg, V. and Vanderplas, J. and Passos, A. and
-         Cournapeau, D. and Brucher, M. and Perrot, M. and Duchesnay, E.},
- journal={Journal of Machine Learning Research},
- volume={12},
- pages={2825--2830},
- year={2011}
-}
-
-@book{huber,
-  title={Robust Statistics: The Approach Based on Influence Functions},
-  author={Hampel, F.R. and Ronchetti, E.M. and Rousseeuw, P.J. and Stahel, W.A.},
-  isbn={9781118150689},
-  series={Wiley Series in Probability and Statistics},
-  url={https://books.google.ch/books?id=XK3uhrVefXQC},
-  year={2011},
-  publisher={Wiley}
-}
-
-@article{Chang:2011,
- author = {Chang, Chih-Chung and Lin, Chih-Jen},
- title = {LIBSVM: A Library for Support Vector Machines},
- journal = {ACM Trans. Intell. Syst. Technol.},
- issue_date = {April 2011},
- volume = {2},
- number = {3},
- month = may,
- year = {2011},
- issn = {2157-6904},
- pages = {27:1--27:27},
- articleno = {27},
- numpages = {27},
- url = {http://doi.acm.org/10.1145/1961189.1961199},
- doi = {10.1145/1961189.1961199},
- acmid = {1961199},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {Classification LIBSVM optimization regression support vector machines SVM},
-} 
-
-@article{Nassif:2013,
- author = {Nassif, Ali Bou and Ho, Danny and Capretz, Luiz Fernando},
- title = {Towards an Early Software Estimation Using Log-linear Regression and a Multilayer Perceptron Model},
- journal = {J. Syst. Softw.},
- issue_date = {January, 2013},
- volume = {86},
- number = {1},
- month = jan,
- year = {2013},
- issn = {0164-1212},
- pages = {144--160},
- numpages = {17},
- url = {http://dx.doi.org/10.1016/j.jss.2012.07.050},
- doi = {10.1016/j.jss.2012.07.050},
- acmid = {2397917},
- publisher = {Elsevier Science Inc.},
- address = {New York, NY, USA},
- keywords = {Log-linear regression model, Multilayer perceptron, Software effort estimation, Use case points},
-} 
-
-@article{austin,
-  title={AUSTIN: An open source tool for search based software testing of C programs},
-  author={Lakhotia, Kiran and Harman, Mark and Gross, Hamilton},
-  journal={Information and Software Technology},
-  volume={55},
-  number={1},
-  pages={112--125},
-  year={2013},
-  publisher={Elsevier}
-}
-
-@inproceedings{Albert:2014:TCG:2942642.2942651,
- author = {Albert, Elvira and Arenas, Puri and G\'{o}mez-Zamalloa, Miguel and Rojas, Jose Miguel},
- title = {Test Case Generation by Symbolic Execution: Basic Concepts, a CLP-Based Instance, and Actor-Based Concurrency},
- booktitle = {Advanced Lectures of the 14th International School on Formal Methods for Executable Software Models - Volume 8483},
- year = {2014},
- isbn = {978-3-319-07316-3},
- pages = {263--309},
- numpages = {47},
- url = {http://dx.doi.org/10.1007/978-3-319-07317-0_7},
- doi = {10.1007/978-3-319-07317-0_7},
- acmid = {2942651},
- address = {New York, NY, USA},
-} 
-
-@inproceedings{DBLP:conf/ssbse/ScalabrinoGNOL16,
-  author    = {Simone Scalabrino and
-               Giovanni Grano and
-               Dario Di Nucci and
-               Rocco Oliveto and
-               Andrea De Lucia},
-  title     = {Search-Based Testing of Procedural Programs: Iterative Single-Target
-               or Multi-target Approach?},
-  booktitle = {{SSBSE}},
-  series    = {Lecture Notes in Computer Science},
-  volume    = {9962},
-  pages     = {64--79},
-  year      = {2016}
-}
-
-@inproceedings{Panichella:2015we,
-  author    = {Annibale Panichella and
-               Fitsum Meshesha Kifetew and
-               Paolo Tonella},
-  title     = {Reformulating Branch Coverage as a Many-Objective Optimization Problem},
-  booktitle = {{ICST}},
-  pages     = {1--10},
-  publisher = {{IEEE} Computer Society},
-  year      = {2015}
-}
-
-@inproceedings{Shamshiri:2015:AGU:2916135.2916250,
- author = {Shamshiri, Sina and Just, Rene and Rojas, Jose Miguel and Fraser, Gordon and McMinn, Phil and Arcuri, Andrea},
- title = {Do Automatically Generated Unit Tests Find Real Faults? An Empirical Study of Effectiveness and Challenges (T)},
- booktitle = {Proceedings of the 2015 30th IEEE/ACM International Conference on Automated Software Engineering (ASE)},
- series = {ASE '15},
- year = {2015},
- isbn = {978-1-5090-0025-8},
- pages = {201--211},
- numpages = {11},
- url = {https://doi.org/10.1109/ASE.2015.86},
- doi = {10.1109/ASE.2015.86},
- acmid = {2916250},
- publisher = {IEEE Computer Society},
- address = {Washington, DC, USA},
-} 
-
-@inproceedings{PachecoE2007Poster,
-   author = {Carlos Pacheco and Michael D. Ernst},
-   title = {{Randoop:} Feedback-directed Random Testing for {Java}},
-   booktitle = {OOPSLA 2007 Companion, Montreal, Canada},
-   month = oct,
-   year = {2007},
-   organization = {ACM}
-}
-
-@article{McMinn:2009:EEN:1525880.1525884,
- author = {McMinn, Phil and Binkley, David and Harman, Mark},
- title = {Empirical Evaluation of a Nesting Testability Transformation for Evolutionary Testing},
- journal = {ACM Trans. Softw. Eng. Methodol.},
- issue_date = {May 2009},
- volume = {18},
- number = {3},
- month = jun,
- year = {2009},
- issn = {1049-331X},
- pages = {11:1--11:27},
- articleno = {11},
- numpages = {27},
- url = {http://doi.acm.org/10.1145/1525880.1525884},
- doi = {10.1145/1525880.1525884},
- acmid = {1525884},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {Evolutionary testing, search-based software engineering, test data generation, testability transformation},
-} 
-
-@Inbook{Harman2008,
-author="Harman, Mark
-and Baresel, Andr{\'e}
-and Binkley, David
-and Hierons, Robert
-and Hu, Lin
-and Korel, Bogdan
-and McMinn, Phil
-and Roper, Marc",
-editor="Hierons, Robert M.
-and Bowen, Jonathan P.
-and Harman, Mark",
-title="Testability Transformation -- Program Transformation to Improve Testability",
-bookTitle="Formal Methods and Testing: An Outcome of the FORTEST Network, Revised Selected Papers",
-year="2008",
-publisher="Springer Berlin Heidelberg",
-address="Berlin, Heidelberg",
-pages="320--344",
-abstract="Testability transformation is a new form of program transformation in which the goal is not to preserve the standard semantics of the program, but to preserve test sets that are adequate with respect to some chosen test adequacy criterion. The goal is to improve the testing process by transforming a program to one that is more amenable to testing while remaining within the same equivalence class of programs defined by the adequacy criterion. The approach to testing and the adequacy criterion are parameters to the overall approach. The transformations required are typically neither more abstract nor are they more concrete than standard ``meaning preserving transformations''. This leads to interesting theoretical questions. but also has interesting practical implications. This chapter provides an introduction to testability transformation and a brief survey of existing results.",
-isbn="978-3-540-78917-8",
-doi="10.1007/978-3-540-78917-8_11",
-url="https://doi.org/10.1007/978-3-540-78917-8_11"
-}
-
-@inproceedings{Baresel:2004:ETP:1007512.1007527,
- author = {Baresel, Andr{\'e} and Binkley, David and Harman, Mark and Korel, Bogdan},
- title = {Evolutionary Testing in the Presence of Loop-assigned Flags: A Testability Transformation Approach},
- booktitle = {Proceedings of the 2004 ACM SIGSOFT International Symposium on Software Testing and Analysis},
- series = {ISSTA '04},
- year = {2004},
- isbn = {1-58113-820-2},
- location = {Boston, Massachusetts, USA},
- pages = {108--118},
- numpages = {11},
- url = {http://doi.acm.org/10.1145/1007512.1007527},
- doi = {10.1145/1007512.1007527},
- acmid = {1007527},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {empirical evaluation, evolutionary testing, flags, testability transformation},
-} 
-
-@inproceedings{Xu:2011:DTS:1985793.1986008,
- author = {Xu, Zhihong},
- title = {Directed Test Suite Augmentation},
- booktitle = {Proceedings of the 33rd International Conference on Software Engineering},
- series = {ICSE '11},
- year = {2011},
- isbn = {978-1-4503-0445-0},
- location = {Waikiki, Honolulu, HI, USA},
- pages = {1110--1113},
- numpages = {4},
- url = {http://doi.acm.org/10.1145/1985793.1986008},
- doi = {10.1145/1985793.1986008},
- acmid = {1986008},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {empirical studies, regression testing, test suite augmentation},
-} 
-
-@article{Yoo:2012:RTM:2284811.2284813,
- author = {Yoo, S. and Harman, M.},
- title = {Regression Testing Minimization, Selection and Prioritization: A Survey},
- journal = {Softw. Test. Verif. Reliab.},
- issue_date = {March 2012},
- volume = {22},
- number = {2},
- month = mar,
- year = {2012},
- issn = {0960-0833},
- pages = {67--120},
- numpages = {54},
- url = {http://dx.doi.org/10.1002/stv.430},
- doi = {10.1002/stv.430},
- acmid = {2284813},
- publisher = {John Wiley and Sons Ltd.},
- address = {Chichester, UK},
- keywords = {regression test selection, regression testing, test case prioritization, test suite minimization},
-} 
-
-@inproceedings{just2014mutants,
-  title={Are mutants a valid substitute for real faults in software testing?},
-  author={Just, Ren{\'e} and Jalali, Darioush and Inozemtseva, Laura and Ernst, Michael D and Holmes, Reid and Fraser, Gordon},
-  booktitle={Proceedings of the 22nd ACM SIGSOFT International Symposium on Foundations of Software Engineering},
-  pages={654--665}
-}
-
-@inproceedings{romano2017smug,
-  title={SMUG: a selective mutant generator tool},
-  author={Romano, Simone and Scanniello, Giuseppe},
-  booktitle={Proceedings of the 39th International Conference on Software Engineering Companion},
-  pages={19--22},
-  year={2017},
-  organization={IEEE Press}
-}
-
-@inproceedings{just2014major,
-  title={The Major mutation framework: Efficient and scalable mutation analysis for {J}ava},
-  author={Just, Ren{\'e}},
-  booktitle={Proceedings of the 2014 international symposium on software testing and analysis},
-  pages={433--436},
-  year={2014},
-  organization={ACM}
-}
-
-@book{fowler1999refactoring,
-  title={Refactoring: improving the design of existing code},
-  author={Fowler, Martin and Beck, Kent},
-  year={1999},
-  publisher={Addison-Wesley Professional}
-}
-
-@inproceedings{grano2018empirical,
-  author = {Grano, Giovanni and Scalabrino, Simone and Oliveto, Rocco and Gall, Harald},
-  title = {An Empirical Investigation on the Readability of Manual and Generated Test Cases},
-  booktitle = {Proceedings of the 26th International Conference on Program Comprehension, ICPC},
-  year = {2018}
-} 
-
-@incollection{wei2012branch,
-  title={Is branch coverage a good measure of testing effectiveness?},
-  author={Wei, Yi and Meyer, Bertrand and Oriol, Manuel},
-  booktitle={Empirical Software Engineering and Verification},
-  pages={194--212},
-  year={2012},
-  publisher={Springer}
-}
-
-@article{beller2017developer,
-  author = {Beller, M. and Gousios, G. and Panichella, A. and Proksch, S. and Amann, S. and Zaidman, A.},
-  journal = {IEEE Transactions on Software Engineering},
-  title = {Developer Testing in the {IDE}: Patterns, Beliefs, and Behavior},
-  year = {2017},
-  volume = {PP},
-  number = {99},
-  pages = {1-1},
-  doi = {10.1109/TSE.2017.2776152},
-  issn = {0098-5589}
-}
-
-@inproceedings{sun2017revisiting,
-  title={Revisiting unreasonable effectiveness of data in deep learning era},
-  author={Sun, Chen and Shrivastava, Abhinav and Singh, Saurabh and Gupta, Abhinav},
-  booktitle={2017 IEEE International Conference on Computer Vision (ICCV)},
-  pages={843--852}
-}
-
-@inproceedings{scalabrino2016improving,
-  title={Improving code readability models with textual features},
-  author={Scalabrino, Simone and Linares-V{\'a}squez, Mario and Poshyvanyk, Denys and Oliveto, Rocco},
-  booktitle={Program Comprehension (ICPC), 2016 IEEE 24th International Conference on},
-  pages={1--10},
-  year={2016},
-  organization={IEEE}
-}
-
-@article{goldberg1988genetic,
-  title={Genetic algorithms and machine learning},
-  author={Goldberg, David E and Holland, John H},
-  journal={Machine learning},
-  volume={3},
-  number={2},
-  pages={95--99},
-  year={1988},
-  publisher={Springer}
-}
-
-@inproceedings{lubsen2009using,
-  title={Using association rules to study the co-evolution of production \& test code},
-  author={Lubsen, Zeeger and Zaidman, Andy and Pinzger, Martin},
-  booktitle={Mining Software Repositories, 2009. MSR'09. 6th IEEE International Working Conference on},
-  pages={151--154},
-  year={2009},
-  organization={IEEE}
-}
-
-@inproceedings{shirabad2000supporting,
-  title={Supporting maintenance of legacy software with data mining techniques},
-  author={Shirabad, Jelber Sayyad and Lethbridge, Timothy C and Matwin, Stan},
-  booktitle={Proceedings of the 2000 conference of the Centre for Advanced Studies on Collaborative research},
-  pages={11},
-  year={2000},
-  organization={IBM Press}
-}
-
-@inproceedings{tian2015characteristics,
-  title={What are the characteristics of high-rated apps? a case study on free android applications},
-  author={Tian, Yuan and Nagappan, Meiyappan and Lo, David and Hassan, Ahmed E},
-  booktitle={Software Maintenance and Evolution (ICSME), 2015 IEEE International Conference on},
-  pages={301--310},
-  year={2015},
-  organization={IEEE}
-}
-
-@inproceedings{marsavina2014studying,
-  title={Studying fine-grained co-evolution patterns of production and test code},
-  author={Marsavina, Cosmin and Romano, Daniele and Zaidman, Andy},
-  booktitle={Source Code Analysis and Manipulation (SCAM), 2014 IEEE 14th International Working Conference on},
-  pages={195--204},
-  year={2014},
-  organization={IEEE}
-}}
-
-@inproceedings{zaidman2008mining,
-  title={Mining software repositories to study co-evolution of production \& test code},
-  author={Zaidman, Andy and Van Rompaey, Bart and Demeyer, Serge and Van Deursen, Arie},
-  booktitle={Software Testing, Verification, and Validation, 2008 1st International Conference on},
-  pages={220--229},
-  year={2008},
-  organization={IEEE}
-}
-
-@incollection{john1994irrelevant,
-  title={Irrelevant features and the subset selection problem},
-  author={John, George H and Kohavi, Ron and Pfleger, Karl},
-  booktitle={Machine Learning Proceedings 1994},
-  pages={121--129},
-  year={1994},
-  publisher={Elsevier}
-}
-
-@article{blum1997selection,
-  title={Selection of relevant features and examples in machine learning},
-  author={Blum, Avrim L and Langley, Pat},
-  journal={Artificial intelligence},
-  volume={97},
-  number={1-2},
-  pages={245--271},
-  year={1997},
-  publisher={Elsevier}
-}
-
-@article{holm1979simple,
-  title={A simple sequentially rejective multiple test procedure},
-  author={Holm, Sture},
-  journal={Scandinavian journal of statistics},
-  pages={65--70},
-  year={1979},
-  publisher={JSTOR}
-}
-
-@inproceedings{ho1995random,
-  title={Random decision forests},
-  author={Ho, Tin Kam},
-  booktitle={Document analysis and recognition, 1995., proceedings of the third international conference on},
-  volume={1},
-  pages={278--282},
-  year={1995},
-  organization={IEEE}
-}
-
-@article{svetnik2003random,
-  title={Random forest: a classification and regression tool for compound classification and QSAR modeling},
-  author={Svetnik, Vladimir and Liaw, Andy and Tong, Christopher and Culberson, J Christopher and Sheridan, Robert P and Feuston, Bradley P},
-  journal={Journal of chemical information and computer sciences},
-  volume={43},
-  number={6},
-  pages={1947--1958},
-  year={2003},
-  publisher={ACS Publications}
-}
-
-@inproceedings{khoshgoftaar2007empirical,
-  title={An empirical study of learning from imbalanced data using random forest},
-  author={Khoshgoftaar, Taghi M and Golawala, Moiz and Van Hulse, Jason},
-  booktitle={Tools with Artificial Intelligence, 2007. ICTAI 2007. 19th IEEE international conference on},
-  volume={2},
-  pages={310--317},
-  year={2007},
-  organization={IEEE}
-}
-
-@article{hall2012systematic,
-  title={A systematic literature review on fault prediction performance in software engineering},
-  author={Hall, Tracy and Beecham, Sarah and Bowes, David and Gray, David and Counsell, Steve},
-  journal={IEEE Transactions on Software Engineering},
-  volume={38},
-  number={6},
-  pages={1276--1304},
-  year={2012},
-  publisher={IEEE}
-}
-
-@inproceedings{ghotra2015revisiting,
-  title={Revisiting the impact of classification techniques on the performance of defect prediction models},
-  author={Ghotra, Baljinder and McIntosh, Shane and Hassan, Ahmed E},
-  booktitle={Proceedings of the 37th International Conference on Software Engineering-Volume 1},
-  pages={789--800},
-  year={2015},
-  organization={IEEE Press}
-}
-
-@article{di2017dynamic,
-  title={Dynamic Selection of Classifiers in Bug Prediction: An Adaptive Method},
-  author={Di Nucci, Dario and Palomba, Fabio and Oliveto, Rocco and De Lucia, Andrea},
-  journal={IEEE Transactions on Emerging Topics in Computational Intelligence},
-  volume={1},
-  number={3},
-  pages={202--212},
-  year={2017},
-  publisher={IEEE}
-}
-
-@inproceedings{dietterich2000ensemble,
-  title={Ensemble methods in machine learning},
-  author={Dietterich, Thomas G},
-  booktitle={International workshop on multiple classifier systems},
-  pages={1--15},
-  year={2000},
-  organization={Springer}
-}
-
-@article{o2007caution,
-  title={A caution regarding rules of thumb for variance inflation factors},
-  author={O’brien, Robert M},
-  journal={Quality \& Quantity},
-  volume={41},
-  number={5},
-  pages={673--690},
-  year={2007},
-  publisher={Springer}
-}
-
-@book{menard2018applied,
-  title={Applied logistic regression analysis},
-  author={Menard, Scott},
-  volume={106},
-  year={2018},
-  publisher={SAGE publications}
-}
-
-@inproceedings{bhagat2015enhanced,
-  title={Enhanced SMOTE algorithm for classification of imbalanced big-data using Random Forest},
-  author={Bhagat, Reshma C and Patil, Sachin S},
-  booktitle={Advance Computing Conference (IACC), 2015 IEEE International},
-  pages={403--408},
-  year={2015},
-  organization={IEEE}
-}
-
-@article{riley2011interpretation,
-  title={Interpretation of random effects meta-analyses},
-  author={Riley, Richard D and Higgins, Julian PT and Deeks, Jonathan J},
-  journal={Bmj},
-  volume={342},
-  pages={d549},
-  year={2011},
-  publisher={British Medical Journal Publishing Group}
-}
-
-@article{chawla2002smote,
-  title={SMOTE: synthetic minority over-sampling technique},
-  author={Chawla, Nitesh V and Bowyer, Kevin W and Hall, Lawrence O and Kegelmeyer, W Philip},
-  journal={Journal of artificial intelligence research},
-  volume={16},
-  pages={321--357},
-  year={2002}
-}
-
-@article{hall2011developing,
-  title={Developing fault-prediction models: What the research can show industry},
-  author={Hall, Tracy and Beecham, Sarah and Bowes, David and Gray, David and Counsell, Steve},
-  journal={IEEE software},
-  volume={28},
-  number={6},
-  pages={96--99},
-  year={2011},
-  publisher={IEEE}
-}
-
-@incollection{refaeilzadeh2009cross,
-  title={Cross-validation},
-  author={Refaeilzadeh, Payam and Tang, Lei and Liu, Huan},
-  booktitle={Encyclopedia of database systems},
-  pages={532--538},
-  year={2009},
-  publisher={Springer}
-}
-
-@book{baeza1999modern,
-  title={Modern information retrieval},
-  author={Baeza-Yates, Ricardo and Ribeiro-Neto, Berthier and others},
-  volume={463},
-  year={1999},
-  publisher={ACM press New York}
-}
-
-@article{grabmeier2007decision,
-  title={Decision trees for binary classification variables grow equally with the Gini impurity measure and Pearson's chi-square test},
-  author={Grabmeier, Johannes L and Lambe, Larry A},
-  journal={International Journal of Business Intelligence and Data Mining},
-  volume={2},
-  number={2},
-  pages={213--226},
-  year={2007},
-  publisher={Inderscience Publishers}
-}
-
-@article{kabinna2018examining,
-  title={Examining the stability of logging statements},
-  author={Kabinna, Suhas and Bezemer, Cor-Paul and Shang, Weiyi and Syer, Mark D and Hassan, Ahmed E},
-  journal={Empirical Software Engineering},
-  volume={23},
-  number={1},
-  pages={290--333},
-  year={2018},
-  publisher={Springer}
-}
-
-@article{li2017towards,
-  title={Towards just-in-time suggestions for log changes},
-  author={Li, Heng and Shang, Weiyi and Zou, Ying and Hassan, Ahmed E},
-  journal={Empirical Software Engineering},
-  volume={22},
-  number={4},
-  pages={1831--1865},
-  year={2017},
-  publisher={Springer}
-}
-
-@article{li2007search,
-  title={Search algorithms for regression test case prioritization},
-  author={Li, Zheng and Harman, Mark and Hierons, Robert M},
-  journal={IEEE Transactions on software engineering},
-  volume={33},
-  number={4},
-  year={2007},
-  publisher={IEEE}
-}
-
-@inproceedings{aniche2013asserts,
-  title={What do the asserts in a unit test tell us about code quality? a study on open source and industrial projects},
-  author={Aniche, Mauricio Finavaro and Oliva, Gustavo Ansaldi and Gerosa, Marco Aurelio},
-  booktitle={Software Maintenance and Reengineering (CSMR), 2013 17th European Conference on},
-  pages={111--120},
-  year={2013}
-}
-
-@inproceedings{yoo2007pareto,
-  title={Pareto efficient multi-objective test case selection},
-  author={Yoo, Shin and Harman, Mark},
-  booktitle={Proceedings of the 2007 international symposium on Software testing and analysis},
-  pages={140--150},
-  year={2007},
-  organization={ACM}
-}
-
-@inproceedings{tantithamthavorn2015impact,
-  title={The impact of mislabelling on the performance and interpretation of defect prediction models},
-  author={Tantithamthavorn, Chakkrit and McIntosh, Shane and Hassan, Ahmed E and Ihara, Akinori and Matsumoto, Kenichi},
-  booktitle={Software Engineering (ICSE), 2015 IEEE/ACM 37th IEEE International Conference on},
-  volume={1},
-  pages={812--823},
-  year={2015},
-  organization={IEEE}
-}
-
-@article{tantithamthavorn2017empirical,
-  title={An empirical comparison of model validation techniques for defect prediction models},
-  author={Tantithamthavorn, Chakkrit and McIntosh, Shane and Hassan, Ahmed E and Matsumoto, Kenichi},
-  journal={IEEE Transactions on Software Engineering},
-  volume={43},
-  number={1},
-  pages={1--18},
-  year={2017},
-  publisher={IEEE}
-}
-
-@article{hovemeyer2004finding,
-  title={Finding bugs is easy},
-  author={Hovemeyer, David and Pugh, William},
-  journal={Acm sigplan notices},
-  volume={39},
-  number={12},
-  pages={92--106},
-  year={2004},
-  publisher={ACM}
-}
-
-@article{scott1974cluster,
-  title={A cluster analysis method for grouping means in the analysis of variance},
-  author={Scott, Andrew Jhon and Knott, M},
-  journal={Biometrics},
-  pages={507--512},
-  year={1974},
-  publisher={JSTOR}
-}
-
-@inproceedings{zazworka2011investigating,
-  title={Investigating the impact of design debt on software quality},
-  author={Zazworka, Nico and Shaw, Michele A and Shull, Forrest and Seaman, Carolyn},
-  booktitle={Proceedings of the 2nd Workshop on Managing Technical Debt},
-  pages={17--23},
-  year={2011},
-  organization={ACM}
-}
-
-@article{henry1981relationships,
-  title={On the relationships among three software metrics},
-  author={Henry, Sallie and Kafura, Dennis and Harris, Kathy},
-  journal={ACM SIGMETRICS Performance Evaluation Review},
-  volume={10},
-  number={1},
-  pages={81--88},
-  year={1981},
-  publisher={ACM}
-}
-
-@article{briand2001controlled,
-  title={A controlled experiment for evaluating quality guidelines on the maintainability of object-oriented designs},
-  author={Briand, Lionel C. and Bunse, Christian and Daly, John W.},
-  journal={IEEE Transactions on Software Engineering},
-  volume={27},
-  number={6},
-  pages={513--530},
-  year={2001},
-  publisher={IEEE}
-}
-
-@inproceedings{hassan2009predicting,
-  title={Predicting faults using the complexity of code changes},
-  author={Hassan, Ahmed E},
-  booktitle={Software Engineering, 2009. ICSE 2009. IEEE 31st International Conference on},
-  pages={78--88},
-  year={2009},
-  organization={IEEE}
-}
-
-@article{tantithamthavorn2017empirical,
-  title={An empirical comparison of model validation techniques for defect prediction models},
-  author={Tantithamthavorn, Chakkrit and McIntosh, Shane and Hassan, Ahmed E and Matsumoto, Kenichi},
-  journal={IEEE Transactions on Software Engineering},
-  volume={43},
-  number={1},
-  pages={1--18},
-  year={2017},
-  publisher={IEEE}
-}
-
-@article{mathur1994empirical,
-  title={An empirical comparison of data flow and mutation-based test adequacy criteria},
-  author={Mathur, Aditya P and Wong, W Eric},
-  journal={Software Testing, Verification and Reliability},
-  volume={4},
-  number={1},
-  pages={9--31},
-  year={1994},
-  publisher={Wiley Online Library}
-}
-
-@article{frankl1997all,
-  title={All-uses vs mutation testing: an experimental comparison of effectiveness},
-  author={Frankl, Phyllis G and Weiss, Stewart N and Hu, Cang},
-  journal={Journal of Systems and Software},
-  volume={38},
-  number={3},
-  pages={235--253},
-  year={1997},
-  publisher={Elsevier}
-}
-
-@inproceedings{li2009experimental,
-  title={An experimental comparison of four unit test criteria: Mutation, edge-pair, all-uses and prime path coverage},
-  author={Li, Nan and Praphamontripong, Upsorn and Offutt, Jeff},
-  booktitle={Proceedings of the IEEE International Conference on Software Testing, Verification, and Validation Workshops},
-  pages={220--229},
-  year={2009}
-}
-
-@inproceedings{pinto2012understanding,
-  title={Understanding myths and realities of test-suite evolution},
-  author={Pinto, Leandro Sales and Sinha, Saurabh and Orso, Alessandro},
-  booktitle={Proceedings of the ACM SIGSOFT 20th International Symposium on the Foundations of Software Engineering}
-}
-
-@inproceedings{gousios2015work,
-  title={Work practices and challenges in pull-based development: the integrator's perspective},
-  author={Gousios, Georgios and Zaidman, Andy and Storey, Margaret-Anne and Van Deursen, Arie},
-  booktitle={Proceedings of the 37th International Conference on Software Engineering-Volume 1},
-  pages={358--368},
-  year={2015},
-  organization={IEEE Press}
-}
-
-@inproceedings{beller2017oops,
-  title={Oops, my tests broke the build: An explorative analysis of Travis CI with GitHub},
-  author={Beller, Moritz and Gousios, Georgios and Zaidman, Andy},
-  booktitle={Proceedings of the 14th International Conference on Mining Software Repositories},
-  pages={356--367},
-  year={2017},
-  organization={IEEE press}
-}
-
-@inproceedings{zhang2015assertions,
-  title={Assertions are strongly correlated with test suite effectiveness},
-  author={Zhang, Yucheng and Mesbah, Ali},
-  booktitle={Proceedings of the 2015 10th Joint Meeting on Foundations of Software Engineering},
-  pages={214--224},
-  year={2015},
-  organization={ACM}
-}
-
-@incollection{offutt2001mutation,
-  title={Mutation 2000: Uniting the orthogonal},
-  author={Offutt, A Jefferson and Untch, Roland H},
-  booktitle={Mutation testing for the new century},
-  pages={34--44},
-  year={2001},
-  publisher={Springer}
-}
-
-@article{gopinath2017mutation,
-  title={Mutation reduction strategies considered harmful},
-  author={Gopinath, Rahul and Ahmed, Iftekhar and Alipour, Mohammad Amin and Jensen, Carlos and Groce, Alex},
-  journal={IEEE Transactions on Reliability},
-  volume={66},
-  number={3},
-  pages={854--874},
-  year={2017},
-  publisher={IEEE}
-}
-
-@inproceedings{daka2015modeling,
-  title={Modeling readability to improve unit tests},
-  author={Daka, Ermira and Campos, Jos{\'e} and Fraser, Gordon and Dorn, Jonathan and Weimer, Westley},
-  booktitle={Proceedings of the 2015 10th Joint Meeting on Foundations of Software Engineering},
-  pages={107--118},
-  year={2015},
-  organization={ACM}
-}
-
-@inproceedings{grano2018high,
-  title={How high will it be? using machine learning models to predict branch coverage in automated testing},
-  author={Grano, Giovanni and Titov, T and Panichella, Sebastiano and Gall, H},
-  booktitle={MaLTeSQuE (Workshop on Machine Learning Techniques for Software Quality Evaluation) 2018, Campobasso, Italy},
-  year={2018}
-}
-
-@ARTICLE{schermann:18:2, 
-  author={G. Schermann and J. Cito and P. Leitner}, 
-  journal={IEEE Software}, 
-  title={Continuous Experimentation: Challenges, Implementation Techniques, and Current Research}, 
-  year={2018}, 
-  volume={35}, 
-  number={2}, 
-  pages={26-31}, 
-  keywords={Internet;formal specification;program testing;systems analysis;Web-based systems;requirements engineering;Computer architecture;Data science;Product life cycle management;Routing;Software engineering;Software product lines;Software testing;business-driven experiments;continuous experimentation;feature toggles;regression-driven experiments;release engineering;software development;software engineering;traffic routing}, 
-  doi={10.1109/MS.2018.111094748}, 
-  ISSN={0740-7459}, 
-  month={March},}
-  
-  @article{von2014survey,
-  title={A survey on multi-objective evolutionary algorithms for many-objective problems},
-  author={Von L{\"u}cken, Christian and Bar{\'a}n, Benjam{\'\i}n and Brizuela, Carlos},
-  journal={Computational optimization and applications},
-  volume={58},
-  number={3},
-  pages={707--756},
-  year={2014},
-  publisher={Springer}
-}
-
-@inproceedings{wappler2005using,
-author = {Wappler, Stefan and Lammermann, Frank},
-title = {Using Evolutionary Algorithms for the Unit Testing of Object-Oriented Software},
-year = {2005},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-url = {https://doi.org/10.1145/1068009.1068187},
-doi = {10.1145/1068009.1068187},
-booktitle = {Proceedings of the 7th Annual Conference on Genetic and Evolutionary Computation},
-pages = {1053-1060},
-numpages = {8},
-location = {Washington DC, USA},
-series = {GECCO '05}
-}
-
-@ARTICLE{grano2019testing,  author={G. {Grano} and C. {Laaber} and A. {Panichella} and S. {Panichella}},  journal={IEEE Transactions on Software Engineering},   title={Testing with Fewer Resources: An Adaptive Approach to Performance-Aware Test Case Generation},   year={2019},  volume={},  number={},  pages={1-1},}
