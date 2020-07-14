@@ -20,19 +20,19 @@ The \emph{goal} of the study is to provide a preliminary assessment of the perfo
 \begin{center}
 \begin{tabular}{|l|c|c|c|c|}
 \hline
+&\multicolumn{3}{c|}{Files}&\\
+\hline
 \textbf{Repository}&\textbf{Min}&\textbf{Max}&\textbf{Mean}&\textbf{Commit}\\
 \hline
-google/guava& * & * & * & 5295\\
+google/guava& 4 & 1862 & 1589.4 & 5295\\
 \hline
-apache/mahout& * & * & * & 4417\\
+apache/mahout& 5 & 1245 & 4145.1 & 4417\\
 \hline
-reactivex/rxjava& * & * & * & 5755\\
+reactivex/rxjava& 65 & 3173 & 4878.9 & 5755\\
 \hline
-apache/parquet-mr & * & * & * & 2188\\
+apache/parquet-mr & 2 & 802 & 2013.4 & 2188\\
 \hline
-apache/commons-io & * & * & * & 2384\\
-\hline
-apache/streams & * & * & * & 1760\\
+apache/commons-io & 21 & 317 & 2107.9 & 2384\\
 \hline
 \end{tabular}
 \end{center}
@@ -62,7 +62,7 @@ Figure \ref{fig:relativeruntime} shows the relative runtime per each repository 
 ]
 
 \addplot[
-    color=blue,
+    color=cyan,
     mark=square,
     ]
     coordinates {
@@ -71,7 +71,7 @@ Figure \ref{fig:relativeruntime} shows the relative runtime per each repository 
     \legend{Guava}
     
 \addplot[
-    color=red,
+    color=purple,
     mark=square,
     ]
     coordinates {
@@ -79,7 +79,7 @@ Figure \ref{fig:relativeruntime} shows the relative runtime per each repository 
     };
     \legend{Mahout}
 \addplot[
-    color=green,
+    color=violet,
     mark=square,
     ]
     coordinates {
@@ -94,6 +94,14 @@ Figure \ref{fig:relativeruntime} shows the relative runtime per each repository 
     (1, 100)(2, 53)(4,37)(8,23)
     };
     \legend{Parquet-MR}
+\addplot[
+    color=orange,
+    mark=square,
+    ]
+    coordinates {
+    (1, 100)(2, 53)(4,37)(8,23)
+    };
+    \legend{commons-io}
 \end{axis}
 \end{tikzpicture}
 \end{figure}
@@ -109,25 +117,21 @@ Figure \ref{fig:taskratio} visualizes the consumption of computation time betwee
     xbar stacked, xmin=0, xmax=100,
     xlabel={Task ratio},
     bar width=4mm,
-    symbolic y coords={guava,mahout,rxjava,parquet-mr, commons-io, streams, activemq},
+    symbolic y coords={guava,mahout,rxjava,parquet-mr, commons-io},
     ytick=data
   ]
-\addplot [fill=blue] coordinates {
+\addplot [fill=orange] coordinates {
     (16.07,guava)
     (22.4,mahout)
     (55.06,rxjava)
     (43.38,parquet-mr)
-    (0,commons-io)
-    (0,streams)
-    (0,activemq)};
-\addplot [fill=red] coordinates {
+    (40.25,commons-io)};
+\addplot [fill=cyan] coordinates {
     (83.93,guava)
     (77.6,mahout)
     (44.94,rxjava)
     (56.62,parquet-mr)
-    (0,commons-io)
-    (0,streams)
-    (0,activemq)};
+    (69.05,commons-io)};
 \legend{Task 1,Task 2}
 \end{axis}
 \end{tikzpicture}
@@ -151,9 +155,7 @@ reactivex/rxjava& 41391 & 5654\\
 \hline
 apache/parquet-mr & 5459 & 5500\\
 \hline
-apache/commons-io & * & *\\
-\hline
-apache/streams & * & *\\
+apache/commons-io & 3482 & 1517\\
 \hline
 \end{tabular}
 \end{center}
@@ -177,9 +179,7 @@ reactivex/rxjava& 73.0 & 66.9\\
 \hline
 apache/parquet-mr& 0.6 & 0.3\\
 \hline
-apache/commons-io& * & *\\
-\hline
-apache/streams& * & *\\
+apache/commons-io& 0.4 & 0.5\\
 \hline
 \end{tabular}
 \end{center}
@@ -202,16 +202,16 @@ Throughput is calculated by the accumulation of all single worker tasks. On a si
     xlabel={Number of workers},
     ylabel={Amount of less items per minute},
     xmin=1, xmax=8,
-    ymin=0, ymax=200,
+    ymin=0, ymax=300,
     xtick={1,2,4,8},
-    ytick={0,20,40,60,80,100,120,140,160,180,200},
+    ytick={0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300},
     legend pos=north east,
     ymajorgrids=true,
     grid style=dashed,
 ]
 
 \addplot[
-    color=blue,
+    color=cyan,
     mark=square,
     ]
     coordinates {
@@ -220,7 +220,7 @@ Throughput is calculated by the accumulation of all single worker tasks. On a si
     \legend{Guava}
     
 \addplot[
-    color=red,
+    color=purple,
     mark=square,
     ]
     coordinates {
@@ -228,7 +228,7 @@ Throughput is calculated by the accumulation of all single worker tasks. On a si
     };
     \legend{Mahout}
 \addplot[
-    color=green,
+    color=violet,
     mark=square,
     ]
     coordinates {
@@ -243,6 +243,14 @@ Throughput is calculated by the accumulation of all single worker tasks. On a si
     (1, 0)(2, 4)(4,25.8)(8,48.1)
     };
     \legend{Parquet-MR}
+\addplot[
+    color=orange,
+    mark=square,
+    ]
+    coordinates {
+    (1, 0)(2, 14.3)(4,267)(8,289)
+    };
+    \legend{commons-io}
 \end{axis}
 \end{tikzpicture}
 \end{figure}
