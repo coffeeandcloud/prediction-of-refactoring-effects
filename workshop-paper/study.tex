@@ -68,7 +68,7 @@ Figure \ref{fig:relativeruntime} shows the relative runtime per each repository 
     coordinates {
     (1, 100)(2, 60)(4,36)(8,35)
     };
-    \legend{Guava}
+    \addlegendentry{guava}
     
 \addplot[
     color=purple,
@@ -77,7 +77,7 @@ Figure \ref{fig:relativeruntime} shows the relative runtime per each repository 
     coordinates {
     (1, 100)(2, 53)(4,40)(8,45)
     };
-    \legend{Mahout}
+    \addlegendentry{mahout}
 \addplot[
     color=violet,
     mark=square,
@@ -85,7 +85,7 @@ Figure \ref{fig:relativeruntime} shows the relative runtime per each repository 
     coordinates {
     (1, 100)(2, 67)(4,48)(8,45)
     };
-    \legend{RxJava}
+    \addlegendentry{rxjava}
 \addplot[
     color=gray,
     mark=square,
@@ -93,7 +93,7 @@ Figure \ref{fig:relativeruntime} shows the relative runtime per each repository 
     coordinates {
     (1, 100)(2, 53)(4,37)(8,23)
     };
-    \legend{Parquet-MR}
+    \addlegendentry{parquet-mr}
 \addplot[
     color=orange,
     mark=square,
@@ -101,7 +101,7 @@ Figure \ref{fig:relativeruntime} shows the relative runtime per each repository 
     coordinates {
     (1, 100)(2, 53)(4,37)(8,23)
     };
-    \legend{commons-io}
+    \addlegendentry{commons-io}
 \end{axis}
 \end{tikzpicture}
 \end{figure}
@@ -217,7 +217,7 @@ Throughput is calculated by the accumulation of all single worker tasks. On a si
     coordinates {
     (1, 0)(2, 7.9)(4,11.6)(8,30.3)
     };
-    \legend{Guava}
+    \addlegendentry{guava}
     
 \addplot[
     color=purple,
@@ -226,7 +226,7 @@ Throughput is calculated by the accumulation of all single worker tasks. On a si
     coordinates {
     (1, 0)(2, 50.6)(4,41.1)(8,108.9)
     };
-    \legend{Mahout}
+    \addlegendentry{mahout}
 \addplot[
     color=violet,
     mark=square,
@@ -234,7 +234,7 @@ Throughput is calculated by the accumulation of all single worker tasks. On a si
     coordinates {
     (1, 0)(2, 4.1)(4,44.5)(8,155)
     };
-    \legend{RxJava}
+    \addlegendentry{rxjava}
 \addplot[
     color=gray,
     mark=square,
@@ -242,7 +242,7 @@ Throughput is calculated by the accumulation of all single worker tasks. On a si
     coordinates {
     (1, 0)(2, 4)(4,25.8)(8,48.1)
     };
-    \legend{Parquet-MR}
+    \addlegendentry{parquet-mr}
 \addplot[
     color=orange,
     mark=square,
@@ -250,7 +250,7 @@ Throughput is calculated by the accumulation of all single worker tasks. On a si
     coordinates {
     (1, 0)(2, 14.3)(4,267)(8,289)
     };
-    \legend{commons-io}
+    \addlegendentry{commons-io}
 \end{axis}
 \end{tikzpicture}
 \end{figure}
