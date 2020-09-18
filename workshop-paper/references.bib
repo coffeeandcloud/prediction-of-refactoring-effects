@@ -163,7 +163,7 @@ address = {New York, NY, USA},
 keywords = {Git, Oracle, abstract syntax tree, accuracy, commit, refactoring},
 }
 
-@manual{aniche-ck,
+@misc{aniche-ck,
   title={Java code metrics calculator (CK)},
   author={Maurício Aniche},
   year={2015},
@@ -390,13 +390,6 @@ address = {New York, NY, USA},
 keywords = {Git, Oracle, abstract syntax tree, accuracy, commit, refactoring},
 }
 
-@manual{aniche-ck,
-  title={Java code metrics calculator (CK)},
-  author={Maurício Aniche},
-  year={2015},
-  note={Available in https://github.com/mauricioaniche/ck/}
-}
-
 @article{Gote2019,
 abstract = {Data from software repositories have become an important foundation for the empirical study of software engineering processes. A recurring theme in the repository mining literature is the inference of developer networks capturing e.g. collaboration, coordination, or communication, from the commit history of projects. Most of the studied networks are based on the co-authorship of software artefacts defined at the level of files, modules, or packages. While this approach has led to insights into the social aspects of software development, it neglects detailed information on code changes and code ownership, e.g. which exact lines of code have been authored by which developers, that is contained in the commit log of software projects. Addressing this issue, we introduce git2net, a scalable python software that facilitates the extraction of fine-grained co-editing networks in large git repositories. It uses text mining techniques to analyse the detailed history of textual modifications within files. This information allows us to construct directed, weighted, and time-stamped networks, where a link signifies that one developer has edited a block of source code originally written by another developer. Our tool is applied in case studies of an Open Source and a commercial software project. We argue that it opens up a massive new source of high-resolution data on human collaboration patterns.},
 archivePrefix = {arXiv},
@@ -445,26 +438,23 @@ title = {{The Hadoop Distributed File System}},
 year = {2010}
 }
 
-@misc{parquet,
-mendeley-groups = {Software Dependability/GithubMining},
-title = {{Apache Parquet}},
-url = {https://parquet.apache.org/},
-urldate = {2020-06-13}
-}
-
-@INPROCEEDINGS{sociotech,  author={M. {Joblin} and W. {Mauerer} and S. {Apel} and J. {Siegmund} and D. {Riehle}},  booktitle={2015 IEEE/ACM 37th IEEE International Conference on Software Engineering},   title={From Developer Networks to Verified Communities: A Fine-Grained Approach},   year={2015},  volume={1},  number={},  pages={563-573},}
-
-@INPROCEEDINGS{palomba,  author={M. {Tufano} and F. {Palomba} and G. {Bavota} and R. {Oliveto} and M. {Di Penta} and A. {De Lucia} and D. {Poshyvanyk}},  booktitle={2015 IEEE/ACM 37th IEEE International Conference on Software Engineering},   title={When and Why Your Code Starts to Smell Bad},   year={2015},  volume={1},  number={},  pages={403-414},}
-
 @article{lakshman2010cassandra,
-  title={Cassandra: a decentralized structured storage system},
-  author={Lakshman, Avinash and Malik, Prashant},
-  journal={ACM SIGOPS Operating Systems Review},
-  volume={44},
-  number={2},
-  pages={35--40},
-  year={2010},
-  publisher={ACM New York, NY, USA}
+author = {Lakshman, Avinash and Malik, Prashant},
+title = {Cassandra: A Decentralized Structured Storage System},
+year = {2010},
+issue_date = {April 2010},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {44},
+number = {2},
+issn = {0163-5980},
+url = {https://doi.org/10.1145/1773912.1773922},
+doi = {10.1145/1773912.1773922},
+abstract = {Cassandra is a distributed storage system for managing very large amounts of structured data spread out across many commodity servers, while providing highly available service with no single point of failure. Cassandra aims to run on top of an infrastructure of hundreds of nodes (possibly spread across different data centers). At this scale, small and large components fail continuously. The way Cassandra manages the persistent state in the face of these failures drives the reliability and scalability of the software systems relying on this service. While in many ways Cassandra resembles a database and shares many design and implementation strategies therewith, Cassandra does not support a full relational data model; instead, it provides clients with a simple data model that supports dynamic control over data layout and format. Cassandra system was designed to run on cheap commodity hardware and handle high write throughput while not sacrificing read efficiency.},
+journal = {SIGOPS Oper. Syst. Rev.},
+month = apr,
+pages = {35–40},
+numpages = {6}
 }
 
 @misc{graphx,
@@ -472,14 +462,6 @@ mendeley-groups = {Software Dependability/GithubMining},
 title = {{GraphX - Spark 2.4.6 Documentation}},
 howpublished = {https://spark.apache.org/docs/latest/graphx-programming-guide.html},
 urldate = {2020-06-15}
-}
-@inproceedings{miller2013graph,
-  title={Graph database applications and concepts with Neo4j},
-  author={Miller, Justin J},
-  booktitle={Proceedings of the Southern Association for Information Systems Conference, Atlanta, GA, USA},
-  volume={2324},
-  number={36},
-  year={2013}
 }
 
 @article{Arora2019,
@@ -495,159 +477,10 @@ title = {{Transforming Java projects into graphs using neo4j graph databases}},
 year = {2019}
 }
 
-@Misc{neo4j,
+@misc{neo4j,
 mendeley-groups = {Software Dependability/GithubMining},
 title = {{Neo4j Graph Platform – The Leader in Graph Databases}},
 url = {https://neo4j.com/},
 howpublished = {https://github.com/neo4j/neo4j},
 urldate = {2020-07-11}
-}
-
-
-@article{Ratzinger2007a,
-abstract = {Can we predict locations of future refactoring based on the development history? In an empirical study of open source projects we found that attributes of software evolution data can be used to predict the need for refactoring in the following two months of development. Information systems utilized in software projects provide a broad range of data for decision support. Versioning systems log each activity during the development, which we use to extract data mining features such as growth measures, relationships between classes, the number of authors working on a particular piece of code, etc. We use this information as input into classification algorithms to create prediction models for future refactoring activities. Different state-of-the-art classifiers are investigated such as decision trees, logistic model trees, propositional rule learners, and nearest neighbor algorithms. With both high precision and high recall we can assess the refactoring proneness of object-oriented systems. Although we investigate different domains, we discovered critical factors within the development life cycle leading to refactoring, which are common among all studied projects. {\textcopyright} 2007 IEEE.},
-author = {Ratzinger, Jacek and Sigmund, Thomas and Vorburger, Peter and Gall, Harald},
-doi = {10.1109/ESEM.2007.63},
-file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Ratzinger et al. - Mining software evolution to predict refactoring - 2007.pdf:pdf},
-isbn = {0769528864},
-journal = {Proceedings - 1st International Symposium on Empirical Software Engineering and Measurement, ESEM 2007},
-mendeley-groups = {Software Dependability/Related Work},
-pages = {354--363},
-title = {{Mining software evolution to predict refactoring}},
-year = {2007}
-}
-@article{Valetto2007,
-abstract = {We propose a quantitative measure of socio-technical congruence as an indicator of the performance of an organization in carrying out a software development project. We show how the information necessary to implement that measure can be mined from commonly used software repositories, and we describe how socio-technical congruence can be computed based on that information. {\textcopyright} 2007 IEEE.},
-author = {Valetto, Giuseppe and Helander, Mary and Ehrlich, Kate and Chulani, Sunita and Wegman, Mark and Williams, Clay},
-doi = {10.1109/MSR.2007.33},
-file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Valetto et al. - Using software repositories to investigate socio-technical congruence in development projects - 2007.pdf:pdf},
-isbn = {076952950X},
-journal = {Proceedings - ICSE 2007 Workshops: Fourth International Workshop on Mining Software Repositories, MSR 2007},
-mendeley-groups = {Expose,Expose/Socio-Technical Congruence},
-pages = {12--15},
-title = {{Using software repositories to investigate socio-technical congruence in development projects}},
-year = {2007}
-}
-@article{Kwan2011b,
-abstract = {Coordination in software engineering is necessary for software teams. To study coordination, researchers need a a way to conceptualize and measure it|one such measure is socio-technical congruence. Within a team setting, awareness of other's tasks and abilities enables coordination, but the conceptualizations for socio-technical congruence do not include awareness. In this paper, our goal is to include awareness in socio-technical congruence. To do this, we conduct an empirical investigation of a team's awareness behaviour. We examine how developers transmit awareness information in a global software-engineering environment in a project called Ship using direct observations, interviews, and a questionnaire. We found that team members were satisfied with using simple awareness mechanisms such as email and meetings. We also identified that experienced team members served as brokers and filled coordination gaps, and that team members used multiple types of media simultaneously. Based on this work, we propose an aggregated sociotechnical congruence measurement that can be used to specify multiple relationships, such as awareness relationships, as interactions that satisfy technical dependencies. {\textcopyright} 2011 ACM.},
-author = {Kwan, Irwin and Damian, Daniela},
-doi = {10.1145/2024645.2024652},
-file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Kwan, Segal - Extending Socio-technical Congruence with Awareness Relationships - 2011.pdf:pdf},
-isbn = {9781450308502},
-journal = {SSE'11 - Proceedings of the 4th International Workshop on Social Software Engineering},
-keywords = {awareness,collaboration,coordination,empirical software engineering,socio-technical congruence},
-mendeley-groups = {Expose,Expose/Socio-Technical Congruence},
-pages = {23--30},
-title = {{Extending socio-technical congruence with awareness relationships}},
-year = {2011}
-}
-@article{Kwan2011a,
-abstract = {Socio-technical congruence is an approach that measures coordination by examining the alignment between the technical dependencies and the social coordination in the project. We conduct a case study of coordination in the IBM Rational Team Concert project, which consists of 151 developers over seven geographically distributed sites, and expect that high congruence leads to a high probability of successful builds. We examine this relationship by applying two congruence measurements: an unweighted congruence measure from previous literature, and a weighted measure that overcomes limitations of the existing measure. We discover that there is a relationship between socio-technical congruence and build success probability, but only for certain build types, and observe that in some situations, higher congruence actually leads to lower build success rates. We also observe that a large proportion of zero-congruence builds are successful, and that socio-technical gaps in successful builds are larger than gaps in failed builds. Analysis of the social and technical aspects in IBM Rational Team Concert allows us to discuss the effects of congruence on build success. Our findings provide implications with respect to the limits of applicability of socio-technical congruence and suggest further improvements of socio-technical congruence to study coordination. {\textcopyright} 2011 IEEE Published by the IEEE Computer Society.},
-author = {Kwan, Irwin and Schr{\"{o}}ter, Adrian and Damian, Daniela},
-doi = {10.1109/TSE.2011.29},
-file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Kwan, Schr{\"{o}}ter, Damian - Does socio-technical congruence have an effect on software build success A study of coordination in a software.pdf:pdf},
-issn = {00985589},
-journal = {IEEE Transactions on Software Engineering},
-keywords = {Awareness,Coordination,Empirical software engineering,Integration,Socio-technical congruence,Software quality},
-mendeley-groups = {Expose,Expose/Socio-Technical Congruence},
-number = {3},
-pages = {307--324},
-title = {{Does socio-technical congruence have an effect on software build success? A study of coordination in a software project}},
-volume = {37},
-year = {2011}
-}
-
-
-@article{Herbsleb2007,
-abstract = {Globally-distributed projects are rapidly becoming the norm for large software systems, even as it becomes clear that global distribution of a project seriously impairs critical coordination mechanisms. In this paper, I describe a desired future for global development and the problems that stand in the way of achieving that vision. I review research and lay out research challenges in four critical areas: software architecture, eliciting and communicating requirements, environments and tools, and orchestrating global development. I conclude by noting the need for a systematic understanding of what drives the need to coordinate and effective mechanisms for bringing it about. {\textcopyright} 2007 IEEE.},
-author = {Herbsleb, James D.},
-doi = {10.1109/FOSE.2007.11},
-file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Herbsleb - Global software engineering The future of socio-technical coordination - 2007.pdf:pdf},
-isbn = {0769528295},
-journal = {FoSE 2007: Future of Software Engineering},
-mendeley-groups = {Expose,Expose/Socio-Technical Congruence},
-pages = {188--198},
-title = {{Global software engineering: The future of socio-technical coordination}},
-year = {2007}
-}
-@article{Cataldo2006,
-abstract = {Task dependencies drive the need to coordinate work activities. We describe a technique for using automatically generated archi-val data to compute coordination requirements, i.e., who must coordinate with whom to get the work done. Analysis of data from a large software development project revealed that coordina-tion requirements were highly volatile, and frequently extended beyond team boundaries. Congruence between coordination re-quirements and coordination activities shortened development time. Developers, particularly the most productive ones, changed their use of electronic communication media over time, achieving higher congruence. We discuss practical implications of our technique for the design of collaborative and awareness tools. {\textcopyright} Copyright 2006 ACM.},
-author = {Cataldo, Marcelo and Wagstrom, Patrick A. and Herbsleb, James D. and Carley, Kathleen M.},
-doi = {10.1145/1180875.1180929},
-file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Cataldo et al. - Identification of coordination requirements Implications for the Design of collaboration and awareness tools - 2006.pdf:pdf},
-isbn = {1595932496},
-journal = {Proceedings of the ACM Conference on Computer Supported Cooperative Work, CSCW},
-keywords = {Collaboration tools,Coordination,Dynamic network analysis,Task awareness tools},
-mendeley-groups = {Expose,Expose/Socio-Technical Congruence},
-pages = {353--362},
-title = {{Identification of coordination requirements: Implications for the Design of collaboration and awareness tools}},
-year = {2006}
-}
-@article{Kwan2011a,
-abstract = {Socio-technical congruence is an approach that measures coordination by examining the alignment between the technical dependencies and the social coordination in the project. We conduct a case study of coordination in the IBM Rational Team Concert project, which consists of 151 developers over seven geographically distributed sites, and expect that high congruence leads to a high probability of successful builds. We examine this relationship by applying two congruence measurements: an unweighted congruence measure from previous literature, and a weighted measure that overcomes limitations of the existing measure. We discover that there is a relationship between socio-technical congruence and build success probability, but only for certain build types, and observe that in some situations, higher congruence actually leads to lower build success rates. We also observe that a large proportion of zero-congruence builds are successful, and that socio-technical gaps in successful builds are larger than gaps in failed builds. Analysis of the social and technical aspects in IBM Rational Team Concert allows us to discuss the effects of congruence on build success. Our findings provide implications with respect to the limits of applicability of socio-technical congruence and suggest further improvements of socio-technical congruence to study coordination. {\textcopyright} 2011 IEEE Published by the IEEE Computer Society.},
-author = {Kwan, Irwin and Schr{\"{o}}ter, Adrian and Damian, Daniela},
-doi = {10.1109/TSE.2011.29},
-file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Kwan, Schr{\"{o}}ter, Damian - Does socio-technical congruence have an effect on software build success A study of coordination in a software.pdf:pdf},
-issn = {00985589},
-journal = {IEEE Transactions on Software Engineering},
-keywords = {Awareness,Coordination,Empirical software engineering,Integration,Socio-technical congruence,Software quality},
-mendeley-groups = {Expose,Expose/Socio-Technical Congruence},
-number = {3},
-pages = {307--324},
-title = {{Does socio-technical congruence have an effect on software build success? A study of coordination in a software project}},
-volume = {37},
-year = {2011}
-}
-@article{Sarma2009,
-abstract = {Software developers have long known that project success requires a robust understanding of both technical and social linkages. However, research has largely considered these independently. Research on networks of technical artifacts focuses on techniques like code analysis or mining project archives. Social network analysis has been used to capture information about relations among people. Yet, each type of information is often far more useful when combined, as when the "goodness" of social networks is judged by the patterns of dependencies in the technical artifacts. To bring such information together, we have developed Tesseract, an interactive exploratory environment that utilizes cross-linked displays to visualize the myriad relationships between artifacts, developers, bugs, and communications. We evaluated Tesseract by (1) demonstrating its feasibility with GNOME project data (2) assessing its usability via informal user evaluations, and (3) verifying its suitability for the open source community via semi-structured interviews. {\textcopyright} 2009 IEEE.},
-author = {Sarma, Anita and Maccherone, Larry and Wagstrom, Patrick and Herbsleb, James},
-doi = {10.1109/ICSE.2009.5070505},
-file = {:Users/martinsteinhauer/Documents/Mendeley Desktop/Sarma et al. - Tesseract Interactive visual exploration of socio-technical relationships in software development - 2009.pdf:pdf},
-isbn = {9781424434527},
-issn = {02705257},
-journal = {Proceedings - International Conference on Software Engineering},
-mendeley-groups = {Expose,Expose/Socio-Technical Congruence},
-pages = {23--33},
-publisher = {IEEE},
-title = {{Tesseract: Interactive visual exploration of socio-technical relationships in software development}},
-year = {2009}
-}
-
-@article{fontana2016comparing,
-  title={Comparing and experimenting machine learning techniques for code smell detection},
-  author={Fontana, Francesca Arcelli and M{\"a}ntyl{\"a}, Mika V and Zanoni, Marco and Marino, Alessandro},
-  journal={Empirical Software Engineering},
-  volume={21},
-  number={3},
-  pages={1143--1191},
-  year={2016},
-  publisher={Springer}
-}
-
-@article{fontana2012automatic,
-  title={Automatic detection of bad smells in code: An experimental assessment.},
-  author={Fontana, Francesca Arcelli and Braione, Pietro and Zanoni, Marco},
-  journal={J. Object Technol.},
-  volume={11},
-  number={2},
-  pages={5--1},
-  year={2012}
-}
-
-@article{palomba2018large,
-  title={A large-scale empirical study on the lifecycle of code smell co-occurrences},
-  author={Palomba, Fabio and Bavota, Gabriele and Di Penta, Massimiliano and Fasano, Fausto and Oliveto, Rocco and De Lucia, Andrea},
-  journal={Information and Software Technology},
-  volume={99},
-  pages={1--10},
-  year={2018},
-  publisher={Elsevier}
-}
-@inproceedings{di2018detecting,
-  title={Detecting code smells using machine learning techniques: are we there yet?},
-  author={Di Nucci, Dario and Palomba, Fabio and Tamburri, Damian A and Serebrenik, Alexander and De Lucia, Andrea},
-  booktitle={2018 ieee 25th international conference on software analysis, evolution and reengineering (saner)},
-  pages={612--621},
-  year={2018},
-  organization={IEEE}
 }
